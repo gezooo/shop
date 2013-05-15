@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<!-- 是否显示详细错误信息 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 国际化资源文件名称 -->
+	<constant name="struts.custom.i18n.resources" value="i18n,pages,errormsg" />
+	<!-- 是否自动加载国际化资源文件  -->
+	<constant name="struts.i18n.reload" value="false" />
+	<!-- convention类重新加载 -->
+	<constant name="struts.convention.classes.reload" value="false" />
+	<!-- 浏览器是否缓存静态内容 -->
+	<constant name="struts.serve.static.browserCache" value="true" />
+	<!-- 配置使用Spring管理Action -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 上传文件大小限制设置 -->
+	<constant name="struts.multipart.maxSize" value="-1" />
+
+	<!-- 主题 -->
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 编码 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 后缀 -->
+	<constant name="struts.action.extension" value="action" />
+
+	<!-- 结果资源的路径 -->
+	<constant name="struts.convention.result.path" value="/WEB-INF/template/" />
+	<!-- URL资源分隔符 -->
+	<constant name="struts.convention.action.name.separator" value="_" />
+	
+	<package name="basePackage" extends="struts-default">
+		<interceptors>
+			<interceptor-stack name="baseStack">
+                <interceptor-ref name="exception" />
+                <interceptor-ref name="alias" />
+                <interceptor-ref name="servletConfig" />
+                <interceptor-ref name="i18n" />
+                <interceptor-ref name="prepare" />
+                <interceptor-ref name="chain" />
+                <interceptor-ref name="debugging" />
+                <interceptor-ref name="scopedModelDriven" />
+                <interceptor-ref name="modelDriven" />
+                <interceptor-ref name="fileUpload" />
+                <interceptor-ref name="checkbox" />
+                <interceptor-ref name="multiselect" />
+                <interceptor-ref name="staticParams" />
+                <interceptor-ref name="actionMappingParams" />
+                <interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*,^struts\..*,.*\\u0023.*,.*\\x5Cu0023.*,.*\\x5cu0023.*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <!-- 配置方法级别的校验 -->
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                    <param name="validateAnnotatedMethodOnly">true</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+		</interceptors>
+
+		<!-- 配置默认拦截器栈 -->
+		<default-interceptor-ref name="baseStack" />
+
+		<!-- 未到找Action指向页面 -->
+		<default-action-ref name="errorPage" />
+
+		<action name="errorPage">
+			<result type="redirect">/html/error_page_404.html</result>
+		</action>
+
+	</package>
+
+	<package name="admin" extends="basePackage" namespace="/admin/">
+		<interceptors>
+			<interceptor name="trimInterceptor" class="net.shopxx.common.TrimInterceptor" />
+			<interceptor name="logInterceptor" class="net.shopxx.common.LogInterceptor" />
+			<interceptor-stack name="adminStack">
+				<!-- trim拦截器 -->
+				<interceptor-ref name="trimInterceptor" />
+				<!-- 配置管理日志拦截器 -->
+				<interceptor-ref name="logInterceptor" />
+				<interceptor-ref name="baseStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 配置默认拦截器栈 -->
+		<default-interceptor-ref name="adminStack" />
+
+		<global-results>
+			<result name="error" type="freemarker">/WEB-INF/template/admin/error.ftl</result>
+			<result name="success" type="freemarker">/WEB-INF/template/admin/success.ftl</result>
+		</global-results>
+
+		<action name="index">
+			<result type="redirect">admin!main.action</result>
+		</action>
+
+	</package>
+
+	<package name="shop" extends="basePackage" namespace="/shop/">
+		<interceptors>
+			<interceptor name="trimInterceptor" class="net.shopxx.common.TrimInterceptor" />
+			<interceptor-stack name="shopStack">
+				<!-- trim拦截器 -->
+				<interceptor-ref name="trimInterceptor" />
+				<interceptor-ref name="baseStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 配置默认拦截器栈 -->
+		<default-interceptor-ref name="shopStack" />
+
+		<global-results>
+			<result name="error" type="freemarker">/WEB-INF/template/shop/error.ftl</result>
+		</global-results>
+
+	</package>
+	
+	<package name="member" extends="basePackage" namespace="/shop/">
+		<interceptors>
+			<interceptor name="trimInterceptor" class="net.shopxx.common.TrimInterceptor" />
+			<interceptor name="memberLoginVerifyInterceptor" class="net.shopxx.common.MemberLoginVerifyInterceptor" />
+			<interceptor-stack name="memberStack">
+				<!-- trim拦截器 -->
+				<interceptor-ref name="memberLoginVerifyInterceptor" />
+				<interceptor-ref name="trimInterceptor" />
+				<interceptor-ref name="baseStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 配置默认拦截器栈 -->
+		<default-interceptor-ref name="memberStack" />
+		
+		<global-results>
+			<result name="login" type="redirect">/html/login.html</result>
+			<result name="invalid.token" type="freemarker">/WEB-INF/template/shop/invalid_token.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/template/shop/error.ftl</result>
+		</global-results>
+
+	</package>
+
+</struts>

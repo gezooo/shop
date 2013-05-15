@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<sec:http  pattern="/admin/admin!login.action" security="none"/>
+	<sec:http  pattern="/template/*" security="none"/>
+	
+
+	<!-- auto-config 自动配置常用的权限控制机制 -->
+	<!-- servlet-api-provision 禁止保存登录之前的请求 -->
+	<!-- access-denied-page 访问未授权时的显示页面 -->
+	<sec:http auto-config="true" access-decision-manager-ref="accessDecisionManager" servlet-api-provision="false" access-denied-page="/html/error_page_access_denied.html">
+		<!-- login-page 登录页面 -->
+		<!-- default-target-url 登录成功后跳转的URL -->
+		<!-- always-use-default-target 是否登录后必须访问default-target-url -->
+		<!-- authentication-failure-url 登录失败后跳转的URL -->
+		<sec:form-login login-page="/admin/admin!login.action" login-processing-url="/admin/loginVerify" default-target-url="/admin/admin!main.action"
+			authentication-failure-url="/admin/admin!login.action" always-use-default-target="true"  />
+
+		<sec:remember-me key="e37f8888-0ooo-22dd-bd0b-9900211c9a66" />
+
+		<sec:logout invalidate-session="true" logout-success-url="/admin/admin!login.action" logout-url="/admin/logout" />
+		
+		<!-- TODO 在SS3.0.x中，自定义的filter的配置要放在s:http里 -->
+        <sec:custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
+
+	</sec:http>
+
+	<!-- 后台管理权限认证 -->
+	
+
+	<sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider user-service-ref="adminDetailsServiceImpl">
+			<sec:password-encoder hash="md5" />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+	<!-- 定义权限、资源关系 -->
+	<bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<!--  
+		<sec:custom-filter before="FILTER_SECURITY_INTERCEPTOR" />
+		-->
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<property name="securityMetadataSource" ref="adminSecurityDefinitionSource" />
+		<!--  
+		<property name="objectDefinitionSource" ref="adminSecurityDefinitionSource" />
+		注：objectDefinitionSource在SS3中已经标记为过时了，要换用securityMetadataSource
+		-->
+	</bean>
+	
+	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+		<property name="decisionVoters">
+			<list>
+				<bean class="org.springframework.security.access.vote.RoleVoter" />
+				<bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

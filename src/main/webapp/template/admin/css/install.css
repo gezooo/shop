@@ -1,0 +1,153 @@
+@charset "utf-8";
+
+/***
+ *	SHOP++ Install Style
+ *
+ *	http://www.shopxx.net
+ *
+ *	Copyright (c) 2008 SHOP++. All rights reserved.
+ **/
+
+body.install {
+	padding: 20px 0px;
+}
+
+.install .header {
+	width: 1000px;
+	clear: both;
+	margin: 0px auto;
+}
+
+.install .header .title {
+	width: 978px;
+	height: 43px;
+	line-height: 43px;
+	clear: both;
+	padding: 0px 10px;
+	color: #4e4e4e;
+	border-left: 1px solid #a4bed5;
+	border-right: 1px solid #a4bed5;
+	background: url(../images/install_x_bg.gif) 0px 0px repeat-x;
+}
+
+.install .header .banner {
+	width: 998px;
+	height: 100px;
+	clear: both;
+	padding-bottom: 3px;
+	border-left: 1px solid #a4bed5;
+	border-right: 1px solid #a4bed5;
+	background: url(../images/install_bg.png) 0px 0px no-repeat;
+}
+
+.install .body {
+	width: 998px;
+	clear: both;
+	margin: 0px auto 10px auto;
+	border-left: 1px solid #a4bed5;
+	border-right: 1px solid #a4bed5;
+	border-bottom: 1px solid #a4bed5;
+}
+
+.install .bodyLeft {
+	width: 220px;
+	float: left;
+}
+
+.install .bodyLeft ul {
+	width: 220px;
+	height: 300px;
+	background: url(../images/install_bg.png) 0px -120px no-repeat;
+}
+
+.install .bodyLeft ul li {
+	height: 60px;
+	line-height: 60px;
+	padding-left: 30px;
+	clear: both;
+}
+
+.install .bodyLeft ul li .icon {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	background: url(../images/install_bg.png) -390px -120px no-repeat;
+}
+
+.install .bodyLeft ul li .current {
+	background: url(../images/install_bg.png) -420px -120px no-repeat;
+}
+
+.install .bodyRight {
+	width: 778px;
+	float: right;
+}
+
+.install .bodyRight iframe {
+	width: 778px;
+	height: 400px;
+}
+
+.install .bodyRight table {
+	width: 772px;
+	margin: 0px 3px;
+	border: 1px solid #c8d8e6;
+}
+
+.install .bodyRight table th {
+	padding: 0px 10px;
+	line-height: 40px;
+	font-size: 14px;
+	text-align: left;
+	color: #074b88;
+	background-color: #eef4f7;
+}
+
+.install .bodyRight table td {
+	line-height: 35px;
+	padding: 0px 10px;
+	color: #303030;
+	border: 1px solid #e8e8e8;
+}
+
+.install .buttonArea {
+	width: 988px;
+	height: 60px;
+	line-height: 60px;
+	clear: both;
+	padding-right: 10px;
+	text-align: right;
+	background: url(../images/install_x_bg.gif) 0px -60px repeat-x;
+}
+
+.install .body .formButton {
+	width: 125px;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	outline: none;
+	cursor: pointer;
+	font-size: 12px;
+	border: none;
+	background: url(../images/install_bg.png) -240px -120px no-repeat;
+}
+
+.install .body .formButton:hover {
+	background: url(../images/install_bg.png) -240px -180px no-repeat;
+}
+
+.install .footer {
+	width: 1000px;
+	clear: both;
+	margin: 0px auto;
+}
+
+.install .footer .copyright {
+	line-height: 40px;
+	text-align: right;
+	color: #888888;
+}
