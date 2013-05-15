@@ -2,6 +2,8 @@ package com.zg.search;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
@@ -17,6 +19,7 @@ import com.zg.entity.Article;
 
 public class HibernateSearchTemplate {
 	
+	@Resource
 	private SessionFactory sessionFactory;
 	
 	private FullTextSession fullTextSession;

@@ -26,6 +26,8 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean class="org.springframework.mock.web.MockServletContext"/>
 
 	<!-- 数据源配置 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
