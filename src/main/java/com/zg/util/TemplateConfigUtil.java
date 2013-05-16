@@ -1,6 +1,8 @@
 package com.zg.util;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -9,6 +11,7 @@ import org.dom4j.io.SAXReader;
 
 import com.zg.beans.HtmlConfig;
 import com.zg.beans.MailConfig;
+import com.zg.common.ClassPathFileReaderRandomBackgroundGenerator;
 
 public class TemplateConfigUtil {
 	
@@ -17,15 +20,24 @@ public class TemplateConfigUtil {
 
 	public static HtmlConfig getHtmlConfig(String name) {
 		Document document = null;
-		String configFilePath = new File(Thread.currentThread().getContextClassLoader()
-				.getResource("").getPath()).getParent() + "template" + CONFIG_FILE_NAME;
-		File configFile = new File(configFilePath);
-		SAXReader saxReader = new SAXReader();
+		String configFilePath;
 		try {
-			document = saxReader.read(configFile);
+			/*
+			configFilePath = new File(Thread.currentThread().getContextClassLoader()
+					.getResource("").toURI().getPath()).getParent() + "/template/" + CONFIG_FILE_NAME;
+			File configFile = new File(configFilePath);
+			*/
+	    	InputStream is = TemplateConfigUtil.class.getClassLoader().getResourceAsStream("template/" + CONFIG_FILE_NAME);
+
+			SAXReader saxReader = new SAXReader();
+			document = saxReader.read(is);
+			
 		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		Element element = (Element) document.selectSingleNode("/shopxx/htmlConfig/" + name);
 		String description = element.element("description").getTextTrim();
 		String templateFilePath = element.element("templateFilePath").getTextTrim();

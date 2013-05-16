@@ -2,8 +2,14 @@ package com.zg.test.search;
 
 
 
-import java.util.Date;
+import static org.junit.Assert.*;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.zg.beans.Pager;
+import com.zg.dao.ArticleCategoryDao;
+import com.zg.dao.ArticleDao;
+import com.zg.dao.impl.BaseDaoImpl;
 import com.zg.entity.Article;
 import com.zg.entity.ArticleCategory;
 import com.zg.service.ArticleCategoryService;
@@ -27,18 +37,27 @@ public class TestArticleSearch {
 	@Autowired
 	private ArticleCategoryService articleCategoryService;
 	
-	private String articleid;
+	@Autowired
+	private ArticleDao articleDao;
+
+	
 	
 	@Before
 	public void saveArticle(){
-		Article article = new Article();
+		
 		ArticleCategory articleCategory = new ArticleCategory();
 		articleCategory.setCreateDate(new Date());
+		articleCategory.setModifyDate(new Date());
 		articleCategory.setMetaDescription("articleCategory MetaDescription");
 		articleCategory.setMetaKeywords("metaKeywords");
 		articleCategory.setName("name");
 		articleCategory.setOrderList(1);
 		articleCategory.setPath("root");
+		articleCategory.setParent(null);
+		articleCategoryService.save(articleCategory);
+		
+		articleCategoryService.flush();
+		Article article = new Article();
 		article.setArticleCategory(articleCategory);
 		article.setAuthor("author");
 		article.setContent("content");
@@ -47,25 +66,46 @@ public class TestArticleSearch {
 		article.setHtmlFilePath("file");
 		article.setMetaDescription("metaDescription");
 		article.setPageCount(1);
-		article.setPublication(true);
-		article.setRecommend(true);
+		article.setIsPublication(true);
+		article.setIsRecommend(true);
 		article.setTitle("title");
-		article.setTop(true);
-		articleid = articleService.save(article);
+		article.setIsTop(true);
+		articleService.save(article);
+		
 	}
 	
 	@Test
 	public void testSearchArticle(){
 		
-		org.springframework.mock.web.MockServletContext c;
+		Pager<Article> pager = new Pager<Article>();
+		pager.setKeywords("title");
+		pager.setPageSize(10);
+		pager.setPageNumber(1);
+		pager = articleService.search(pager);
+		List<Article> articles = pager.getDataList();
+		
+		for(Article a : articles) {
+			System.out.println("author: " + a.getAuthor());
+		}
+		
+		org.junit.Assert.assertEquals(1, articles.size());
 		
 	}
 	
-	//@After
+	@After
 	public void deleteArticle() {
-		Article article = articleService.get(articleid);
-		articleCategoryService.delete(article.getArticleCategory());
-		articleService.delete(articleid);
+		
+		List<Article> articles =  articleService.getAll();
+		for(Article article : articles) {
+			
+			articleDao.delete(article);
+		}
+		
+		List<ArticleCategory> articleCategorys =  articleCategoryService.getAll();
+		for(ArticleCategory articleCategory : articleCategorys) {
+			articleCategoryService.delete(articleCategory);
+		}
+		
 	}
 
 }

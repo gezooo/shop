@@ -127,32 +127,32 @@ public class Article extends BaseEntity {
 	}
 
 	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.NO)
-	public boolean isPublication() {
+	public boolean getIsPublication() {
 		return isPublication;
 	}
 
-	public void setPublication(boolean isPublication) {
+	public void setIsPublication(boolean isPublication) {
 		this.isPublication = isPublication;
 	}
 
 	
 	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.NO)
 	@Column(nullable = false)
-	public boolean isTop() {
+	public boolean getIsTop() {
 		return isTop;
 	}
 
-	public void setTop(boolean isTop) {
+	public void setIsTop(boolean isTop) {
 		this.isTop = isTop;
 	}
 
 	@Field(index=Index.YES, analyze=Analyze.NO, store=Store.NO)
 	@Column(nullable = false)
-	public boolean isRecommend() {
+	public boolean getIsRecommend() {
 		return isRecommend;
 	}
 
-	public void setRecommend(boolean isRecommend) {
+	public void setIsRecommend(boolean isRecommend) {
 		this.isRecommend = isRecommend;
 	}
 

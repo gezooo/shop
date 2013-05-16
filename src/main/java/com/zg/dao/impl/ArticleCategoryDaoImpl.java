@@ -77,7 +77,7 @@ public class ArticleCategoryDaoImpl extends BaseDaoImpl<ArticleCategory, String>
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ArticleCategory> getAll() {
-		String hql = "from ArticleCategory articleCategory order by articleCategory.orderList asc articleCategory.createDate desc";
+		String hql = "from ArticleCategory articleCategory order by articleCategory.orderList asc, articleCategory.createDate desc";
 		return getSession().createQuery(hql).list();
 	}
 
@@ -85,7 +85,7 @@ public class ArticleCategoryDaoImpl extends BaseDaoImpl<ArticleCategory, String>
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<ArticleCategory> getList(String propertyName, Object value) {
-		String hql = "from ArticleCategory articleCategory where articleCategory." + propertyName + "=? order by articleCategory.orderList asc articleCategory.createDate desc";
+		String hql = "from ArticleCategory articleCategory where articleCategory." + propertyName + "=? order by articleCategory.orderList asc, articleCategory.createDate desc";
 		return getSession().createQuery(hql).setParameter(0, value).list();
 	}
 	

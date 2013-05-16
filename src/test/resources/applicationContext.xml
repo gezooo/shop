@@ -174,6 +174,7 @@
 	<!-- 配置哪些类的哪些方法参与事务 -->
 	<aop:config>
 		<aop:advisor pointcut="execution(* com.zg.service..*.*(..))" advice-ref="transactionAdvice" />
+		<aop:advisor pointcut="execution(* com.zg.dao..*.*(..))" advice-ref="transactionAdvice" />
 	</aop:config>
 
 	<!-- 配置freemarkerManager -->

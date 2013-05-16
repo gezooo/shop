@@ -158,7 +158,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, String> impleme
 		articleDao.flush();
 		articleDao.evict(article);
 		article = articleDao.load(id);
-		if (article.isPublication()) {
+		if (article.getIsPublication()) {
 			htmlService.articleContentBuildHtml(article);
 		}
 		return id;
@@ -182,7 +182,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, String> impleme
 		articleDao.flush();
 		articleDao.evict(article);
 		article = articleDao.load(id);
-		if (article.isPublication()) {
+		if (article.getIsPublication()) {
 			htmlService.articleContentBuildHtml(article);
 		}
 	}
