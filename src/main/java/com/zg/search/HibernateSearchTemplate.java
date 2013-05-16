@@ -1,5 +1,6 @@
 package com.zg.search;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -69,12 +70,16 @@ public class HibernateSearchTemplate {
 		return this.getFullTextSession().createFullTextQuery( luceneQuery );
 	}
 	
-	public <T> List<T> search(Query query, SearchCallback<T> searchCallBack) {
+	public <T> List<T> search(Query query, SearchCallback<T> searchCallBack, Class<T> clazz) {
 		
 		Transaction tx = this.getFullTextSession().beginTransaction();
+		/*
+		@SuppressWarnings("unchecked")
+		Class<T> clazz = (Class<T>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		*/
 		// wrap Lucene query in a org.hibernate.Query
 		FullTextQuery hibQuery = 
-		    fullTextSession.createFullTextQuery(query, Article.class);
+		    fullTextSession.createFullTextQuery(query, clazz );
 		tx.commit();
 		fullTextSession.close();
 		// execute search
@@ -85,12 +90,12 @@ public class HibernateSearchTemplate {
 		
 	}
 	
-	public <T> List<T> search(Query query, List<Sort> sorts, int firstResult, int maxResult, SearchCallback<T> searchCallBack) {
+	public <T> List<T> search(Query query, List<Sort> sorts, int firstResult, int maxResult, SearchCallback<T> searchCallBack, Class<T> clazz) {
 		
 		Transaction tx = this.getFullTextSession().beginTransaction();
 		// wrap Lucene query in a org.hibernate.Query
 		FullTextQuery hibQuery = 
-		    fullTextSession.createFullTextQuery(query, Article.class);
+		    fullTextSession.createFullTextQuery(query, clazz);
 		
 		if(sorts != null) {
 			for(Sort sort : sorts) {

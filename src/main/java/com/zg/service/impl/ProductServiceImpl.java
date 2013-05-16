@@ -188,7 +188,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, String> impleme
 		}
 
 		int firstResult = (pager.getPageNumber() - 1) * pager.getPageSize();
-		hibernateSearchTemplate.search(query, sorts, firstResult, pager.getPageSize(), searchCallBack);
+		hibernateSearchTemplate.search(query, sorts, firstResult, pager.getPageSize(), searchCallBack, Product.class);
 		
 		return pager;
 

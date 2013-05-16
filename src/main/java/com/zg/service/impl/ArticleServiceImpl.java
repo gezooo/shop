@@ -117,7 +117,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, String> impleme
 			    new SortField("hits", SortField.INT));
 		sorts.add(hitsSort);
 		int firstResult = (pager.getPageNumber() - 1) * pager.getPageSize();
-		hibernateSearchTemplate.search(query, sorts, firstResult, pager.getPageSize(), searchCallBack);
+		hibernateSearchTemplate.search(query, sorts, firstResult, pager.getPageSize(), searchCallBack, Article.class);
 		
 		return pager;
 		
