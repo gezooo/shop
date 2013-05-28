@@ -1,13 +1,11 @@
 package com.zg.search;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.SortField;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,7 +14,6 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 
-import com.zg.entity.Article;
 
 public class HibernateSearchTemplate {
 	
@@ -52,10 +49,8 @@ public class HibernateSearchTemplate {
 	}
 	
 	public FullTextSession getFullTextSession() {
-		if(this.fullTextSession == null) {
-			Session session = sessionFactory.openSession();
-			this.fullTextSession = Search.getFullTextSession(session); 
-		}
+		Session session = sessionFactory.openSession();
+		this.fullTextSession = Search.getFullTextSession(session); 
 		return this.fullTextSession;
 	}
 	
@@ -73,10 +68,7 @@ public class HibernateSearchTemplate {
 	public <T> List<T> search(Query query, SearchCallback<T> searchCallBack, Class<T> clazz) {
 		
 		Transaction tx = this.getFullTextSession().beginTransaction();
-		/*
-		@SuppressWarnings("unchecked")
-		Class<T> clazz = (Class<T>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-		*/
+		
 		// wrap Lucene query in a org.hibernate.Query
 		FullTextQuery hibQuery = 
 		    fullTextSession.createFullTextQuery(query, clazz );

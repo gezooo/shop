@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zg.beans.SystemConfig;
 import com.zg.entity.Admin;
 import com.zg.service.AdminService;
+import com.zg.util.EncryptUtil;
 import com.zg.util.SystemConfigUtil;
 
 @Component
@@ -34,8 +35,9 @@ public class AdminSecurityListener implements ApplicationListener {
 	public void onApplicationEvent(ApplicationEvent event) {
 		
 		//shop key unknow
-		String k = (String) servletContext.getAttribute("S" + "H" + "O" + "P" + "X" + "X" + "_" + "K" + "E" + "Y");
-		if (!StringUtils.containsIgnoreCase(k, "s" + "h" + "o" + "p" + "x" + "x")) {
+		String k = (String) servletContext.getAttribute("Z" + "G" + "S" + "H" + "O" + "P" + "_" + "K" + "E" + "Y");
+		String shopkey = EncryptUtil.dencrypt(k);
+		if (!StringUtils.containsIgnoreCase(shopkey, "z" + "g" + "s" + "h" + "o" + "p")) {
 			throw new RuntimeException();
 		}
 		

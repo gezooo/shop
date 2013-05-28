@@ -9,10 +9,12 @@ import sun.misc.BASE64Decoder;
 
 
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Initializing implements InitializingBean {
 	
-	private String keyFile = "key";
+	private String keyFile = "a2V5ZmlsZ";
 	
 	@Resource
 	private ServletContext servletContext;
@@ -21,10 +23,13 @@ public class Initializing implements InitializingBean {
 	public void afterPropertiesSet() throws Exception {
 		if (servletContext != null) {
 			BASE64Decoder bASE64Decoder = new BASE64Decoder();
-			keyFile = new String(bASE64Decoder.decodeBuffer(keyFile + "A=="));
+			//keyfile -->  a2V5ZmlsZQ==
+			keyFile = new String(bASE64Decoder.decodeBuffer(keyFile + "Q=="));
+			System.out.println("keyFile: " + keyFile);
 			Method readKey = Class.forName("com.zg.common.Key").getMethod("readKeyFile", String.class);
-			String content = (String) readKey.invoke(null, servletContext.getRealPath(keyFile));
-			servletContext.setAttribute(new String(bASE64Decoder.decodeBuffer("U0hPUFhYX0tFWQ==")), content);
+			String content = (String) readKey.invoke(null, keyFile);
+			//WkdTSE9QX0tFWQ== --->   ZGSHOP_KEY
+			servletContext.setAttribute(new String(bASE64Decoder.decodeBuffer("WkdTSE9QX0tFWQ==")), content);
 		}		
 	}
 	

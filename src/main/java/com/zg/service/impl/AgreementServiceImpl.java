@@ -5,11 +5,13 @@ import javax.annotation.Resource;
 import org.hibernate.Hibernate;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
 
 import com.zg.dao.AgreementDao;
 import com.zg.entity.Agreement;
 import com.zg.service.AgreementService;
 
+@Service
 public class AgreementServiceImpl extends BaseServiceImpl<Agreement, String> implements AgreementService {
 
 	@Resource

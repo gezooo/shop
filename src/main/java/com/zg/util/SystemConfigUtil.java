@@ -19,6 +19,7 @@ import com.zg.beans.SystemConfig.CurrencyType;
 import com.zg.beans.SystemConfig.StoreFreezeTime;
 import com.zg.beans.SystemConfig.WatermarkPosition;
 import com.zg.beans.SystemConfig.PointType;
+import com.zg.common.ClassLoadUtil;
 
 public class SystemConfigUtil {
 
@@ -39,9 +40,9 @@ public class SystemConfigUtil {
 		Document document = null;
 		try {
 			
-			configFile = getConfigFile();
+			//configFile = getConfigFile();
 			SAXReader saxReader = new SAXReader();
-			document = saxReader.read(configFile);
+			document = saxReader.read(ClassLoadUtil.getResourceAsStream(CONFIG_FILE_NAME));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

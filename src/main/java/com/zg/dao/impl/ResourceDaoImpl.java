@@ -78,7 +78,7 @@ public class ResourceDaoImpl extends BaseDaoImpl<Resource, String> implements Re
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Resource> getAll() {
-		String hql = "from Resource resource order by resource.orderList asc resource.createDate desc";
+		String hql = "from Resource resource order by resource.orderList asc, resource.createDate desc";
 		return getSession().createQuery(hql).list();
 	}
 
@@ -86,7 +86,7 @@ public class ResourceDaoImpl extends BaseDaoImpl<Resource, String> implements Re
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Resource> getList(String propertyName, Object value) {
-		String hql = "from Resource resource where resource." + propertyName + "=? order by resource.orderList asc resource.createDate desc";
+		String hql = "from Resource resource where resource." + propertyName + "=? order by resource.orderList asc, resource.createDate desc";
 		return getSession().createQuery(hql).setParameter(0, value).list();
 	}
 	

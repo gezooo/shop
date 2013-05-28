@@ -104,7 +104,7 @@ public class ClassPathFileReaderRandomBackgroundGenerator implements BackgroundG
     	if(localCache.containsKey("properties")) {
     		return (Properties) localCache.get("properties");
     	}
-    	InputStream is = ClassPathFileReaderRandomBackgroundGenerator.class.getClassLoader().getResourceAsStream(rootPath + "captcha_bg_files.properties");
+    	InputStream is = ClassLoadUtil.getResourceAsStream(rootPath + "captcha_bg_files.properties");
     	Properties properties = new Properties();
     	properties.load(is);
     	localCache.put("properties", properties);

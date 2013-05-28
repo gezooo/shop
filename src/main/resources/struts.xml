@@ -75,8 +75,8 @@
 
 	<package name="admin" extends="basePackage" namespace="/admin/">
 		<interceptors>
-			<interceptor name="trimInterceptor" class="net.shopxx.common.TrimInterceptor" />
-			<interceptor name="logInterceptor" class="net.shopxx.common.LogInterceptor" />
+			<interceptor name="trimInterceptor" class="com.zg.common.TrimInterceptor" />
+			<interceptor name="logInterceptor" class="com.zg.common.LogInterceptor" />
 			<interceptor-stack name="adminStack">
 				<!-- trim拦截器 -->
 				<interceptor-ref name="trimInterceptor" />
@@ -102,7 +102,7 @@
 
 	<package name="shop" extends="basePackage" namespace="/shop/">
 		<interceptors>
-			<interceptor name="trimInterceptor" class="net.shopxx.common.TrimInterceptor" />
+			<interceptor name="trimInterceptor" class="com.zg.common.TrimInterceptor" />
 			<interceptor-stack name="shopStack">
 				<!-- trim拦截器 -->
 				<interceptor-ref name="trimInterceptor" />
@@ -121,8 +121,8 @@
 	
 	<package name="member" extends="basePackage" namespace="/shop/">
 		<interceptors>
-			<interceptor name="trimInterceptor" class="net.shopxx.common.TrimInterceptor" />
-			<interceptor name="memberLoginVerifyInterceptor" class="net.shopxx.common.MemberLoginVerifyInterceptor" />
+			<interceptor name="trimInterceptor" class="com.zg.common.TrimInterceptor" />
+			<interceptor name="memberLoginVerifyInterceptor" class="com.zg.common.MemberLoginVerifyInterceptor" />
 			<interceptor-stack name="memberStack">
 				<!-- trim拦截器 -->
 				<interceptor-ref name="memberLoginVerifyInterceptor" />

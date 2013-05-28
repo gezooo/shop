@@ -11,6 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zg.beans.SystemConfig;
 import com.zg.dao.AdminDao;
@@ -18,6 +20,8 @@ import com.zg.entity.Admin;
 import com.zg.entity.Role;
 import com.zg.util.SystemConfigUtil;
 
+@Service
+@Transactional
 public class AdminDetailsServiceImpl implements UserDetailsService {
 	
 	@Resource

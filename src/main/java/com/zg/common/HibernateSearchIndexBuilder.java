@@ -1,10 +1,12 @@
 package com.zg.common;
 
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.transaction.annotation.Transactional;
 
 public class HibernateSearchIndexBuilder implements InitializingBean {
 
@@ -16,9 +18,10 @@ public class HibernateSearchIndexBuilder implements InitializingBean {
 		public void run() {
 			try {
 				Thread.sleep(lazyTime * 1000);
-				FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
+				Session session = sessionFactory.openSession();
+				FullTextSession fullTextSession = Search.getFullTextSession(session);
 				fullTextSession.createIndexer().startAndWait();
-				sessionFactory.getCurrentSession().close();
+				fullTextSession.close();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

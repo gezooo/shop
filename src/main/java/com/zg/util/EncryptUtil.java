@@ -1,8 +1,10 @@
 package com.zg.util;
 
 import java.net.InetAddress;
+import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -20,7 +22,30 @@ import java.util.ResourceBundle;
 
 public class EncryptUtil {
 
-	private static final String Algorithm = "DESede";
+	private static final String Algorithm = "AES";  //AES  DESede
+	
+	private static final byte[] key = {(byte)0XDB, (byte)0XEF, 0X3D, (byte)0XD4, (byte)0X87, 0X5F, 0X42, (byte)0XD6, 0X2A, 
+		0X49, (byte)0XF8, (byte)0X91, (byte)0XB8, (byte)0XA3, 0X50, 0X44};
+	
+	public static byte[] generateKey() {
+		
+		KeyGenerator keyGenerator;
+		try {
+			keyGenerator = KeyGenerator.getInstance("AES");
+			keyGenerator.init(128);
+			SecretKey secretKey = keyGenerator.generateKey();
+			secretKey.getEncoded();
+			return 	secretKey.getEncoded();
+
+			//java.security.Key key = keyGenerator.generateKey();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+
+	}
 
 	public static byte[] encryptMode(byte[] keybyte, byte[] src) {
 		try {
@@ -70,7 +95,7 @@ public class EncryptUtil {
 		return sb.toString().toUpperCase();
 	}
 
-	private static byte[] hexStringToByteArray(String s) {
+	public static byte[] hexStringToByteArray(String s) {
 		byte[] b = new byte[s.length() / 2];
 		for (int i = 0; i < b.length; i++) {
 			int index = i * 2;
@@ -138,7 +163,7 @@ public class EncryptUtil {
 		System.out.println("The options include:");
 		System.out
 				.println(MsgHandler("146",
-						"-password <Mcafee Partner Password that has to be encrypted>"));
+						"-password <ZGShop License Key that has to be encrypted>"));
 		System.out
 				.println(MsgHandler("147",
 						"Sample usage: generateEncryptedPassword -password ovsaPassword"));
@@ -147,13 +172,16 @@ public class EncryptUtil {
 	public static String dencrypt(String propPassword) {
 		String address = EncryptUtil.getAddress().replace(":", "-");
 		Security.addProvider(new com.sun.crypto.provider.SunJCE());
+		
+		//final byte[] keyBytes = generateKey();
+		/*
 		final byte[] keyBytes = { 0x11, 0x22, 0x4F, 0x58, (byte) 0x88, 0x10,
 				0x40, 0x38, 0x28, 0x25, 0x79, 0x51, (byte) 0xCB, (byte) 0xDD,
 				0x55, 0x66, 0x77, 0x29, 0x74, (byte) 0x98, 0x30, 0x40, 0x36,
 				(byte) 0xE2 };
-
+		*/
 		byte[] dencodedPsw = hexStringToByteArray(propPassword);
-		byte[] dencoded = decryptMode(keyBytes, dencodedPsw);
+		byte[] dencoded = decryptMode(key, dencodedPsw);
 		String password = new String(dencoded).replace(address, "");
 		return password;
 	}
@@ -172,6 +200,8 @@ public class EncryptUtil {
 	
 
 	public static void main(String[] paramArrayOfString) {
+		
+
 		if (paramArrayOfString.length != 2) {
 			printUsage();
 			return;
@@ -187,19 +217,23 @@ public class EncryptUtil {
 		String address = EncryptUtil.getAddress().replace(":", "-");
 
 		try {
-
+			
+			KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+			keyGenerator.init(128);
 			String encryptStr = paramArrayOfString[1];
 			String encrypt = encryptStr + address;
 			Security.addProvider(new com.sun.crypto.provider.SunJCE());
+			/*
 			final byte[] keyBytes = { 0x11, 0x22, 0x4F, 0x58, (byte) 0x88,
 					0x10, 0x40, 0x38, 0x28, 0x25, 0x79, 0x51, (byte) 0xCB,
 					(byte) 0xDD, 0x55, 0x66, 0x77, 0x29, 0x74, (byte) 0x98,
 					0x30, 0x40, 0x36, (byte) 0xE2 };
-
-			byte[] encoded = encryptMode(keyBytes, encrypt.getBytes());
+			 */
+			byte[] encoded = encryptMode(key, encrypt.getBytes());
 			String encodedPsw = byteArrayToHexString(encoded);
 			System.out.printf("GenerateEncryptedPassword is: " + encodedPsw);
 			System.out.println();
+			
 			// writeProperties(fileName, itemName, encodedPsw);
 		} catch (Exception e) {
 			System.out.println();

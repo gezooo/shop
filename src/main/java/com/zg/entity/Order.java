@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -19,6 +20,7 @@ import com.zg.entity.Product.WeightUnit;
 import com.zg.util.SystemConfigUtil;
 
 @Entity
+@Table(name = "orders")
 public class Order extends BaseEntity {
 
 	/**
