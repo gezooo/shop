@@ -95,7 +95,7 @@ public class Resource extends BaseEntity {
 			return "";
 		}
 		for(Role role : this.roleSet) {
-			stringBuffer.append(SEPARATOR + role.getName());
+			stringBuffer.append(SEPARATOR + role.getValue());
 		}
 		if(stringBuffer.length() > 0) {
 			stringBuffer.deleteCharAt(0);

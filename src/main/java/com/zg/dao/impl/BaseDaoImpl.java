@@ -173,17 +173,17 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 		getSession().evict(object);
 	}
 	
-	public Pager findByPager(Pager pager) {
+	public Pager<T> findByPager(Pager<T> pager) {
 		if (pager == null) {
-			pager = new Pager();
+			pager = new Pager<T>();
 		}
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(entityClass);
 		return findByPager(pager, detachedCriteria);
 	}
 
-	public Pager findByPager(Pager pager, DetachedCriteria detachedCriteria) {
+	public Pager<T> findByPager(Pager<T> pager, DetachedCriteria detachedCriteria) {
 		if (pager == null) {
-			pager = new Pager();
+			pager = new Pager<T>();
 		}
 		Integer pageNumber = pager.getPageNumber();
 		Integer pageSize = pager.getPageSize();
@@ -206,7 +206,7 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 			criteria.add(Restrictions.like(propertyString, "%" + keyword + "%"));
 		}
 		
-		Integer totalCount = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Long totalCount = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
 		
 		criteria.setProjection(null);
 		criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
@@ -219,7 +219,7 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 				criteria.addOrder(Order.desc(orderBy));
 			}
 		}
-		pager.setTotalCount(totalCount);
+		pager.setTotalCount(totalCount.intValue());
 		pager.setList(criteria.list());
 		return pager;
 	}

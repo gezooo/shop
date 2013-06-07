@@ -1,6 +1,9 @@
 package com.zg.service;
 
+import java.util.Set;
+
 import com.zg.entity.Resource;
+import com.zg.entity.Role;
 
 /**
  * Service接口 - 资源
@@ -16,5 +19,7 @@ import com.zg.entity.Resource;
  */
 
 public interface ResourceService extends BaseService<Resource, String> {
+	
+	public Set<Role> getRoleSet(Resource resource);
 	
 }

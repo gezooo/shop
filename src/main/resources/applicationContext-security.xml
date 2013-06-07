@@ -7,6 +7,7 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	
 	<sec:http  pattern="/admin/admin!login.action" security="none"/>
 	<sec:http  pattern="/template/*" security="none"/>
 	

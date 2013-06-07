@@ -26,7 +26,7 @@ public class Pager<T> {
 	
 	private OrderType orderType = OrderType.DESC;
 	
-	private List<T> dataList;
+	private List<T> list;
 	
 	public Integer getPageNumber() {
 		return this.pageNumber;
@@ -104,12 +104,12 @@ public class Pager<T> {
 		this.orderType = orderType;
 	}
 
-	public List<T> getDataList() {
-		return this.dataList;
+	public List<T> getList() {
+		return this.list;
 	}
 
 	public void setList(List<T> dataList) {
-		this.dataList = dataList;
+		this.list = dataList;
 	}
 	
 	

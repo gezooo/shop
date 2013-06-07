@@ -70,7 +70,7 @@ public class AdminSecurityListener implements ApplicationListener {
 			if (admin != null) {
 				int loginFailureCount = admin.getLoginFailureCount() + 1;
 				if (loginFailureCount >= systemConfig.getLoginFailureLockCount()) {
-					admin.setAccountLocked(true);
+					admin.setIsAccountLocked(true);
 					admin.setLockedDate(new Date());
 				}
 				admin.setLoginFailureCount(loginFailureCount);

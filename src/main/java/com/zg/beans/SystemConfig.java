@@ -6,8 +6,14 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-public class SystemConfig {
+public class SystemConfig implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3880866661069963350L;
+
+
 	public enum CurrencyType {
 		CNY, USD, EUR, GBP, CAD, AUD, RUB, HKD, TWD, KRW, SGD, NZD, JPY, MYR, CHF, SEK, DKK, PLZ, NOK, HUF, CSK, MOP
 	}

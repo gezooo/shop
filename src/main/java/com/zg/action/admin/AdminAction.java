@@ -204,18 +204,22 @@ public class AdminAction extends BaseAdminAction {
 		)
 		@InputConfig(resultName = "error")
 		public String save() {
+			System.out.println("save called");
 			if (roleList == null || roleList.size() == 0) {
 				return ERROR;
 			}
 			admin.setUsername(admin.getUsername().toLowerCase());
 			admin.setLoginFailureCount(0);
-			admin.setAccountLocked(false);
-			admin.setAccountExpired(false);
-			admin.setCredentialsExpired(false);
+			admin.setIsAccountLocked(false);
+			admin.setIsAccountExpired(false);
+			admin.setIsCredentialsExpired(false);
+			admin.setIsAccountEnabled(true);
 			admin.setRoleSet(new HashSet<Role>(roleList));
 			String passwordMd5 = DigestUtils.md5Hex(admin.getPassword());
 			admin.setPassword(passwordMd5);
+			System.out.println("before save");
 			adminService.save(admin);
+			System.out.println("end save");
 			redirectionUrl = "admin!list.action";
 			return SUCCESS;
 		}
@@ -311,6 +315,23 @@ public class AdminAction extends BaseAdminAction {
 		}
 
 		public Admin getAdmin() {
+			//admin = new Admin();
+			if(admin == null) {
+				admin = new Admin();
+			}
+			
+			HashSet<Role> roleSet = new HashSet<Role>();
+			roleSet.add(roleService.getAll().get(0));
+		
+			admin.setRoleSet(roleSet);
+			
+			admin.setIsAccountEnabled(true);
+			admin.setIsAccountLocked(false);
+			admin.setIsAccountExpired(false);
+			admin.setIsCredentialsExpired(false);
+
+			admin.setDepartment("department");
+			
 			return admin;
 		}
 

@@ -36,7 +36,7 @@ public class AdminDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("Admin ["+ userName +"] not exist");
 		}
 		SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
-		if(admin.isAccountLocked()) {
+		if(admin.getIsAccountLocked()) {
 			if(systemConfig.isLoginFailureLock()) {
 				int loginFailureLockTime = systemConfig.getLoginFailureLockTime();
 				if(loginFailureLockTime != 0) {

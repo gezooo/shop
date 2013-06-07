@@ -35,11 +35,11 @@ public class Admin extends BaseEntity implements UserDetails {
 	
 	private boolean isAccountEnabled;
 	
-	private boolean isAccountLocked;
+	private Boolean isAccountLocked;
 	
-	private boolean isAccountExpired;
+	private Boolean isAccountExpired;
 	
-	private boolean isCredentialsExpired;
+	private Boolean isCredentialsExpired;
 	
 	private Integer loginFailureCount;
 	
@@ -127,38 +127,38 @@ public class Admin extends BaseEntity implements UserDetails {
 	}
 
 	@Column(nullable = false)
-	public boolean isAccountEnabled() {
+	public boolean getIsAccountEnabled() {
 		return isAccountEnabled;
 	}
 
-	public void setAccountEnabled(boolean isAccountEnabled) {
+	public void setIsAccountEnabled(boolean isAccountEnabled) {
 		this.isAccountEnabled = isAccountEnabled;
 	}
 
 	@Column(nullable = false)
-	public boolean isAccountLocked() {
+	public boolean getIsAccountLocked() {
 		return isAccountLocked;
 	}
 
-	public void setAccountLocked(boolean isAccountLocked) {
+	public void setIsAccountLocked(boolean isAccountLocked) {
 		this.isAccountLocked = isAccountLocked;
 	}
 
 	@Column(nullable = false)
-	public boolean isAccountExpired() {
+	public boolean getIsAccountExpired() {
 		return isAccountExpired;
 	}
 
-	public void setAccountExpired(boolean isAccountExpired) {
+	public void setIsAccountExpired(boolean isAccountExpired) {
 		this.isAccountExpired = isAccountExpired;
 	}
 
 	@Column(nullable = false)
-	public boolean isCredentialsExpired() {
+	public boolean getIsCredentialsExpired() {
 		return isCredentialsExpired;
 	}
 
-	public void setCredentialsExpired(boolean isCredentialsExpired) {
+	public void setIsCredentialsExpired(boolean isCredentialsExpired) {
 		this.isCredentialsExpired = isCredentialsExpired;
 	}
 
@@ -217,7 +217,7 @@ public class Admin extends BaseEntity implements UserDetails {
 	@Transient
 	public void unLock() {
 		this.setLoginFailureCount(0);
-		this.setAccountLocked(false);
+		this.setIsAccountLocked(false);
 		this.setLockedDate(null);
 	}
 	

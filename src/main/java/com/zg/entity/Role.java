@@ -19,7 +19,7 @@ public class Role extends BaseEntity {
 	
 	private String value;
 	
-	private boolean isSystem;
+	private Boolean isSystem;
 	
 	private String description;
 	
@@ -47,11 +47,11 @@ public class Role extends BaseEntity {
 	}
 
 	@Column(nullable = false, updatable = true)
-	public boolean isSystem() {
+	public Boolean getIsSystem() {
 		return isSystem;
 	}
 
-	public void setSystem(boolean isSystem) {
+	public void setIsSystem(Boolean isSystem) {
 		this.isSystem = isSystem;
 	}
 

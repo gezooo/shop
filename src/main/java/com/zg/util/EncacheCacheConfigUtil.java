@@ -1,6 +1,7 @@
 package com.zg.util;
 
 import org.springframework.cache.Cache;
+import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 
 /**
@@ -28,8 +29,11 @@ public class EncacheCacheConfigUtil {
 	public static Object getFromCache(String key) {
 		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtil.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
 		Cache cache = cacheManager.getCache("caching");
-		Object object = cache.get(key);
-		return object;
+		ValueWrapper  value = cache.get(key);
+		if(value == null) {
+			return null;
+		}
+		return value.get();
 	}
 	
 	/**

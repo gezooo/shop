@@ -1,10 +1,13 @@
 package com.zg.service.impl;
 
 
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
 import com.zg.dao.ResourceDao;
 import com.zg.entity.Resource;
+import com.zg.entity.Role;
 import com.zg.service.ResourceService;
 import com.zg.util.SpringUtil;
 
@@ -61,5 +64,11 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, String> imple
 			resourceDao.flush();
 			SpringUtil.flushSpringSecurity();
 		}
+		
+		@Override
+		public Set<Role> getRoleSet(Resource resource) {
+			return resource.getRoleSet();
+		}
+
 		
 }

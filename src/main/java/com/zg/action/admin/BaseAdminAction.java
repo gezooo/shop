@@ -16,6 +16,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.zg.beans.Pager;
 import com.zg.beans.SystemConfig;
+import com.zg.entity.Admin;
 import com.zg.util.SystemConfigUtil;
 
 public class BaseAdminAction extends ActionSupport{
@@ -34,9 +35,9 @@ public class BaseAdminAction extends ActionSupport{
 	public static final String MESSAGE = "message";
 	public static final String CONTENT = "content";
 	
-	protected String id;
+	protected String id = "super";
 	protected String[] ids;
-	protected Pager pager;
+	protected Pager<Admin> pager;
 	protected String logInfo;// 日志记录信息
 	protected String redirectionUrl;// 操作提示后的跳转URL,为null则返回前一页
 	
