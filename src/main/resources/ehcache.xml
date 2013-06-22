@@ -14,4 +14,11 @@
         maxElementsOnDisk="1000" eternal="false" overflowToDisk="true"  
         diskSpoolBufferSizeMB="20" timeToIdleSeconds="300" timeToLiveSeconds="600"  
         memoryStoreEvictionPolicy="LFU" />  
+    <cache name="SimplePageCachingFilter"
+        maxElementsInMemory="10000" 
+        eternal="false"
+        overflowToDisk="false" 
+        timeToIdleSeconds="900" 
+        timeToLiveSeconds="1800"
+        memoryStoreEvictionPolicy="LFU" />
 </ehcache>

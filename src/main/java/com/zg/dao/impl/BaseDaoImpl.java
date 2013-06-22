@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.zg.action.admin.AdminAction;
 import com.zg.beans.Pager;
 import com.zg.beans.Pager.OrderType;
 import com.zg.dao.BaseDao;
@@ -20,6 +21,8 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
@@ -38,6 +41,8 @@ import org.springframework.util.Assert;
 
 @Repository
 public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
+    
+	public static final Logger logger = LoggerFactory.getLogger(BaseDaoImpl.class);
 
 	private Class<T> entityClass;
 	protected SessionFactory sessionFactory;
@@ -174,9 +179,11 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 	}
 	
 	public Pager<T> findByPager(Pager<T> pager) {
+		
 		if (pager == null) {
 			pager = new Pager<T>();
 		}
+		logger.debug("findByPager called: keywords-->" +  pager.getKeywords() + ", property--->" + pager.getProperty() + ", orderby--->" + pager.getOrderBy() );
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(entityClass);
 		return findByPager(pager, detachedCriteria);
 	}

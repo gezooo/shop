@@ -20,8 +20,13 @@
 		<!-- default-target-url 登录成功后跳转的URL -->
 		<!-- always-use-default-target 是否登录后必须访问default-target-url -->
 		<!-- authentication-failure-url 登录失败后跳转的URL -->
+		<!--  
 		<sec:form-login login-page="/admin/admin!login.action" login-processing-url="/admin/loginVerify" default-target-url="/admin/admin!main.action"
 			authentication-failure-url="/admin/admin!login.action" always-use-default-target="true"  />
+		-->
+			
+		<sec:form-login login-page="/admin/admin!login.action" login-processing-url="/admin/loginVerify" default-target-url="/admin/admin!main.action"
+			authentication-failure-handler-ref="userNameCachingAuthenticationFailureHandler" always-use-default-target="true" />
 
 		<sec:remember-me key="e37f8888-0ooo-22dd-bd0b-9900211c9a66" />
 
@@ -62,6 +67,10 @@
 				<bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
 			</list>
 		</property>
+	</bean>
+	
+	<bean id="userNameCachingAuthenticationFailureHandler" class="com.zg.security.UserNameCachingAuthenticationFailureHandler">
+	    <property name="defaultFailureUrl" value="/admin/admin!login.action"/>
 	</bean>
 
 </beans>

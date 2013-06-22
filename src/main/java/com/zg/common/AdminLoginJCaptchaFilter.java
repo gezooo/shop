@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.octo.captcha.service.CaptchaService;
+import com.octo.captcha.service.CaptchaServiceException;
 
 
 
@@ -27,6 +30,8 @@ import com.octo.captcha.service.CaptchaService;
 @Component
 public class AdminLoginJCaptchaFilter implements Filter {
 	
+    public static final Logger logger = LoggerFactory.getLogger(AdminLoginJCaptchaFilter.class);
+
 	public static final String ADMIN_CAPTCHA_ERROR_URL = "/admin/admin!login.action?error=captcha";// 后台登录验证失败跳转URL
 
 	@Resource
@@ -56,6 +61,7 @@ public class AdminLoginJCaptchaFilter implements Filter {
 	}
 	
 	protected boolean validateCaptcha(HttpServletRequest request) {
+		boolean rt = false;
 		String captchaID = request.getSession().getId();
 		String challengeResponse = StringUtils.upperCase(request.getParameter(JCaptchaEngine.CAPTCHA_INPUT_NAME));
 		/* vaildate the shop url certificate  http://www.shopxx.net/certificate.action?shopUrl=
@@ -71,7 +77,14 @@ public class AdminLoginJCaptchaFilter implements Filter {
 			
 		}
 		*/
-		return captchaService.validateResponseForID(captchaID, challengeResponse);
+		
+		try{
+			rt = captchaService.validateResponseForID(captchaID, challengeResponse);
+		} catch(CaptchaServiceException captchaServiceException) {
+			logger.error("captchaServiceException: " + captchaServiceException.getMessage());
+		}
+		
+		return rt;
 
 
 	}

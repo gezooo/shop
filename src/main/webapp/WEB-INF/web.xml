@@ -56,6 +56,20 @@
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 	
+	<!-- 页面缓存过滤器 -->
+	<filter>
+		<filter-name>cacheFilter</filter-name>
+		<filter-class>net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter</filter-class>
+		<init-param>
+			<param-name>time</param-name>
+			<param-value>3600</param-value>
+		</init-param>
+		<init-param>
+			<param-name>scope</param-name>
+			<param-value>application</param-value>
+		</init-param>
+	</filter>
+	
 	<!-- 解决Hibernate延迟加载问题过滤器，需放在struts2过滤器之前 -->
 	<filter>
 		<filter-name>openSessionInViewFilter</filter-name>
@@ -92,6 +106,18 @@
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- 商品列表页面缓存 -->
+	<filter-mapping>
+		<filter-name>cacheFilter</filter-name>
+		<url-pattern>/shop/product!list.action</url-pattern>
+	</filter-mapping>
+	
+	<!-- 文章列表页面缓存 -->
+	<filter-mapping>
+		<filter-name>cacheFilter</filter-name>
+		<url-pattern>/shop/article!list.action</url-pattern>
 	</filter-mapping>
 	
 	<!-- 注意:需放在struts2过滤器filter-mapping之前 -->

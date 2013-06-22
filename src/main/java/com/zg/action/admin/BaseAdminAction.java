@@ -14,7 +14,6 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.zg.beans.Pager;
 import com.zg.beans.SystemConfig;
 import com.zg.entity.Admin;
 import com.zg.util.SystemConfigUtil;
@@ -35,9 +34,8 @@ public class BaseAdminAction extends ActionSupport{
 	public static final String MESSAGE = "message";
 	public static final String CONTENT = "content";
 	
-	protected String id = "super";
+	protected String id;
 	protected String[] ids;
-	protected Pager<Admin> pager;
 	protected String logInfo;// 日志记录信息
 	protected String redirectionUrl;// 操作提示后的跳转URL,为null则返回前一页
 	
@@ -93,8 +91,19 @@ public class BaseAdminAction extends ActionSupport{
 	// 获取Session
 	public Object getSession(String name) {
 		ActionContext actionContext = ActionContext.getContext();
-		Map<String, Object> session = actionContext.getSession();
-		return session.get(name);
+		if(actionContext == null) {
+			System.out.println("actionContext is null");
+		} else {
+			Map<String, Object> session = actionContext.getSession();
+			if(session == null ){
+				System.out.println("session is null");
+
+			} else {
+				return session.get(name);
+
+			}
+		}
+		return null;
 	}
 
 	// 获取Session
@@ -219,13 +228,7 @@ public class BaseAdminAction extends ActionSupport{
 		this.ids = ids;
 	}
 
-	public Pager getPager() {
-		return pager;
-	}
-
-	public void setPager(Pager pager) {
-		this.pager = pager;
-	}
+	
 
 	public String getLogInfo() {
 		return logInfo;

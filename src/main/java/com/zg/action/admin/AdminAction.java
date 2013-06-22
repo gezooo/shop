@@ -1,5 +1,6 @@
 package com.zg.action.admin;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -9,11 +10,14 @@ import javax.servlet.ServletContext;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
+
 
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 import com.opensymphony.xwork2.validator.annotations.Validations;
@@ -25,8 +29,10 @@ import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 
 
 
+import com.zg.beans.Pager;
 import com.zg.entity.Admin;
 import com.zg.entity.Role;
+import com.zg.security.UserNameCachingAuthenticationFailureHandler;
 import com.zg.service.AdminService;
 import com.zg.service.ArticleService;
 import com.zg.service.MemberService;
@@ -41,13 +47,20 @@ import freemarker.template.TemplateHashModel;
 
 @ParentPackage("admin")
 public class AdminAction extends BaseAdminAction {
+	
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5708268950310517011L;
 	
+    public static final Logger logger = LoggerFactory.getLogger(AdminAction.class);
+
+	
 	public static final String SPRING_SECURITY_LAST_EXCEPTION = "SPRING_SECURITY_LAST_EXCEPTION";// Spring security 最后登录异常Session名称
+    public static final String SPRING_SECURITY_LAST_USERNAME_KEY = "SPRING_SECURITY_LAST_USERNAME";
+
+	protected Pager<Admin> pager;
 
 	private String loginUsername;
 
@@ -75,39 +88,53 @@ public class AdminAction extends BaseAdminAction {
 	private ServletContext servletContext;
 	
 	public String login() {
+		logger.debug("enter login");
 		String error = getParameter("error");
+		logger.debug("error: " + error);
+
 		if (StringUtils.endsWithIgnoreCase(error, "captcha")) {
 			//Locale loc = getLocale();
 			//getText("key");
-			addActionError("验证码错误,请重新输入!");
+
+			//addActionError("验证码错误,请重新输入!");
+			addActionError(getText("admin.login.captcha.required"));
 			return "login";
 		}
 		
 		Exception springSecurityLastException = (Exception) getSession(SPRING_SECURITY_LAST_EXCEPTION);
 		if(springSecurityLastException !=  null) {
 			if(springSecurityLastException instanceof BadCredentialsException) {
-				loginUsername = ((String) getSession("SPRING_SECURITY_LAST_USERNAME")).toLowerCase();
+				logger.debug("BadCredentialsException happened");
+				loginUsername = ((String) getSession(UserNameCachingAuthenticationFailureHandler.LAST_USERNAME_KEY)).toLowerCase();
+				logger.debug("loginUsername happened");
 				Admin admin = adminService.get("username", loginUsername);
 				if (admin != null) {
 					int loginFailureLockCount = getSystemConfig().getLoginFailureLockCount();
 					int loginFailureCount = admin.getLoginFailureCount();
 					if (getSystemConfig().isLoginFailureLock() && loginFailureLockCount - loginFailureCount <= 3) {
-						addActionError("若连续" + loginFailureLockCount + "次密码输入错误,您的账号将被锁定!");
+						//addActionError("若连续" + loginFailureLockCount + "次密码输入错误,您的账号将被锁定!");
+						addActionError(getText("admin.login.lockcount.tips", Arrays.asList(loginFailureLockCount)));
 					} else {
-						addActionError("您的用户名或密码错误!");
+						//addActionError("您的用户名或密码错误!");
+						addActionError(getText("admin.login.username.password.wrong"));
 					}
 				} else {
-					addActionError("您的用户名或密码错误!");
+					//addActionError("您的用户名或密码错误!");
+					addActionError(getText("admin.login.username.password.wrong"));
 				}
 
 			} else if (springSecurityLastException instanceof DisabledException) {
-				addActionError("您的账号已被禁用,无法登录!");
+				//addActionError("您的账号已被禁用,无法登录!");
+				addActionError(getText("admin.login.fail.account.disabled"));
 			} else if (springSecurityLastException instanceof LockedException) {
-				addActionError("您的账号已被锁定,无法登录!");
+				//addActionError("您的账号已被锁定,无法登录!");
+				addActionError(getText("admin.login.fail.account.locked"));
 			} else if (springSecurityLastException instanceof AccountExpiredException) {
-				addActionError("您的账号已过期,无法登录!");
+				//addActionError("您的账号已过期,无法登录!");
+				addActionError(getText("admin.login.fail.account.expired"));
 			} else {
-				addActionError("出现未知错误,无法登录!");
+				//addActionError("出现未知错误,无法登录!");
+				addActionError(getText("admin.login.fail.unknow"));
 			}
 			getSession().remove(SPRING_SECURITY_LAST_EXCEPTION);
 
@@ -116,7 +143,7 @@ public class AdminAction extends BaseAdminAction {
 		//TODO change or remove later
 		String k = (String) servletContext.getAttribute("ZGSHOP" + "_" + "KEY");
 		String originalKey = EncryptUtil.dencrypt(k);
-		System.out.println("key: " + originalKey);
+		logger.debug("key: " + originalKey);
 		if (!StringUtils.containsIgnoreCase(originalKey, "zgshop")) {
 			throw new ExceptionInInitializerError();
 		}
@@ -171,6 +198,7 @@ public class AdminAction extends BaseAdminAction {
 
 		// 列表
 		public String list() {
+			logger.debug("adminaction list called");
 			pager = adminService.findByPager(pager);
 			return LIST;
 		}
@@ -184,22 +212,22 @@ public class AdminAction extends BaseAdminAction {
 		// 保存
 		@Validations(
 			requiredStrings = {
-				@RequiredStringValidator(fieldName = "admin.username", message = "用户名不允许为空!"),
-				@RequiredStringValidator(fieldName = "admin.password", message = "密码不允许为空!"),
-				@RequiredStringValidator(fieldName = "admin.email", message = "E-mail不允许为空!")
+				@RequiredStringValidator(fieldName = "admin.username", key = "admin.username.required", message = "用户名不允许为空!"),
+				@RequiredStringValidator(fieldName = "admin.password", key = "admin.password.required", message = "密码不允许为空!"),
+				@RequiredStringValidator(fieldName = "admin.email", key = "admin.email.required", message = "E-mail不允许为空!")
 			},
 			requiredFields = {
-				@RequiredFieldValidator(fieldName = "admin.isAccountEnabled", message = "是否启用不允许为空!")
+				@RequiredFieldValidator(fieldName = "admin.isAccountEnabled", key = "admin.isAccountEnabled.required", message = "是否启用不允许为空!")
 			},
 			stringLengthFields = {
-				@StringLengthFieldValidator(fieldName = "admin.username", minLength = "2", maxLength = "20", message = "用户名长度必须在${minLength}到${maxLength}之间!"),
-				@StringLengthFieldValidator(fieldName = "admin.password", minLength = "4", maxLength = "20", message = "密码长度必须在${minLength}到${maxLength}之间!")
+				@StringLengthFieldValidator(fieldName = "admin.username", key = "admin.username.length.boundary.failed", minLength = "2", maxLength = "20", message = "用户名长度必须在${minLength}到${maxLength}之间!"),
+				@StringLengthFieldValidator(fieldName = "admin.password", key = "admin.password.length.boundary.failed", minLength = "4", maxLength = "20", message = "密码长度必须在${minLength}到${maxLength}之间!")
 			},
 			emails = {
-				@EmailValidator(fieldName = "admin.email", message = "E-mail格式错误!")
+				@EmailValidator(fieldName = "admin.email", key = "admin.email.format.failed", message = "E-mail格式错误!")
 			},
 			regexFields = {
-				@RegexFieldValidator(fieldName = "admin.username", expression = "^[0-9a-z_A-Z\u4e00-\u9fa5]+$", message = "用户名只允许包含中文、英文、数字和下划线!") 
+				@RegexFieldValidator(fieldName = "admin.username", expression = "^[0-9a-z_A-Z\u4e00-\u9fa5]+$", key = "admin.username.regex.failed", message = "用户名只允许包含中文、英文、数字和下划线!") 
 			}
 		)
 		@InputConfig(resultName = "error")
@@ -315,23 +343,6 @@ public class AdminAction extends BaseAdminAction {
 		}
 
 		public Admin getAdmin() {
-			//admin = new Admin();
-			if(admin == null) {
-				admin = new Admin();
-			}
-			
-			HashSet<Role> roleSet = new HashSet<Role>();
-			roleSet.add(roleService.getAll().get(0));
-		
-			admin.setRoleSet(roleSet);
-			
-			admin.setIsAccountEnabled(true);
-			admin.setIsAccountLocked(false);
-			admin.setIsAccountExpired(false);
-			admin.setIsCredentialsExpired(false);
-
-			admin.setDepartment("department");
-			
 			return admin;
 		}
 
@@ -354,6 +365,14 @@ public class AdminAction extends BaseAdminAction {
 
 		public void setRoleList(List<Role> roleList) {
 			this.roleList = roleList;
+		}
+		
+		public Pager<Admin> getPager() {
+			return pager;
+		}
+
+		public void setPager(Pager<Admin> pager) {
+			this.pager = pager;
 		}
 
 }
