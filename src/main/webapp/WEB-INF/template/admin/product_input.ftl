@@ -113,7 +113,7 @@ $().ready(function() {
 		var $productImageLi = $this.parent().parent().parent();
 		var $productImagePreview = $productImageLi.find(".productImagePreview");
 		var fileName = $this.val().substr($this.val().lastIndexOf("\\") + 1);
-		if (/(<#list systemConfig.allowedUploadImageExtension?split(stack.findValue("@net.shopxx.bean.SystemConfig@EXTENSION_SEPARATOR")) as list><#if list_has_next>.${list}|<#else>.${list}</#if></#list>)$/i.test($this.val()) == false) {
+		if (/(<#list systemConfig.allowedUploadImageExtension?split(stack.findValue("@com.zg.beans.SystemConfig@EXTENSION_SEPARATOR")) as list><#if list_has_next>.${list}|<#else>.${list}</#if></#list>)$/i.test($this.val()) == false) {
 			$.message("您选择的文件格式错误！");
 			return false;
 		}
@@ -164,7 +164,7 @@ $().ready(function() {
 		</div>
 		<div class="blank"></div>
 		<form id="inputForm" class="validate" action="<#if isAdd??>product!save.action<#else>product!update.action</#if>" method="post" enctype="multipart/form-data" >
-			<input type="hidden" name="id" value="${id}" />
+			<#if isEdit??><input type="hidden" name="id" value="${id}" /></#if>
 			<ul class="tab">
 				<li>
 					<input type="button" value="基本信息" hidefocus="true" />
@@ -263,7 +263,7 @@ $().ready(function() {
 						<input type="text" name="product.weight" class="formText {required: true, min: 0, messagePosition: '#weightMessagePosition'}" value="${(product.weight)!"0"}" title="0表示不计重量" />
 						<select name="product.weightUnit">
 							<#list allWeightUnit as list>
-								<option value="${list}"<#if (list == product.weightUnit)!> selected </#if>>
+								<option value="${list}"<#if (list == (product.weightUnit)!)> selected </#if>>
 									${action.getText("WeightUnit." + list)}
 								</option>
 							</#list>
@@ -285,8 +285,8 @@ $().ready(function() {
 						是否精品推荐:
 					</th>
 					<td>
-						<label><input type="radio" name="product.isBest" value="true"<#if (product.isBest == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="product.isBest" value="false"<#if (isAdd || product.isBest == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="product.isBest" value="true" <#if (product.isBest)??><#if (product.isBest == true)> checked</#if></#if> />是</label>
+						<label><input type="radio" name="product.isBest" value="false" <#if (isAdd || ((product.isBest)?? && product.isBest == false))> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
@@ -294,8 +294,8 @@ $().ready(function() {
 						是否新品推荐:
 					</th>
 					<td>
-						<label><input type="radio" name="product.isNew" value="true"<#if (product.isNew == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="product.isNew" value="false"<#if (isAdd || product.isNew == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="product.isNew" value="true" <#if (product.isNew)??><#if (product.isNew == true)> checked</#if></#if> />是</label>
+						<label><input type="radio" name="product.isNew" value="false" <#if (isAdd || ((product.isNew)?? && product.isNew == false))> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
@@ -303,8 +303,8 @@ $().ready(function() {
 						是否热销推荐:
 					</th>
 					<td>
-						<label><input type="radio" name="product.isHot" value="true"<#if (product.isHot == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="product.isHot" value="false"<#if (isAdd || product.isHot == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="product.isHot" value="true" <#if (product.isHot)??><#if (product.isHot == true)> checked</#if></#if> />是</label>
+						<label><input type="radio" name="product.isHot" value="false" <#if (isAdd || ((product.isHot)?? && product.isHot == false))> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
@@ -312,8 +312,8 @@ $().ready(function() {
 						是否上架:
 					</th>
 					<td>
-						<label><input type="radio" name="product.isMarketable" value="true"<#if (isAdd || product.isMarketable == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="product.isMarketable" value="false"<#if (product.isMarketable == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="product.isMarketable" value="true"<#if (isAdd || ((product.isMarketable)?? && product.isMarketable == true))> checked</#if> />是</label>
+						<label><input type="radio" name="product.isMarketable" value="false"<#if ((product.isMarketable)?? && product.isMarketable == false)> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
@@ -373,7 +373,7 @@ $().ready(function() {
 							<a class="next browse" href="javascript:void(0);" hidefocus="true"></a>
 							<div class="blank"></div>
 							<#if systemConfig.allowedUploadImageExtension != "">
-								<span class="warnInfo"><span class="icon">&nbsp;</span><#if (systemConfig.uploadLimit) != 0 && (systemConfig.uploadLimit < 1024)>小于${systemConfig.uploadLimit}KB<#elseif (systemConfig.uploadLimit >= 1024)>小于${systemConfig.uploadLimit / 1024}MB</#if> (<#list systemConfig.allowedUploadImageExtension?split(stack.findValue("@net.shopxx.bean.SystemConfig@EXTENSION_SEPARATOR")) as list><#if list_has_next>*.${list};<#else>*.${list}</#if></#list>)</span>
+								<span class="warnInfo"><span class="icon">&nbsp;</span><#if (systemConfig.uploadLimit) != 0 && (systemConfig.uploadLimit < 1024)>小于${systemConfig.uploadLimit}KB<#elseif (systemConfig.uploadLimit >= 1024)>小于${systemConfig.uploadLimit / 1024}MB</#if> (<#list systemConfig.allowedUploadImageExtension?split(stack.findValue("@com.zg.beans.SystemConfig@EXTENSION_SEPARATOR")) as list><#if list_has_next>*.${list};<#else>*.${list}</#if></#list>)</span>
 							<#else>
 								<span class="warnInfo"><span class="icon">&nbsp;</span>系统设置不允许上传图片文件!</span>
 							</#if>
@@ -413,7 +413,7 @@ $().ready(function() {
 						<select name="product.productType.id" id="productTypeId">
 							<option value="">请选择...</option>
 							<#list allProductType as list>
-								<option value="${list.id}"<#if (list.id == product.productType.id)!> selected </#if>>${list.name}</option>
+								<option value="${list.id}"<#if (list.id == (product.productType.id)!)> selected </#if>>${list.name}</option>
 							</#list>
 						</select>
 					</td>

@@ -20,10 +20,10 @@
 				<input type="button" class="addButton" onclick="location.href='product!add.action'" value="添加商品" />
 				<label>查找:</label>
 				<select name="pager.property">
-					<option value="name" <#if pager.property == "name">selected="selected" </#if>>
+					<option value="name" <#if pager.property! == "name">selected="selected" </#if>>
 						商品名称
 					</option>
-					<option value="productSn" <#if pager.property == "productSn">selected="selected" </#if>>
+					<option value="productSn" <#if pager.property! == "productSn">selected="selected" </#if>>
 						货号
 					</option>
 				</select>
