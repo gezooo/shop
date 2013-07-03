@@ -45,7 +45,7 @@ public class LogConfigServiceImpl extends BaseServiceImpl<LogConfig, String> imp
 	}
 	
 	@Override
-	@Cacheable(value = "caching")
+	@Cacheable(value = "caching", key="'LogConfigServiceImp.getAll'")
 	public List<LogConfig> getAll() {
 		List<LogConfig> allLogConfig = logConfigDao.getAll();
 		if (allLogConfig != null) {
@@ -57,31 +57,31 @@ public class LogConfigServiceImpl extends BaseServiceImpl<LogConfig, String> imp
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", key="'LogConfigServiceImp.getAll'")
 	public void delete(LogConfig entity) {
 		logConfigDao.delete(entity);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", key="'LogConfigServiceImp.getAll'")
 	public void delete(String id) {
 		logConfigDao.delete(id);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", key="'LogConfigServiceImp.getAll'")
 	public void delete(String[] ids) {
 		logConfigDao.delete(ids);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", key="'LogConfigServiceImp.getAll'")
 	public String save(LogConfig entity) {
 		return logConfigDao.save(entity);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", key="'LogConfigServiceImp.getAll'")
 	public void update(LogConfig entity) {
 		logConfigDao.update(entity);
 	}

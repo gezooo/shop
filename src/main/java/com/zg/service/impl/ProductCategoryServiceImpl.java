@@ -8,10 +8,13 @@ import javax.annotation.Resource;
 
 
 import org.hibernate.Hibernate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.zg.action.admin.AdminAction;
 import com.zg.dao.ProductCategoryDao;
 import com.zg.entity.Product;
 import com.zg.entity.ProductCategory;
@@ -34,6 +37,8 @@ import com.zg.service.ProductCategoryService;
 @Service
 public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory, String> implements
 		ProductCategoryService {
+    
+	public static final Logger logger = LoggerFactory.getLogger(ProductCategoryServiceImpl.class);
 
 	@Resource
 	private ProductCategoryDao productCategoryDao;
@@ -43,7 +48,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 		super.setBaseDao(productCategoryDao);
 	}
 
-	@Cacheable(value = "caching")
+	@Cacheable(value = "caching", key="'ProductCategoryServiceImpl.getRootProductCategoryList'")
 	public List<ProductCategory> getRootProductCategoryList() {
 		List<ProductCategory> rootProductCategoryList = productCategoryDao.getRootProductCategoryList();
 		if (rootProductCategoryList != null) {
@@ -54,7 +59,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 		return rootProductCategoryList;
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value = "caching", key="'ProductCategoryServiceImpl.getParentProductCategoryList' + #productCategory.id")
 	public List<ProductCategory> getParentProductCategoryList(ProductCategory productCategory) {
 		List<ProductCategory> parentProductCategoryList = productCategoryDao.getParentProductCategoryList(productCategory);
 		if (parentProductCategoryList != null) {
@@ -88,7 +93,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 		return productCategoryList;
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value = "caching", key="'ProductCategoryServiceImpl.getChildrenProductCategoryList' + #productCategory.id")
 	public List<ProductCategory> getChildrenProductCategoryList(ProductCategory productCategory) {
 		List<ProductCategory> childrenProductCategoryList = productCategoryDao.getChildrenProductCategoryList(productCategory);
 		if (childrenProductCategoryList != null) {
@@ -109,17 +114,21 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 		return productCategoryList;
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value = "caching", key="'ProductCategoryServiceImpl.getProductCategoryTreeList'")
 	public List<ProductCategory> getProductCategoryTreeList() {
+		logger.debug("getProductCategoryTreeList called");
 		List<ProductCategory> allProductCategoryList = this.getAll();
 		return recursivProductCategoryTreeList(allProductCategoryList, null, null);
 	}
 	
 	// 递归父类排序分类树
 	private List<ProductCategory> recursivProductCategoryTreeList(List<ProductCategory> allProductCategoryList, ProductCategory p, List<ProductCategory> temp) {
+		logger.debug("recursivProductCategoryTreeList called");
+		
 		if (temp == null) {
 			temp = new ArrayList<ProductCategory>();
 		}
+		
 		for (ProductCategory productCategory : allProductCategoryList) {
 			ProductCategory parent = productCategory.getParent();
 			if ((p == null && parent == null) || (productCategory != null && parent == p)) {
@@ -133,43 +142,45 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 	}
 
 	@Override
-	@Cacheable(value = "caching")
+	@Cacheable(value = "caching", key="'ProductCategoryServiceImpl.getAll'")
 	public List<ProductCategory> getAll() {
+		logger.debug("getAll called");
 		List<ProductCategory> allProductCategory = productCategoryDao.getAll();
 		if (allProductCategory != null) {
 			for (ProductCategory productCategory : allProductCategory) {
 				Hibernate.initialize(productCategory);
 			}
 		}
+		logger.debug("getAll end");
 		return allProductCategory;
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(ProductCategory productCategory) {
 		productCategoryDao.delete(productCategory);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String id) {
 		productCategoryDao.delete(id);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String[] ids) {
 		productCategoryDao.delete(ids);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public String save(ProductCategory productCategory) {
 		return productCategoryDao.save(productCategory);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void update(ProductCategory productCategory) {
 		productCategoryDao.update(productCategory);
 	}

@@ -245,9 +245,7 @@ public class AdminAction extends BaseAdminAction {
 			admin.setRoleSet(new HashSet<Role>(roleList));
 			String passwordMd5 = DigestUtils.md5Hex(admin.getPassword());
 			admin.setPassword(passwordMd5);
-			System.out.println("before save");
 			adminService.save(admin);
-			System.out.println("end save");
 			redirectionUrl = "admin!list.action";
 			return SUCCESS;
 		}

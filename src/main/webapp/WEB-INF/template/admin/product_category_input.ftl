@@ -20,7 +20,7 @@
 			<h1><span class="icon">&nbsp;</span><#if isAdd??>添加商品分类<#else>编辑商品分类</#if></h1>
 		</div>
 		<form id="inputForm" class="validate" action="<#if isAdd??>product_category!save.action<#else>product_category!update.action</#if>" method="post">
-			<input type="hidden" name="id" value="${id}" />
+			<#if isEdit??><input type="hidden" name="id" value="${id}" /></#if>
 			<table class="inputTable">
 				<tr>
 					<th>

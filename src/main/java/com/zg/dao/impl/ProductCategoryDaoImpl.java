@@ -77,7 +77,7 @@ public class ProductCategoryDaoImpl extends BaseDaoImpl<ProductCategory, String>
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductCategory> getAll() {
-		String hql = "from ProductCategory productCategory order by productCategory.orderList asc productCategory.createDate desc";
+		String hql = "from ProductCategory productCategory order by productCategory.orderList asc, productCategory.createDate desc";
 		return getSession().createQuery(hql).list();
 	}
 
@@ -85,7 +85,7 @@ public class ProductCategoryDaoImpl extends BaseDaoImpl<ProductCategory, String>
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<ProductCategory> getList(String propertyName, Object value) {
-		String hql = "from ProductCategory productCategory where productCategory." + propertyName + "=? order by productCategory.orderList asc productCategory.createDate desc";
+		String hql = "from ProductCategory productCategory where productCategory." + propertyName + "=? order by productCategory.orderList asc, productCategory.createDate desc";
 		return getSession().createQuery(hql).setParameter(0, value).list();
 	}
 	

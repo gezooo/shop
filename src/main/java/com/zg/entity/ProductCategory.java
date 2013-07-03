@@ -22,7 +22,7 @@ public class ProductCategory extends BaseEntity {
 	
 	private String name;
 	
-	private String metakeywords;
+	private String metaKeywords;
 	
 	private String metaDescription;
 	
@@ -46,12 +46,12 @@ public class ProductCategory extends BaseEntity {
 	}
 
 	@Column(length = 5000)
-	public String getMetakeywords() {
-		return metakeywords;
+	public String getMetaKeywords() {
+		return metaKeywords;
 	}
 
-	public void setMetakeywords(String metakeywords) {
-		this.metakeywords = metakeywords;
+	public void setMetaKeywords(String metakeywords) {
+		this.metaKeywords = metakeywords;
 	}
 
 	@Column(length = 5000)
