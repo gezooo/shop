@@ -42,7 +42,7 @@ $().ready(function() {
 	function productAttributeChange() {
 		$addAndRemoveTr.hide();
 		$(".attributeOptionTr").remove();
-		if($productAttributeType.val() == "select" || $productAttributeType.val() == "checkbox") {
+		if($productAttributeType.val() == "SELECT" || $productAttributeType.val() == "CHECKBOX") {
 			addAttributeOptionTr();
 			$addAndRemoveTr.show();
 		}
@@ -78,18 +78,20 @@ $().ready(function() {
 </style>
 <#if !id??>
 	<#assign isAdd = true />
+	<#assign isEdit = false />
 <#else>
 	<#assign isEdit = true />
+	<#assign isAdd = false />
 </#if>
 </head>
 <body class="input">
 	<div class="body">
 		<div class="inputBar">
-			<h1><span class="icon">&nbsp;</span><#if isAdd??>添加商品属性<#else>编辑商品属性</#if></h1>
+			<h1><span class="icon">&nbsp;</span><#if isAdd == true >添加商品属性<#else>编辑商品属性</#if></h1>
 		</div>
-		<form id="inputForm" class="validate" action="<#if isAdd??>product_attribute!save.action<#else>product_attribute!update.action</#if>" method="post">
-			<input type="hidden" name="id" value="${id}" />
-			<input type="hidden" name="productTypeId" value="${productTypeId}" />
+		<form id="inputForm" class="validate" action="<#if isAdd == true>product_attribute!save.action<#else>product_attribute!update.action</#if>" method="post">
+			<#if isEdit==true ><input type="hidden" name="id" value="${id}" /></#if>
+			<input type="hidden" name="productTypeId" value="${productTypeId!}" />
 			<table class="inputTable">
 				<tr>
 					<th>
@@ -99,7 +101,7 @@ $().ready(function() {
 						<select name="productAttribute.productType.id" id="productTypeId" class="{required: true}">
 							<option value="">请选择...</option>
 							<#list allProductType as list>
-								<option value="${list.id}"<#if (list.id == productTypeId || list.id == productAttribute.productType.id)!> selected </#if>>${list.name}</option>
+								<option value="${list.id}"<#if (list.id == productTypeId! || list.id == (productAttribute.productType.id)!)> selected </#if>>${list.name}</option>
 							</#list>
 						</select>
 						<lable class="requireField">*</lable>
@@ -122,7 +124,7 @@ $().ready(function() {
 						<select id="productAttributeType" name="productAttribute.attributeType" class="{required: true}">
 							<option value="">请选择...</option>
 							<#list allAttributeType as list>
-								<option value="${list}"<#if (list == productAttribute.attributeType)!> selected </#if>>
+								<option value="${list}"<#if (list == (productAttribute.attributeType)!)> selected </#if>>
 								${action.getText("AttributeType." + list)}
 								</option>
 							</#list>
@@ -130,8 +132,8 @@ $().ready(function() {
 						<label class="requireField">*</label>
 					</td>
 				</tr>
-				<#if (productAttribute.attributeType == "select" || productAttribute.attributeType == "checkbox")!>
-					<#list productAttribute.attributeOptionList as list>
+				<#if (productAttribute.attributeType)?? && (productAttribute.attributeType == "SELECT" || productAttribute.attributeType == "CHECKBOX")>
+					<#list (productAttribute.attributeOptionList)! as list>
 						<tr class="attributeOptionTr">
 							<th>选项内容:</th>
 							<td>
@@ -166,8 +168,8 @@ $().ready(function() {
 						是否必填:
 					</th>
 					<td>
-						<label><input type="radio" name="productAttribute.isRequired" value="true"<#if (productAttribute.isRequired == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="productAttribute.isRequired" value="false"<#if (isAdd || productAttribute.isRequired == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="productAttribute.isRequired" value="true"<#if (productAttribute.isRequired)?? && (productAttribute.isRequired == true)> checked</#if> />是</label>
+						<label><input type="radio" name="productAttribute.isRequired" value="false"<#if (isAdd || ((productAttribute.isRequired)?? && productAttribute.isRequired == false))> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
@@ -175,8 +177,8 @@ $().ready(function() {
 						是否启用:
 					</th>
 					<td>
-						<label><input type="radio" name="productAttribute.isEnabled" value="true"<#if (isAdd || productAttribute.isEnabled == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="productAttribute.isEnabled" value="false"<#if (productAttribute.isEnabled == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="productAttribute.isEnabled" value="true"<#if (isAdd || ((productAttribute.isEnabled)?? && productAttribute.isEnabled == true))> checked</#if> />是</label>
+						<label><input type="radio" name="productAttribute.isEnabled" value="false"<#if (productAttribute.isEnabled)?? && (productAttribute.isEnabled == false)> checked</#if> />否</label>
 					</td>
 				</tr>
 			</table>

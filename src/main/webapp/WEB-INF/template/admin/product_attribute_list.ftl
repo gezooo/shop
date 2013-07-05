@@ -16,28 +16,28 @@
 			<h1><span class="icon">&nbsp;</span>${("[" + productType.name + "]")!} 商品属性列表&nbsp;<span class="pageInfo">总记录数: ${pager.totalCount}(共${pager.pageCount}页)</span></h1>
 		</div>
 		<form id="listForm" action="product_attribute!list.action" method="post">
-			<input type="hidden" name="productTypeId" value="${productTypeId}" />
+			<input type="hidden" name="productTypeId" value="${productTypeId!}" />
 			<div class="operateBar">
 				<input type="button" class="addButton" onclick="location.href='product_attribute!add.action${("?productTypeId=" + productTypeId)!}'" value="添加属性" />
 				<label>查找:</label>
 				<select name="pager.property">
-					<option value="name" <#if pager.property == "name">selected="selected" </#if>>
+					<option value="name" <#if (pager.property)?? && pager.property == "name">selected="selected" </#if>>
 						属性名称
 					</option>
 				</select>
-				<label class="searchText"><input type="text" name="pager.keyword" value="${pager.keyword!}" /></label><input type="button" id="searchButton" class="searchButton" value="" />
+				<label class="searchText"><input type="text" name="pager.keyword" value="${(pager.keyword)!}" /></label><input type="button" id="searchButton" class="searchButton" value="" />
 				<label>每页显示:</label>
 				<select name="pager.pageSize" id="pageSize">
-					<option value="10" <#if pager.pageSize == 10>selected="selected" </#if>>
+					<option value="10" <#if (pager.pageSize)?? && pager.pageSize == 10>selected="selected" </#if>>
 						10
 					</option>
-					<option value="20" <#if pager.pageSize == 20>selected="selected" </#if>>
+					<option value="20" <#if (pager.pageSize)?? && pager.pageSize == 20>selected="selected" </#if>>
 						20
 					</option>
-					<option value="50" <#if pager.pageSize == 50>selected="selected" </#if>>
+					<option value="50" <#if (pager.pageSize)?? && pager.pageSize == 50>selected="selected" </#if>>
 						50
 					</option>
-					<option value="100" <#if pager.pageSize == 100>selected="selected" </#if>>
+					<option value="100" <#if (pager.pageSize)?? && pager.pageSize == 100>selected="selected" </#if>>
 						100
 					</option>
 				</select>

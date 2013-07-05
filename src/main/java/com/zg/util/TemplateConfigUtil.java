@@ -4,19 +4,27 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 
+import javax.annotation.Resource;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+import com.zg.action.admin.AdminAction;
 import com.zg.beans.HtmlConfig;
 import com.zg.beans.MailConfig;
+import com.zg.common.ClassLoadUtil;
 import com.zg.common.ClassPathFileReaderRandomBackgroundGenerator;
 
+@Component
 public class TemplateConfigUtil {
 	
 	public static final String CONFIG_FILE_NAME = "template.xml";// 模板配置文件名称
-
+    public static final Logger logger = LoggerFactory.getLogger(TemplateConfigUtil.class);
 
 	public static HtmlConfig getHtmlConfig(String name) {
 		Document document = null;
@@ -27,13 +35,13 @@ public class TemplateConfigUtil {
 					.getResource("").toURI().getPath()).getParent() + "/template/" + CONFIG_FILE_NAME;
 			File configFile = new File(configFilePath);
 			*/
-	    	InputStream is = TemplateConfigUtil.class.getClassLoader().getResourceAsStream("template/" + CONFIG_FILE_NAME);
+	    	//InputStream is = TemplateConfigUtil.class.getClassLoader().getResourceAsStream("template/" + CONFIG_FILE_NAME);
 
 			SAXReader saxReader = new SAXReader();
-			document = saxReader.read(is);
-			
+			document = saxReader.read(ClassLoadUtil.getResourceAsStream(CONFIG_FILE_NAME));
+			HtmlConfig.class.getResourceAsStream("");
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
+			logger.error("read template error: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -76,5 +84,7 @@ public class TemplateConfigUtil {
     	mailConfig.setTemplateFilePath(templateFilePath);
 		return mailConfig;
 	}
+
+	
 
 }

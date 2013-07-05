@@ -202,7 +202,7 @@ $().ready(function() {
 						<select name="product.productCategory.id" class="{required: true}">
 							<option value="">请选择...</option>
 							<#list productCategoryTreeList as list>
-								<option value="${list.id}"<#if (list.id == product.productCategory.id)!> selected</#if>>
+								<option value="${list.id}"<#if (list.id == (product.productCategory.id)!)> selected</#if>>
 									<#if list.level != 0>
 										<#list 1..list.level as i>------</#list>
 									</#if>
@@ -220,7 +220,7 @@ $().ready(function() {
 						<select name="product.brand.id">
 							<option value="">请选择...</option>
 							<#list allBrand as list>
-								<option value="${list.id}"<#if (list.id == product.brand.id)!> selected </#if>>
+								<option value="${list.id}"<#if (list.id == (product.brand.id)!)> selected </#if>>
 									${list.name}
 								</option>
 							</#list>
@@ -286,7 +286,7 @@ $().ready(function() {
 					</th>
 					<td>
 						<label><input type="radio" name="product.isBest" value="true" <#if (product.isBest)??><#if (product.isBest == true)> checked</#if></#if> />是</label>
-						<label><input type="radio" name="product.isBest" value="false" <#if (isAdd || ((product.isBest)?? && product.isBest == false))> checked</#if> />否</label>
+						<label><input type="radio" name="product.isBest" value="false" <#if (isAdd!false || ((product.isBest)?? && product.isBest == false))> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
@@ -295,7 +295,7 @@ $().ready(function() {
 					</th>
 					<td>
 						<label><input type="radio" name="product.isNew" value="true" <#if (product.isNew)??><#if (product.isNew == true)> checked</#if></#if> />是</label>
-						<label><input type="radio" name="product.isNew" value="false" <#if (isAdd || ((product.isNew)?? && product.isNew == false))> checked</#if> />否</label>
+						<label><input type="radio" name="product.isNew" value="false" <#if (isAdd!false|| ((product.isNew)?? && product.isNew == false))> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
@@ -304,7 +304,7 @@ $().ready(function() {
 					</th>
 					<td>
 						<label><input type="radio" name="product.isHot" value="true" <#if (product.isHot)??><#if (product.isHot == true)> checked</#if></#if> />是</label>
-						<label><input type="radio" name="product.isHot" value="false" <#if (isAdd || ((product.isHot)?? && product.isHot == false))> checked</#if> />否</label>
+						<label><input type="radio" name="product.isHot" value="false" <#if (isAdd!false || ((product.isHot)?? && product.isHot == false))> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
@@ -312,7 +312,7 @@ $().ready(function() {
 						是否上架:
 					</th>
 					<td>
-						<label><input type="radio" name="product.isMarketable" value="true"<#if (isAdd || ((product.isMarketable)?? && product.isMarketable == true))> checked</#if> />是</label>
+						<label><input type="radio" name="product.isMarketable" value="true"<#if (isAdd!false || ((product.isMarketable)?? && product.isMarketable == true))> checked</#if> />是</label>
 						<label><input type="radio" name="product.isMarketable" value="false"<#if ((product.isMarketable)?? && product.isMarketable == false)> checked</#if> />否</label>
 					</td>
 				</tr>

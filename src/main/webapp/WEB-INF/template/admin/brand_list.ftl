@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>商品类型列表 - Powered By ${systemConfig.systemName}</title>
+<title>品牌列表 - Powered By ${systemConfig.systemName}</title>
 <meta name="Author" content="SHOP++ Team" />
 <meta name="Copyright" content="SHOP++" />
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
@@ -13,30 +13,30 @@
 <body class="list">
 	<div class="body">
 		<div class="listBar">
-			<h1><span class="icon">&nbsp;</span>商品类型列表&nbsp;<span class="pageInfo">总记录数: ${pager.totalCount}(共${pager.pageCount}页)</span></h1>
+			<h1><span class="icon">&nbsp;</span>品牌列表&nbsp;<span class="pageInfo">总记录数: ${pager.totalCount}(共${pager.pageCount}页)</span></h1>
 		</div>
-		<form id="listForm" action="product_type!list.action" method="post">
+		<form id="listForm" action="brand!list.action" method="post">
 			<div class="operateBar">
-				<input type="button" class="addButton" onclick="location.href='product_type!add.action'" value="添加类型" />
+				<input type="button" class="addButton" onclick="location.href='brand!add.action'" value="添加品牌" />
 				<label>查找:</label>
 				<select name="pager.property">
 					<option value="name" <#if (pager.property)?? && pager.property == "name">selected="selected" </#if>>
-						类型名称
+						名称
 					</option>
 				</select>
 				<label class="searchText"><input type="text" name="pager.keyword" value="${pager.keyword!}" /></label><input type="button" id="searchButton" class="searchButton" value="" />
 				<label>每页显示:</label>
 				<select name="pager.pageSize" id="pageSize">
-					<option value="10" <#if (pager.pageSize)?? && pager.pageSize == 10>selected="selected" </#if>>
+					<option value="10" <#if ((pager.pageSize)!10) == 10>selected="selected" </#if>>
 						10
 					</option>
-					<option value="20" <#if (pager.pageSize)?? && pager.pageSize == 20>selected="selected" </#if>>
+					<option value="20" <#if ((pager.pageSize)!10) == 20>selected="selected" </#if>>
 						20
 					</option>
-					<option value="50" <#if (pager.pageSize)?? && pager.pageSize == 50>selected="selected" </#if>>
+					<option value="50" <#if ((pager.pageSize)!10) == 50>selected="selected" </#if>>
 						50
 					</option>
-					<option value="100" <#if (pager.pageSize)?? && pager.pageSize == 100>selected="selected" </#if>>
+					<option value="100" <#if ((pager.pageSize)!10) == 100>selected="selected" </#if>>
 						100
 					</option>
 				</select>
@@ -47,13 +47,16 @@
 						<input type="checkbox" class="allCheck" />
 					</th>
 					<th>
-						<span class="sort" name="name">类型名称</span>
+						<span class="sort" name="name">品牌名称</span>
 					</th>
 					<th>
-						<span class="sort" name="createDate">创建日期</span>
+						<span class="sort" name="url">网址</span>
 					</th>
 					<th>
-						<span>属性列表</span>
+						<span class="sort" name="logo">Logo</span>
+					</th>
+					<th>
+						<span class="sort" name="orderList">排序</span>
 					</th>
 					<th>
 						操作
@@ -65,25 +68,28 @@
 							<input type="checkbox" name="ids" value="${list.id}" />
 						</td>
 						<td>
-							${list.name}&nbsp;
+							${list.name}
 						</td>
 						<td>
-							<span title="${list.createDate?string("yyyy-MM-dd HH:mm:ss")}">${list.createDate}</span>
+							<#if (list.url != "")!>
+								<a href="${list.url}">${list.url}</a>
+							</#if>&nbsp;
 						</td>
 						<td>
-							<a href="product_attribute!list.action?productTypeId=${list.id}" title="查看属性列表">
-								[属性列表]
-							</a>
+							<#if (list.logo)??><a href="${base}${list.logo}" class="imagePreview" target="_blank">查看</a><#else>暂无</#if>
 						</td>
 						<td>
-							<a href="product_type!edit.action?id=${list.id}" title="编辑">[编辑]</a>
+							${list.orderList}
+						</td>
+						<td>
+							<a href="brand!edit.action?id=${list.id}" title="编辑">[编辑]</a>
 						</td>
 					</tr>
 				</#list>
 			</table>
 			<#if (pager.list?size > 0)>
 				<div class="pagerBar">
-					<input type="button" class="deleteButton" url="product_type!delete.action" value="删 除" disabled hidefocus="true" />
+					<input type="button" class="deleteButton" url="brand!delete.action" value="删 除" disabled hidefocus="true" />
 					<#include "/WEB-INF/template/admin/pager.ftl" />
 				</div>
 			<#else>
