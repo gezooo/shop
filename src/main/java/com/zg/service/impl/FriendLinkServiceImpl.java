@@ -42,7 +42,7 @@ public class FriendLinkServiceImpl extends BaseServiceImpl<FriendLink, String> i
 		super.setBaseDao(friendLinkDao);
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<FriendLink> getPictureFriendLinkList() {
 		List<FriendLink> pictureFriendLinkList = friendLinkDao.getPictureFriendLinkList();
 		if (pictureFriendLinkList != null) {
@@ -53,7 +53,7 @@ public class FriendLinkServiceImpl extends BaseServiceImpl<FriendLink, String> i
 		return pictureFriendLinkList;
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<FriendLink> getTextFriendLinkList() {
 		List<FriendLink> textFriendLinkList = friendLinkDao.getTextFriendLinkList();
 		if (textFriendLinkList != null) {
@@ -65,7 +65,7 @@ public class FriendLinkServiceImpl extends BaseServiceImpl<FriendLink, String> i
 	}
 	
 	@Override
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<FriendLink> getAll() {
 		List<FriendLink> allFriendLink = friendLinkDao.getAll();
 		if (allFriendLink != null) {
@@ -78,7 +78,7 @@ public class FriendLinkServiceImpl extends BaseServiceImpl<FriendLink, String> i
 
 	// 重写方法，删除同时删除Logo文件
 	@Override
-	@CacheEvict(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #friendLink.id")
 	public void delete(FriendLink friendLink) {
 		if (friendLink.getLogo() != null) {
 			File logoFile = new File(ServletActionContext.getServletContext().getRealPath(friendLink.getLogo()));
@@ -91,7 +91,7 @@ public class FriendLinkServiceImpl extends BaseServiceImpl<FriendLink, String> i
 
 	// 重写方法，删除同时删除Logo文件
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String id) {
 		FriendLink friendLink = friendLinkDao.load(id);
 		this.delete(friendLink);
@@ -99,7 +99,7 @@ public class FriendLinkServiceImpl extends BaseServiceImpl<FriendLink, String> i
 
 	// 重写方法，删除同时删除Logo文件
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String[] ids) {
 		for (String id : ids) {
 			this.delete(id);
@@ -107,13 +107,13 @@ public class FriendLinkServiceImpl extends BaseServiceImpl<FriendLink, String> i
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public String save(FriendLink friendLink) {
 		return friendLinkDao.save(friendLink);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void update(FriendLink friendLink) {
 		friendLinkDao.update(friendLink);
 	}

@@ -38,7 +38,7 @@ public class ProductAttributeServiceImpl extends BaseServiceImpl<ProductAttribut
 		super.setBaseDao(productAttributeDao);
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value = "caching", key="'ProductAttributeServiceImpl.getEnabledProductAttributeList'")
 	public List<ProductAttribute> getEnabledProductAttributeList() {
 		List<ProductAttribute> enabledProductAttributeList = productAttributeDao.getEnabledProductAttributeList();
 		if (enabledProductAttributeList != null) {
@@ -49,7 +49,7 @@ public class ProductAttributeServiceImpl extends BaseServiceImpl<ProductAttribut
 		return enabledProductAttributeList;
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value = "caching", key="'ProductAttributeServiceImpl.getEnabledProductAttributeList' + #productType.id")
 	public List<ProductAttribute> getEnabledProductAttributeList(ProductType productType) {
 		List<ProductAttribute> enabledProductAttributeList = productAttributeDao.getEnabledProductAttributeList(productType);
 		if (enabledProductAttributeList != null) {
@@ -65,31 +65,31 @@ public class ProductAttributeServiceImpl extends BaseServiceImpl<ProductAttribut
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries = true)
 	public void delete(ProductAttribute productAttribute) {
 		productAttributeDao.delete(productAttribute);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries = true)
 	public void delete(String id) {
 		productAttributeDao.delete(id);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries = true)
 	public void delete(String[] ids) {
 		productAttributeDao.delete(ids);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries = true)
 	public String save(ProductAttribute productAttribute) {
 		return productAttributeDao.save(productAttribute);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries = true)
 	public void update(ProductAttribute productAttribute) {
 		productAttributeDao.update(productAttribute);
 	}

@@ -34,7 +34,7 @@ import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
 import org.htmlparser.visitors.TextExtractingVisitor;
 
-import com.zg.util.CommonUtils;
+import com.zg.util.CommonUtil;
 
 @Entity
 @Indexed
@@ -45,11 +45,11 @@ public class Article extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -4332784274659680773L;
 	
-	public static final int MAX_RECOMMEND_ARTICLE_LIST_COUT = 20;
+	public static final int MAX_RECOMMEND_ARTICLE_LIST_COUNT = 20;
 	
-	public static final int MAX_HOT_ARTICLE_LIST_COUT = 20;
+	public static final int MAX_HOT_ARTICLE_LIST_COUNT = 20;
 	
-	public static final int MAX_NEW_ARTICLE_LIST_COUT = 20;
+	public static final int MAX_NEW_ARTICLE_LIST_COUNT = 20;
 	
 	public static final int MAX_PAGE_CONTENT_COUNT = 2000;
 	
@@ -242,7 +242,7 @@ public class Article extends BaseEntity {
 				divFilter, tableFilter, bulletListFilter, bulletFilter, definitionListFilter,
 				definitionListBulletFilter});
 		List<Integer> indexList = new ArrayList<Integer>();
-		List<String> contentList = CommonUtils.splitString(content, Article.MAX_PAGE_CONTENT_COUNT);
+		List<String> contentList = CommonUtil.splitString(content, Article.MAX_PAGE_CONTENT_COUNT);
 		for(int i = 0; i < contentList.size(); i++) {
 			String splitedContent = contentList.get(i);
 			Parser htmlParser = Parser.createParser(splitedContent, "UTF-8");

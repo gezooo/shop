@@ -23,25 +23,25 @@ $().ready(function() {
 			success: function(json) {
 				var productAttributeTrHtml = "";
 				$.each(json, function(i) {
-					if(json[i]["attributeType"] == "text") {
+					if(json[i]["attributeType"] == "TEXT") {
 						productAttributeTrHtml += '<tr class="productAttributeContentTr"><th>' + json[i].name + ':</th><td><input type="text" name="' + json[i].id + '"' + ((json[i].isRequired == true) ? ' class="formText {required: true}"' : ' class="formText"') + ' />' + ((json[i].isRequired == true) ? '<label class="requireField">*</label>' : '') + '</td></tr>';
-					} else if(json[i]["attributeType"] == "number") {
+					} else if(json[i]["attributeType"] == "NUMBER") {
 						productAttributeTrHtml += '<tr class="productAttributeContentTr"><th>' + json[i].name + ':</th><td><input type="text" name="' + json[i].id + '"' + ((json[i].isRequired == true) ? ' class="formText {required: true, number: true}"' : ' class="formText {number: true}"') + ' />' + ((json[i].isRequired == true) ? '<label class="requireField">*</label>' : '') + '</td></tr>';
-					} else if(json[i]["attributeType"] == "alphaint"){
+					} else if(json[i]["attributeType"] == "ALPHAINT"){
 						productAttributeTrHtml += '<tr class="productAttributeContentTr"><th>' + json[i].name + ':</th><td><input type="text" name="' + json[i].id + '"' + ((json[i].isRequired == true) ? ' class="formText {required: true, lettersonly: true}"' : ' class="formText {lettersonly: true}"') + ' />' + ((json[i].isRequired == true) ? '<label class="requireField">*</label>' : '') + '</td></tr>';
-					} else if(json[i]["attributeType"] == "select") {
+					} else if(json[i]["attributeType"] == "SELECT") {
 						var productAttributeOption = '<option value="">请选择...</option>';
 						for(var key in json[i]["attributeOptionList"]) {
 							productAttributeOption += ('<option value="' + json[i]["attributeOptionList"][key] + '">' + json[i]["attributeOptionList"][key] + '</option>');
 						}
 						productAttributeTrHtml += '<tr class="productAttributeContentTr"><th>' + json[i].name + ':</th><td><select name="' + json[i].id + '"' + ((json[i].isRequired == true) ? ' class="{required: true}"' : '') + '>' + productAttributeOption + '</select>' + ((json[i].isRequired == true) ? '<label class="requireField">*</label>' : '') + '</td></tr>';
-					} else if(json[i]["attributeType"] == "checkbox") {
+					} else if(json[i]["attributeType"] == "CHECKBOX") {
 						var productAttributeOption = "";
 						for(var key in json[i]["attributeOptionList"]) {
 							productAttributeOption += ('<label><input type="checkbox" name="' + json[i].id + '" value="' + json[i]["attributeOptionList"][key] + '"' + ((json[i].isRequired == true) ? ' class="{required: true, messagePosition: \'#' + json[i].id + 'MessagePosition\'}"' : '') +' />' + json[i]["attributeOptionList"][key] + '</label>&nbsp;&nbsp;');
 						}
 						productAttributeTrHtml += '<tr class="productAttributeContentTr"><th>' + json[i].name + ':</th><td>' + productAttributeOption + ((json[i].isRequired == true) ? '<span id="' + json[i].id + 'MessagePosition"></span><label class="requireField">*</label>' : '') + '</td></tr>';
-					} else if(json[i]["attributeType"] == "date") {
+					} else if(json[i]["attributeType"] == "DATE") {
 						productAttributeTrHtml += '<tr class="productAttributeContentTr"><th>' + json[i].name + ':</th><td><input type="text" name="' + json[i].id + '"' + ((json[i].isRequired == true) ? ' class="formText datePicker {required: true, dateISO: true}"' : ' class="formText datePicker {dateISO: true}"') + ' />' + ((json[i].isRequired == true) ? '<label class="requireField">*</label>' : '') + '</td></tr>';
 					}
 				})
@@ -424,16 +424,16 @@ $().ready(function() {
 							${list.name}:
 						</th>
 						<td>
-							<#if list.attributeType == "text">
+							<#if list.attributeType == "TEXT">
 								<input type="text" name="${list.id}" class="formText<#if list.isRequired> {required: true}</#if>" value="${(product.productAttributeMap.get(list)[0])!}" />
 								<#if list.isRequired><label class="requireField">*</label></#if>
-							<#elseif list.attributeType == "number">
+							<#elseif list.attributeType == "NUMBER">
 								<input type="text" name="${list.id}" class="formText {<#if list.isRequired>required: true, </#if>number: true}" value="${(product.productAttributeMap.get(list)[0])!}" />
 								<#if list.isRequired><label class="requireField">*</label></#if>
-							<#elseif list.attributeType == "alphaint">
+							<#elseif list.attributeType == "ALPHAINT">
 								<input type="text" name="${list.id}" class="formText {<#if list.isRequired>required: true, </#if>lettersonly: true}" value="${(product.productAttributeMap.get(list)[0])!}" />
 								<#if list.isRequired><label class="requireField">*</label></#if>
-							<#elseif list.attributeType == "select">
+							<#elseif list.attributeType == "SELECT">
 								<select name="${list.id}"<#if list.isRequired> class="{required: true}"</#if>>
 									<option value="">请选择...</option>
 									<#list list.attributeOptionList as attributeOptionList>
@@ -441,13 +441,13 @@ $().ready(function() {
 									</#list>
 								</select>
 								<#if list.isRequired><label class="requireField">*</label></#if>
-							<#elseif list.attributeType == "checkbox">
+							<#elseif list.attributeType == "CHECKBOX">
 								<#list list.attributeOptionList as attributeOptionList>
 									<label><input type="checkbox" name="${list.id}"<#if list.isRequired> class="{required: true, messagePosition: '#${list.id}MessagePosition'}"</#if> value="${attributeOptionList}"<#if (product.productAttributeMap.get(list).contains(attributeOptionList))!> checked</#if> />${attributeOptionList}</label>
 								</#list>
 								<span id="${list.id}MessagePosition"></span>
 								<#if list.isRequired><label class="requireField">*</label></#if>
-							<#elseif list.attributeType == "date">
+							<#elseif list.attributeType == "DATE">
 								<input type="text" name="${list.id}" class="formText datePicker {<#if list.isRequired>required: true, </#if>dateISO: true}" value="${(product.productAttributeMap.get(list)[0])!}" />
 								<#if list.isRequired><label class="requireField">*</label></#if>
 							</#if>

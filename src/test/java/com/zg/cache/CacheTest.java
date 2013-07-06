@@ -1,11 +1,21 @@
 package com.zg.cache;
 
 
+import java.util.List;
+
+import net.sf.ehcache.Ehcache;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.zg.entity.Product;
+import com.zg.util.EncacheCacheConfigUtil;
+import com.zg.util.SpringUtil;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -14,6 +24,9 @@ public class CacheTest {
 	
 	@Autowired
 	private CacheMethod m;
+	
+	@Autowired
+	private EhCacheCacheManager cacheManager;
 	
 	
 	
@@ -44,6 +57,23 @@ public class CacheTest {
 		
 		
 	}
+	
+	@Test
+	public void testMethod(){
+		Product p = new Product();
+		p.setId("001");
+		m.method(p);
+		m.method(p);
+		dumpCache();
+	}
+	
+	@Test
+	public void testMethod2(){
+
+		m.method("abc");
+		m.method("abc");
+		dumpCache();
+	}
 
 
 
@@ -55,6 +85,32 @@ public class CacheTest {
 
 	public void setM(CacheMethod m) {
 		this.m = m;
+	}
+	
+	//@Test
+	public void dumpCache(){
+		
+		//EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtil.getBean(EncacheCacheConfigUtil.GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
+		//Cache cache = cacheManager.getCache("caching");
+		//Ehcache c = cacheManager.getCacheManager().getEhcache("caching");
+		
+		Cache cache = cacheManager.getCache("caching");
+		
+		Ehcache c = (Ehcache)cache.getNativeCache();
+		List l = c.getKeys();
+		for(Object o : l){
+			System.out.println(o.toString() + " : " + c.get(o));
+			
+		}
+		
+	}
+
+	public EhCacheCacheManager getCacheManager() {
+		return cacheManager;
+	}
+
+	public void setCacheManager(EhCacheCacheManager cacheManager) {
+		this.cacheManager = cacheManager;
 	}
 
 }

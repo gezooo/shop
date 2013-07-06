@@ -1,6 +1,7 @@
 package com.zg.service.impl;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,8 @@ import org.hibernate.Transaction;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.zg.beans.HtmlConfig;
@@ -27,11 +30,14 @@ import com.zg.search.SearchCallback;
 import com.zg.search.SearchCriterial;
 import com.zg.service.ArticleService;
 import com.zg.service.HtmlService;
+import com.zg.util.CommonUtil;
 import com.zg.util.TemplateConfigUtil;
 
 
 @Service
 public class ArticleServiceImpl extends BaseServiceImpl<Article, String> implements ArticleService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 
 	@Resource
 	private ArticleDao articleDao;
@@ -150,17 +156,29 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, String> impleme
 	}
 	
 	public String save(Article article) {
+		logger.debug(CommonUtil.displayMessage("Called", null));
+		
 		article.setPageCount(0);
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ARTICLE_CONTENT);
+		logger.debug(CommonUtil.displayMessage(" htmlConfig " + htmlConfig.getHtmlFilePath(), null));
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
+		logger.debug(CommonUtil.displayMessage(" htmlConfig " + htmlConfig.getHtmlFilePath(), null));
 		article.setHtmlFilePath(htmlFilePath);
+		
 		String id = articleDao.save(article);
 		articleDao.flush();
 		articleDao.evict(article);
 		article = articleDao.load(id);
 		if (article.getIsPublication()) {
+			
+			logger.debug(CommonUtil.displayMessage(" articleContentBuildHtml ", null));
+
 			htmlService.articleContentBuildHtml(article);
+			logger.debug(CommonUtil.displayMessage(" articleContentBuildHtml finished ", null));
+
 		}
+		
+	
 		return id;
 		
 	}

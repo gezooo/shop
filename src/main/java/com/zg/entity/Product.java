@@ -35,6 +35,7 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 
+import com.zg.beans.JsonJavaTransformerFactory;
 import com.zg.beans.ProductImage;
 import com.zg.util.SystemConfigUtil;
 
@@ -371,10 +372,7 @@ public class Product extends BaseEntity {
 		if(StringUtils.isEmpty(this.productImageListStore)) {
 			return null;
 		}
-		JsonConfig jsonConfig = new JsonConfig();
-		jsonConfig.setRootClass(ProductImage.class);
-		JSONArray jsonArray = JSONArray.fromObject(productImageListStore);
-		return (List<ProductImage>) JSONSerializer.toJava(jsonArray);
+		return JsonJavaTransformerFactory.getJsonJavaTransformer().json2JavaList(this.productImageListStore, ProductImage.class);
 		
 	}
 	
@@ -384,8 +382,7 @@ public class Product extends BaseEntity {
 			this.productImageListStore = null;
 			return;
 		}
-		JSONArray jsonArray = JSONArray.fromObject(productImageList);
-		this.productImageListStore = jsonArray.toString();
+		this.productImageListStore = JsonJavaTransformerFactory.getJsonJavaTransformer().javaList2json(productImageList);
 		
 	}
 	
@@ -400,8 +397,9 @@ public class Product extends BaseEntity {
 			ProductAttribute productAttribute = entry.getKey();
 			String productAttributeValueStore = entry.getValue();
 			if(StringUtils.isNotEmpty(productAttributeValueStore)) {
-				JSONArray jsonArray = JSONArray.fromObject(productAttributeValueStore);
-				productAttributeMap.put(productAttribute, (List<String>) JSONSerializer.toJava(jsonArray));
+				List<String> productAttrValueStoreVar = JsonJavaTransformerFactory.getJsonJavaTransformer().json2JavaList(productAttributeValueStore, String.class);
+				//JSONArray jsonArray = JSONArray.fromObject(productAttributeValueStore);
+				productAttributeMap.put(productAttribute, productAttrValueStoreVar);
 			} else {
 				productAttributeMap.put(productAttribute, null);
 			}
@@ -421,8 +419,8 @@ public class Product extends BaseEntity {
 			ProductAttribute productAttribute = entry.getKey();
 			List<String> productAttributeValueList = entry.getValue();
 			if(productAttributeValueList != null && productAttributeValueList.size() > 0) {
-				JSONArray jsonArray = JSONArray.fromObject(productAttributeValueList);
-				productAttributeMapStore.put(productAttribute, jsonArray.toString());
+				String productAttrValueStoreJsonVar = JsonJavaTransformerFactory.getJsonJavaTransformer().javaList2json(productAttributeValueList);
+				productAttributeMapStore.put(productAttribute, productAttrValueStoreJsonVar);
 			} else {
 				productAttributeMapStore.put(productAttribute, null);
 			}

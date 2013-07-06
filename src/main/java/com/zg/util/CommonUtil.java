@@ -1,5 +1,7 @@
 package com.zg.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -35,6 +37,55 @@ public class CommonUtil {
 			stringBuffer.append(randomChar[Math.abs(random.nextInt()) % randomChar.length]);
 		}
 		return stringBuffer.toString();
+	}
+	
+	public static String displayMessage(String Message, List<String> params) {
+
+        String methodName = "";
+        Throwable t = new Throwable();
+        StackTraceElement[] elements = t.getStackTrace();
+        if (elements.length >= 1) {
+            methodName = elements[1].getMethodName();
+
+        } else {
+            methodName = "";
+        }
+        String tmp = methodName + ": ";
+        String tmpMessage = Message;
+        if (params != null) {
+            for (int i = 0; i < params.size(); i++) {
+
+                int pos = tmpMessage.indexOf("%");
+                if (pos >= 0) {
+
+                    tmp = tmp + tmpMessage.substring(0, pos);
+                    tmp = tmp + params.get(i);
+                    tmpMessage = tmpMessage.substring(pos + 1);
+
+                } else {
+                    tmp = tmp + tmpMessage;
+                    break;
+                }
+            }
+        } else {
+            tmp = tmp + tmpMessage;
+        }
+
+        return tmp;
+    }
+	
+	public static List<String> splitString(String str,
+			int length) {
+		List<String> rt = new ArrayList<String>();
+		for(int i = 0; i < str.length(); i += length) {
+			int endIndex = i + length;
+			if(endIndex <= str.length()) {
+				rt.add(str.substring(i,i + length));
+			} else {
+				rt.add(str.substring(i, str.length() - 1));
+			}
+		}
+		return rt;
 	}
 
 }

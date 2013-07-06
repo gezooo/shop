@@ -28,13 +28,13 @@ public class FriendLinkDaoImpl extends BaseDaoImpl<FriendLink, String> implement
 
 	@SuppressWarnings("unchecked")
 	public List<FriendLink> getPictureFriendLinkList() {
-		String hql = "from FriendLink friendLink where friendLink.logo is not null order by friendLink.orderList asc friendLink.createDate desc";
+		String hql = "from FriendLink as friendLink where friendLink.logo is not null order by friendLink.orderList asc, friendLink.createDate desc";
 		return getSession().createQuery(hql).list();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<FriendLink> getTextFriendLinkList() {
-		String hql = "from FriendLink friendLink where friendLink.logo is null order by friendLink.orderList asc friendLink.createDate desc";
+		String hql = "from FriendLink as friendLink where friendLink.logo is null order by friendLink.orderList asc, friendLink.createDate desc";
 		return getSession().createQuery(hql).list();
 	}
 	
@@ -42,7 +42,7 @@ public class FriendLinkDaoImpl extends BaseDaoImpl<FriendLink, String> implement
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<FriendLink> getAll() {
-		String hql = "from FriendLink friendLink order by friendLink.orderList asc friendLink.createDate desc";
+		String hql = "from FriendLink as friendLink order by friendLink.orderList asc, friendLink.createDate desc";
 		return getSession().createQuery(hql).list();
 	}
 
@@ -50,7 +50,7 @@ public class FriendLinkDaoImpl extends BaseDaoImpl<FriendLink, String> implement
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<FriendLink> getList(String propertyName, Object value) {
-		String hql = "from FriendLink friendLink where friendLink." + propertyName + "=? order by friendLink.orderList asc friendLink.createDate desc";
+		String hql = "from FriendLink as friendLink where friendLink." + propertyName + "=? order by friendLink.orderList asc, friendLink.createDate desc";
 		return getSession().createQuery(hql).setParameter(0, value).list();
 	}
 	

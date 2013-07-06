@@ -25,7 +25,7 @@ public class AreaServiceImpl extends BaseServiceImpl<Area, String> implements Ar
 	}
 	
 	@Override
-	@Cacheable("caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<Area> getRootAreaList() {
 		List<Area> rootAreaList = areaDao.getRootAreaList();
 		if (rootAreaList != null) {
@@ -37,7 +37,7 @@ public class AreaServiceImpl extends BaseServiceImpl<Area, String> implements Ar
 	}
 
 	@Override
-	@Cacheable("caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #area.id")
 	public List<Area> getParentAreaList(Area area) {
 		List<Area> parentAreaList = areaDao.getParentAreaList(area);
 		if (parentAreaList != null) {
@@ -49,7 +49,7 @@ public class AreaServiceImpl extends BaseServiceImpl<Area, String> implements Ar
 	}
 
 	@Override
-	@Cacheable("caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #area.id")
 	public List<Area> getChildrenAreaList(Area area) {
 		List<Area> childrenAreaList = areaDao.getChildrenAreaList(area);
 		if (childrenAreaList != null) {
@@ -76,7 +76,7 @@ public class AreaServiceImpl extends BaseServiceImpl<Area, String> implements Ar
 	}
 
 	@Override
-	@Cacheable("caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #area.id")
 	public String getAreaString(Area area) {
 		StringBuilder stringBuilder = new StringBuilder();
 		List<Area> parentAreaList = this.getParentAreaList(area);
@@ -90,7 +90,7 @@ public class AreaServiceImpl extends BaseServiceImpl<Area, String> implements Ar
 	}
 
 	@Override
-	@Cacheable("caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #areaPath")
 	public String getAreaString(String areaPath) {
 		if (!isAreaPath(areaPath)) {
 			return null;
@@ -105,31 +105,31 @@ public class AreaServiceImpl extends BaseServiceImpl<Area, String> implements Ar
 	}
 	
 	@Override
-	@CacheEvict("caching")
+	@CacheEvict(value="caching", allEntries=true)
 	public void delete(Area entity) {
 		areaDao.delete(entity);
 	}
 
 	@Override
-	@CacheEvict("caching")
+	@CacheEvict(value="caching", allEntries=true)
 	public void delete(String id) {
 		areaDao.delete(id);
 	}
 
 	@Override
-	@CacheEvict("caching")
+	@CacheEvict(value="caching", allEntries=true)
 	public void delete(String[] ids) {
 		areaDao.delete(ids);
 	}
 
 	@Override
-	@CacheEvict("caching")
+	@CacheEvict(value="caching", allEntries=true)
 	public String save(Area entity) {
 		return areaDao.save(entity);
 	}
 
 	@Override
-	@CacheEvict("caching")
+	@CacheEvict(value="caching", allEntries=true)
 	public void update(Area entity) {
 		areaDao.update(entity);
 	}
