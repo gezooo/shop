@@ -22,7 +22,7 @@ public class AgreementServiceImpl extends BaseServiceImpl<Agreement, String> imp
 		super.setBaseDao(agreementDao);
 	}
 	
-	@Cacheable("caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	@Override
 	public Agreement getAgreement() {
 		Agreement agreement = agreementDao.getAgreement();
@@ -31,31 +31,31 @@ public class AgreementServiceImpl extends BaseServiceImpl<Agreement, String> imp
 	}
 	
 	@Override
-	@CacheEvict("caching")
+	@CacheEvict(value="caching", allEntries=true)
 	public void delete(Agreement entity) {
 		agreementDao.delete(entity);
 	}
 	
 	@Override
-	@CacheEvict("caching")
+	@CacheEvict(value="caching", allEntries=true)
 	public void delete(String id) {
 		agreementDao.delete(id);
 	}
 
 	@Override
-	@CacheEvict("caching")
+	@CacheEvict(value="caching", allEntries=true)
 	public void delete(String[] ids) {
 		agreementDao.delete(ids);
 	}
 
 	@Override
-	@CacheEvict("caching")
+	@CacheEvict(value="caching", allEntries=true)
 	public String save(Agreement entity) {
 		return agreementDao.save(entity);
 	}
 
 	@Override
-	@CacheEvict("caching")
+	@CacheEvict(value="caching", allEntries=true)
 	public void update(Agreement entity) {
 		agreementDao.update(entity);
 	}
