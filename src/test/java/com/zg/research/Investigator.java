@@ -14,6 +14,7 @@ public class Investigator {
 		System.out.println("\\u0023");
 		
 		DaoAuthenticationProvider d;
+		org.apache.struts2.views.freemarker.FreemarkerManager f;
 
 	}
 

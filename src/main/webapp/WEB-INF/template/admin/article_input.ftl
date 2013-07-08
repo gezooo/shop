@@ -41,7 +41,7 @@
 						<select name="article.articleCategory.id" class="{required: true}">
 							<option value="">请选择...</option>
 							<#list articleCategoryTreeList as list>
-								<option value="${list.id}"<#if (list.id == article.articleCategory.id)!> selected</#if>>
+								<option value="${list.id}"<#if (list.id == article.articleCategory.id)!false> selected</#if>>
 									<#if list.level != 0>
 										<#list 1..list.level as i>
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -68,7 +68,7 @@
 					</th>
 					<td>
 						<label><input type="radio" name="article.isRecommend" value="true"<#if (article.isRecommend == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="article.isRecommend" value="false"<#if (isAdd || article.isRecommend == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="article.isRecommend" value="false"<#if (isAdd || article.isRecommend == false)!false> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>
@@ -76,7 +76,7 @@
 						是否置顶:
 					</th>
 					<td>
-						<label><input type="radio" name="article.isTop" value="true"<#if (article.isTop == true)!> checked</#if> />是</label>
+						<label><input type="radio" name="article.isTop" value="true"<#if (article.isTop == true)!false> checked</#if> />是</label>
 						<label><input type="radio" name="article.isTop" value="false"<#if (isAdd || article.isTop == false)!> checked</#if> />否</label>
 					</td>
 				</tr>
@@ -85,8 +85,8 @@
 						是否发布:
 					</th>
 					<td>
-						<label><input type="radio" name="article.isPublication" value="true"<#if (isAdd || article.isPublication == true)!> checked</#if> />是</label>
-						<label><input type="radio" name="article.isPublication" value="false"<#if (article.isPublication == false)!> checked</#if> />否</label>
+						<label><input type="radio" name="article.isPublication" value="true"<#if (isAdd || article.isPublication == true)!false> checked</#if> />是</label>
+						<label><input type="radio" name="article.isPublication" value="false"<#if (article.isPublication == false)!false> checked</#if> />否</label>
 					</td>
 				</tr>
 				<tr>

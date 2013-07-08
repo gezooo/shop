@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.opensymphony.xwork2.inject.Inject;
+import com.opensymphony.xwork2.util.ClassLoaderUtil;
 import com.zg.beans.HtmlConfig;
 import com.zg.beans.SystemConfig;
 import com.zg.dao.ArticleDao;
@@ -52,6 +55,18 @@ public class HtmlServiceImpl implements HtmlService {
 
 	@Resource
 	private FreemarkerManager freemarkerManager;
+	
+	/*
+	public FreemarkerManager getFreemarkerManager() {
+		return freemarkerManager;
+	}
+
+	@Inject
+	public void setFreemarkerManager(FreemarkerManager freemarkerManager) {
+		this.freemarkerManager = freemarkerManager;
+	}
+	*/
+
 	@Resource
 	private NavigationService navigationService;
 	@Resource
@@ -72,32 +87,31 @@ public class HtmlServiceImpl implements HtmlService {
 	public void buildHtml(String templateFilePath, String htmlFilePath,
 			Map<String, Object> data) {
 		logger.debug(CommonUtil.displayMessage("Called", null));
+		logger.debug("templateFilePath: " + templateFilePath);
+		logger.debug("htmlFilePath: " + htmlFilePath);
+
 		ServletContext servletContext = ServletActionContext.getServletContext();
 		logger.debug(CommonUtil.displayMessage("ServletActionContext.getServletContext()", null));
 		logger.debug(CommonUtil.displayMessage(servletContext.getContextPath(), null));
+		//Configuration configuration = freemarkerManager.getConfiguration(servletContext);
 
-
-		Configuration configuration = freemarkerManager.getConfiguration(servletContext);
-		logger.debug(CommonUtil.displayMessage("freemarkerManager.getConfiguration", null));
+		Configuration freemarkerCfg = new Configuration();
+		 freemarkerCfg.setServletContextForTemplateLoading(ServletActionContext  
+	                .getServletContext(), "/");  
+		
+		 /*
+		  * the container did not injected by Spring
+		Configuration configuration = configuration = freemarkerManager.getConfiguration(servletContext);	
+		*/
 
 		try {
-			Template template = configuration.getTemplate(templateFilePath);
-			logger.debug(CommonUtil.displayMessage("configuration.getTemplate", null));
-
+			Template template = freemarkerCfg.getTemplate(templateFilePath);
 			File htmlFile = new File(servletContext.getRealPath(htmlFilePath));
-			logger.debug(CommonUtil.displayMessage("File(servletContext", null));
-
 			File htmlDirectory = htmlFile.getParentFile();
-			logger.debug(CommonUtil.displayMessage("htmlFile.getParentFile", null));
-
 			if (!htmlDirectory.exists()) {
 				htmlDirectory.mkdirs();
 			}
-			logger.debug(CommonUtil.displayMessage("htmlDirectory.mkdirs", null));
-
 			Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(htmlFile), "UTF-8"));
-			logger.debug(CommonUtil.displayMessage("new BufferedWriter", null));
-
 			template.process(data, out);
 			logger.debug(CommonUtil.displayMessage("template.process", null));
 
@@ -115,70 +129,27 @@ public class HtmlServiceImpl implements HtmlService {
 	public Map<String, Object> getCommonData() {
 		Map<String, Object> commonData = new HashMap<String, Object>();
 		ServletContext servletContext = ServletActionContext.getServletContext();
-		logger.debug(CommonUtil.displayMessage("Called 1", null));
-
 		ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n");
-		logger.debug(CommonUtil.displayMessage("Called 2", null));
-
 		ResourceBundleModel resourceBundleModel = new ResourceBundleModel(resourceBundle, new BeansWrapper());
-		logger.debug(CommonUtil.displayMessage("Called 3", null));
-
 		SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
-		
-		logger.debug(CommonUtil.displayMessage("Called 4", null));
-
-		
 		String priceCurrencyFormat = SystemConfigUtil.getPriceCurrencyFormat();
-		
-		logger.debug(CommonUtil.displayMessage("Called 5", null));
-
 		String priceUnitCurrencyFormat = SystemConfigUtil.getPriceUnitCurrencyFormat();
-		
-		logger.debug(CommonUtil.displayMessage("Called 6", null));
-
-		
 		String orderCurrencyFormat = SystemConfigUtil.getOrderCurrencyFormat();
-		
-		logger.debug(CommonUtil.displayMessage("Called 7", null));
-
 		String orderUnitCurrencyFormat = SystemConfigUtil.getOrderUnitCurrencyFormat();
-		
-		logger.debug(CommonUtil.displayMessage("Called 8", null));
-
-		
 		commonData.put("bundle", resourceBundleModel);
 		commonData.put("base", servletContext.getContextPath());
-		logger.debug(CommonUtil.displayMessage("Called 9", null));
-
 		commonData.put("systemConfig", systemConfig);
 		commonData.put("priceCurrencyFormat", priceCurrencyFormat);
 		commonData.put("priceUnitCurrencyFormat", priceUnitCurrencyFormat);
 		commonData.put("orderCurrencyFormat", orderCurrencyFormat);
 		commonData.put("orderUnitCurrencyFormat", orderUnitCurrencyFormat);
 		commonData.put("topNavigationList", navigationService.getTopNavigationList());
-		
-		logger.debug(CommonUtil.displayMessage("Called 10", null));
-
 		commonData.put("middleNavigationList", navigationService.getMiddleNavigationList());
-		
-		logger.debug(CommonUtil.displayMessage("Called 11", null));
-
 		commonData.put("bottomNavigationList", navigationService.getBottomNavigationList());
-		logger.debug(CommonUtil.displayMessage("Called 12", null));
-
 		commonData.put("friendLinkList", friendLinkService.getAll());
-		
-		logger.debug(CommonUtil.displayMessage("Called 13", null));
-
 		commonData.put("pictureFriendLinkList", friendLinkService.getPictureFriendLinkList());
-		logger.debug(CommonUtil.displayMessage("Called 14", null));
-
 		commonData.put("textFriendLinkList", friendLinkService.getTextFriendLinkList());
-		logger.debug(CommonUtil.displayMessage("Called 15", null));
-
 		commonData.put("footer", footerService.getFooter());
-		logger.debug(CommonUtil.displayMessage("Called 16", null));
-
 		return commonData;
 	}
 	
@@ -256,69 +227,33 @@ public class HtmlServiceImpl implements HtmlService {
 	public void articleContentBuildHtml(Article article) {
 		logger.debug(CommonUtil.displayMessage("Called", null));
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ARTICLE_CONTENT);
-		logger.debug(CommonUtil.displayMessage("after TemplateConfigUtil.getHtmlConfig", null));
-
 		ArticleCategory articleCategory = article.getArticleCategory();
-		logger.debug(CommonUtil.displayMessage("after article.getArticleCategory", null));
-
 		Map<String, Object> data = getCommonData();
-		logger.debug(CommonUtil.displayMessage("after getCommonData", null));
-
 		data.put("article", article);
 		data.put("pathList", articleCategoryService.getArticleCategoryPathList(article));
-		logger.debug(CommonUtil.displayMessage("after pathList", null));
-
 		data.put("rootArticleCategoryList", articleCategoryService.getRootArticleCategoryList());
-		logger.debug(CommonUtil.displayMessage("after rootArticleCategoryList", null));
-
 		data.put("recommendArticleList", articleDao.getRecommendArticleList(articleCategory, Article.MAX_RECOMMEND_ARTICLE_LIST_COUNT));
-		logger.debug(CommonUtil.displayMessage("after recommendArticleList", null));
-
 		data.put("hotArticleList", articleDao.getHotArticleList(articleCategory, Article.MAX_HOT_ARTICLE_LIST_COUNT));
-		logger.debug(CommonUtil.displayMessage("after hotArticleList", null));
-
 		data.put("newArticleList", articleDao.getNewArticleList(articleCategory, Article.MAX_NEW_ARTICLE_LIST_COUNT));
-		logger.debug(CommonUtil.displayMessage("after newArticleList", null));
-
 		String htmlFilePath = article.getHtmlFilePath();
-		logger.debug(CommonUtil.displayMessage("after getHtmlFilePath", null));
-
 		String prefix = StringUtils.substringBeforeLast(htmlFilePath, ".");
-		logger.debug(CommonUtil.displayMessage("after prefix", null));
-
 		String extension = StringUtils.substringAfterLast(htmlFilePath, ".");
-		logger.debug(CommonUtil.displayMessage("after extension", null));
-
-		
 		List<String> pageContentList = article.getPageContentList();
-		logger.debug(CommonUtil.displayMessage("after pageContentList", null));
-
 		article.setPageCount(pageContentList.size());
-		
-		logger.debug(CommonUtil.displayMessage("after article.setPageCount", null));
-
 		articleDao.update(article);
-		
-		logger.debug(CommonUtil.displayMessage("after articleDao.update", null));
-
 		articleDao.flush();
-		logger.debug(CommonUtil.displayMessage("after articleDao.flush", null));
 
 		for (int i = 0; i < pageContentList.size(); i++) {
 			data.put("content", pageContentList.get(i));
 			data.put("pageNumber", i + 1);
 			data.put("pageCount", pageContentList.size());
 			String templateFilePath = htmlConfig.getTemplateFilePath();
-			logger.debug(CommonUtil.displayMessage("after getTemplateFilePath", null));
-
 			String currentHtmlFilePath = null;
 			if (i == 0) {
 				currentHtmlFilePath = htmlFilePath;
 			} else {
 				currentHtmlFilePath = prefix + "_" + (i + 1) + "." + extension;
 			}
-			logger.debug(CommonUtil.displayMessage("after currentHtmlFilePath" + currentHtmlFilePath, null));
-
 			buildHtml(templateFilePath, currentHtmlFilePath, data);
 			logger.debug(CommonUtil.displayMessage("after buildHtml" + currentHtmlFilePath, null));
 
@@ -341,54 +276,46 @@ public class HtmlServiceImpl implements HtmlService {
 		buildHtml(templateFilePath, htmlFilePath, data);		
 	}
 	
-	@Override
 	public void errorPageBuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE);
 		Map<String, Object> data = getCommonData();
-		data.put("errorContent", "ç³»ç»Ÿå‡ºçŽ°å¼‚å¸¸ï¼Œè¯·ä¸Žç®¡ç�†å‘˜è�”ç³»ï¼�");
+		data.put("errorContent", "系统出现异常，请与管理员联系！");
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
-		
 	}
 	
-	@Override
 	public void errorPageAccessDeniedBuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE);
 		Map<String, Object> data = getCommonData();
-		data.put("errorContent", "æ‚¨æ— æ­¤è®¿é—®æ�ƒé™�ï¼�");
+		data.put("errorContent", "您无此访问权限！");
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
-		
 	}
 	
-	@Override
 	public void errorPage500BuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE_500);
 		Map<String, Object> data = getCommonData();
-		data.put("errorContent", "ç³»ç»Ÿå‡ºçŽ°å¼‚å¸¸ï¼Œè¯·ä¸Žç®¡ç�†å‘˜è�”ç³»ï¼�");
+		data.put("errorContent", "系统出现异常，请与管理员联系！");
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
-		
 	}
 	
-	@Override
 	public void errorPage404BuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE_404);
 		Map<String, Object> data = getCommonData();
-		data.put("errorContent", "æ‚¨è®¿é—®çš„é¡µé�¢ä¸�å­˜åœ¨ï¼�");
+		data.put("errorContent", "您访问的页面不存在！");
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
 	}
 	
-	@Override
 	public void errorPage403BuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE_403);
 		Map<String, Object> data = getCommonData();
-		data.put("errorContent", "ç³»ç»Ÿå‡ºçŽ°å¼‚å¸¸ï¼Œè¯·ä¸Žç®¡ç�†å‘˜è�”ç³»ï¼�");
+		data.put("errorContent", "系统出现异常，请与管理员联系！");
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
