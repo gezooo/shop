@@ -388,12 +388,12 @@ public class SystemConfig implements java.io.Serializable{
 	}
 
 
-	public boolean isLoginFailureLock() {
+	public boolean getIsLoginFailureLock() {
 		return isLoginFailureLock;
 	}
 
 
-	public void setLoginFailureLock(boolean isLoginFailureLock) {
+	public void setIsLoginFailureLock(boolean isLoginFailureLock) {
 		this.isLoginFailureLock = isLoginFailureLock;
 	}
 

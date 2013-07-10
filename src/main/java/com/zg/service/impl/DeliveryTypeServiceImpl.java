@@ -6,11 +6,13 @@ import javax.annotation.Resource;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
 
 import com.zg.dao.DeliveryTypeDao;
 import com.zg.entity.DeliveryType;
 import com.zg.service.DeliveryTypeService;
 
+@Service
 public class DeliveryTypeServiceImpl extends BaseServiceImpl<DeliveryType, String> implements DeliveryTypeService {
 
 	@Resource

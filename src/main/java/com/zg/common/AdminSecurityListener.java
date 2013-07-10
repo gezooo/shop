@@ -50,7 +50,7 @@ public class AdminSecurityListener implements ApplicationListener {
 			admin.setLoginIp(loginIp);
 			admin.setLoginDate(new Date());
 			SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
-			if (systemConfig.isLoginFailureLock() == false) {
+			if (systemConfig.getIsLoginFailureLock() == false) {
 				return;
 			}
 			admin.setLoginFailureCount(0);
@@ -63,7 +63,7 @@ public class AdminSecurityListener implements ApplicationListener {
 			Authentication authentication = (Authentication) authEvent.getSource();
 			String loginUsername = authentication.getName();
 			SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
-			if (systemConfig.isLoginFailureLock() == false) {
+			if (systemConfig.getIsLoginFailureLock() == false) {
 				return;
 			}
 			Admin admin = adminService.get("username", loginUsername);

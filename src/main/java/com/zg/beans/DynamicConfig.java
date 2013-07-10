@@ -1,6 +1,13 @@
 package com.zg.beans;
 
-public class DynamicConfig {
+import java.io.Serializable;
+
+public class DynamicConfig implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1811827836477425032L;
 	
 	private String name;// 配置名称
 	private String description;// 描述

@@ -49,7 +49,7 @@ public class NavigationDaoImpl extends BaseDaoImpl<Navigation, String> implement
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Navigation> getAll() {
-		String hql = "from Navigation navigation order by navigation.orderList asc navigation.createDate desc";
+		String hql = "from Navigation navigation order by navigation.orderList asc, navigation.createDate desc";
 		return getSession().createQuery(hql).list();
 	}
 
@@ -57,15 +57,15 @@ public class NavigationDaoImpl extends BaseDaoImpl<Navigation, String> implement
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Navigation> getList(String propertyName, Object value) {
-		String hql = "from Navigation navigation where navigation." + propertyName + "=? order by navigation.orderList asc navigation.createDate desc";
+		String hql = "from Navigation navigation where navigation." + propertyName + "=? order by navigation.orderList asc, navigation.createDate desc";
 		return getSession().createQuery(hql).setParameter(0, value).list();
 	}
 	
 	// 根据orderList排序
 	@Override
-	public Pager findByPager(Pager pager, DetachedCriteria detachedCriteria) {
+	public Pager<Navigation> findByPager(Pager<Navigation> pager, DetachedCriteria detachedCriteria) {
 		if (pager == null) {
-			pager = new Pager();
+			pager = new Pager<Navigation>();
 			pager.setOrderBy("orderList");
 			pager.setOrderType(OrderType.ASC);
 		}
@@ -74,7 +74,7 @@ public class NavigationDaoImpl extends BaseDaoImpl<Navigation, String> implement
 
 	// 根据orderList排序
 	@Override
-	public Pager findByPager(Pager pager) {
+	public Pager<Navigation> findByPager(Pager<Navigation> pager) {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Navigation.class);
 		return this.findByPager(pager, detachedCriteria);
 	}

@@ -124,7 +124,7 @@ public class SystemConfigUtil {
 		systemConfig.setStoreAlertCount(Integer.valueOf(storeAlertCountNode.getText()));
 		systemConfig.setStoreFreezeTime(StoreFreezeTime.valueOf(storeFreezeTimeNode.getText()));
 		systemConfig.setUploadLimit(Integer.valueOf(uploadLimitNode.getText()));
-		systemConfig.setLoginFailureLock(Boolean.valueOf(isLoginFailureLockNode.getText()));
+		systemConfig.setIsLoginFailureLock(Boolean.valueOf(isLoginFailureLockNode.getText()));
 		systemConfig.setLoginFailureLockCount(Integer.valueOf(loginFailureLockCountNode.getText()));
 		systemConfig.setLoginFailureLockTime(Integer.valueOf(loginFailureLockTimeNode.getText()));
 		systemConfig.setIsRegister(Boolean.valueOf(isRegisterNode.getText()));
@@ -413,7 +413,7 @@ public class SystemConfigUtil {
 		storeAlertCountNode.setText(String.valueOf(systemConfig.getStoreAlertCount()));
 		storeFreezeTimeNode.setText(String.valueOf(systemConfig.getStoreFreezeTime()));
 		uploadLimitNode.setText(String.valueOf(systemConfig.getUploadLimit()));
-		isLoginFailureLockNode.setText(String.valueOf(systemConfig.isLoginFailureLock()));
+		isLoginFailureLockNode.setText(String.valueOf(systemConfig.getIsLoginFailureLock()));
 		loginFailureLockCountNode.setText(String.valueOf(systemConfig.getLoginFailureLockCount()));
 		loginFailureLockTimeNode.setText(String.valueOf(systemConfig.getLoginFailureLockTime()));
 		isRegisterNode.setText(String.valueOf(systemConfig.getIsRegister()));

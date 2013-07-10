@@ -17,6 +17,7 @@ import net.sf.json.JsonConfig;
 import org.apache.commons.lang.StringUtils;
 
 import com.zg.beans.TenpayConfig;
+import com.zg.util.JsonUtil;
 import com.zg.util.SystemConfigUtil;
 
 @Entity
@@ -151,15 +152,20 @@ public class PaymentConfig extends BaseEntity {
 		if(StringUtils.isEmpty(this.configObjectStore)) {
 			return null;
 		}
-		JsonConfig jsonConfig = new JsonConfig();
-		JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(this.configObjectStore);
+		
 		if(this.paymentConfigType == PaymentConfigType.DEPOSIT) {
 			return null;
 		} else if (this.paymentConfigType == PaymentConfigType.OFFLINE) {
 			return null;
 		} else if  (this.paymentConfigType == PaymentConfigType.TENPAY) {
+			/*
+			JsonConfig jsonConfig = new JsonConfig();
+			JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(this.configObjectStore);
 			jsonConfig.setRootClass(TenpayConfig.class);
 			return (TenpayConfig) JSONSerializer.toJava(jsonObject, jsonConfig);
+			*/
+			return JsonUtil.json2Java(this.configObjectStore, TenpayConfig.class);
+			
 		}
 		return null;
 	}
@@ -170,13 +176,13 @@ public class PaymentConfig extends BaseEntity {
 			this.configObjectStore = null;
 			return;
 		}
-		JSONObject jsonObject = JSONObject.fromObject(object);
+		//JSONObject jsonObject = JSONObject.fromObject(object);
 		if(this.paymentConfigType == PaymentConfigType.DEPOSIT) {
 			this.configObjectStore = null;
 		} else if (this.paymentConfigType == PaymentConfigType.OFFLINE) {
 			this.configObjectStore = null;
 		} else if  (this.paymentConfigType == PaymentConfigType.TENPAY) {
-			this.configObjectStore = jsonObject.toString();
+			this.configObjectStore = JsonUtil.java2Json(object);
 		}
 	}
 	

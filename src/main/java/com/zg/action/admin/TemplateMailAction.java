@@ -5,8 +5,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
-import net.shopxx.bean.MailConfig;
-import net.shopxx.util.TemplateConfigUtil;
+import com.zg.beans.MailConfig;
+import com.zg.util.TemplateConfigUtil;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -64,12 +64,8 @@ public class TemplateMailAction extends BaseAdminAction {
 	public String update() {
 		mailConfig = TemplateConfigUtil.getMailConfig(mailConfig.getName());
 		TemplateConfigUtil.writeTemplateFileContent(mailConfig, templateFileContent);
-		try {
-			ServletContext servletContext = ServletActionContext.getServletContext();
-			freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		}
+		ServletContext servletContext = ServletActionContext.getServletContext();
+		freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
 		redirectionUrl = "template_dynamic!list.action";
 		return SUCCESS;
 	}

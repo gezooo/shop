@@ -1,12 +1,17 @@
 package com.zg.beans;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.zg.util.CommonUtil;
 
-public class HtmlConfig {
+public class HtmlConfig implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -268469929303595360L;
 	public static final String REPLACE_UUID = "{uuid}";// 随机UUID字符串替换
 	public static final String REPLACE_DATE_YY = "{date_yyyy}";// 当前日期字符串替换(年)
 	public static final String REPLACE_DATE_MM = "{date_MM}";// 当前日期字符串替换(月)

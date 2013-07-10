@@ -64,12 +64,8 @@ public class TemplateDynamicAction extends BaseAdminAction {
 	public String update() {
 		dynamicConfig = TemplateConfigUtil.getDynamicConfig(dynamicConfig.getName());
 		TemplateConfigUtil.writeTemplateFileContent(dynamicConfig, templateFileContent);
-		try {
-			ServletContext servletContext = ServletActionContext.getServletContext();
-			freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		}
+		ServletContext servletContext = ServletActionContext.getServletContext();
+		freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
 		redirectionUrl = "template_dynamic!list.action";
 		return SUCCESS;
 	}

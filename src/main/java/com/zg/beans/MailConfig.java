@@ -1,5 +1,7 @@
 package com.zg.beans;
 
+import java.io.Serializable;
+
 
 /**
  * Bean类 - 邮件配置
@@ -14,8 +16,12 @@ package com.zg.beans;
  * ============================================================================
  */
 
-public class MailConfig {
+public class MailConfig implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3202956125751133393L;
 	public static final String SMTP_TEST = "smtpTest";// SMTP邮箱配置测试
 	public static final String PASSWORD_RECOVER = "passwordRecover";// 密码找回
 	

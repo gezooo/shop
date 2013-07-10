@@ -26,9 +26,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MessageDaoImpl extends BaseDaoImpl<Message, String> implements MessageDao{
 	
-	public Pager getMemberInboxPager(Member member, Pager pager) {
+	public Pager<Message> getMemberInboxPager(Member member, Pager<Message> pager) {
 		if (pager == null) {
-			pager = new Pager();
+			pager = new Pager<Message>();
 			pager.setPageSize(Message.DEFAULT_MESSAGE_LIST_PAGE_SIZE);
 		}
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Message.class);
@@ -38,9 +38,9 @@ public class MessageDaoImpl extends BaseDaoImpl<Message, String> implements Mess
 		return super.findByPager(pager, detachedCriteria);
 	}
 	
-	public Pager getMemberOutboxPager(Member member, Pager pager) {
+	public Pager<Message> getMemberOutboxPager(Member member, Pager<Message> pager) {
 		if (pager == null) {
-			pager = new Pager();
+			pager = new Pager<Message>();
 		}
 		if (pager.getPageSize() == null) {
 			pager.setPageSize(Message.DEFAULT_MESSAGE_LIST_PAGE_SIZE);
@@ -52,9 +52,9 @@ public class MessageDaoImpl extends BaseDaoImpl<Message, String> implements Mess
 		return super.findByPager(pager, detachedCriteria);
 	}
 	
-	public Pager getMemberDraftboxPager(Member member, Pager pager) {
+	public Pager<Message> getMemberDraftboxPager(Member member, Pager<Message> pager) {
 		if (pager == null) {
-			pager = new Pager();
+			pager = new Pager<Message>();
 		}
 		if (pager.getPageSize() == null) {
 			pager.setPageSize(Message.DEFAULT_MESSAGE_LIST_PAGE_SIZE);
@@ -66,7 +66,7 @@ public class MessageDaoImpl extends BaseDaoImpl<Message, String> implements Mess
 		return super.findByPager(pager, detachedCriteria);
 	}
 	
-	public Pager getAdminInboxPager(Pager pager) {
+	public Pager<Message> getAdminInboxPager(Pager<Message> pager) {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Message.class);
 		detachedCriteria.add(Restrictions.isNull("toMember"));
 		detachedCriteria.add(Restrictions.eq("isSaveDraftbox", false));
@@ -74,7 +74,7 @@ public class MessageDaoImpl extends BaseDaoImpl<Message, String> implements Mess
 		return super.findByPager(pager, detachedCriteria);
 	}
 	
-	public Pager getAdminOutboxPager(Pager pager) {
+	public Pager<Message> getAdminOutboxPager(Pager<Message> pager) {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Message.class);
 		detachedCriteria.add(Restrictions.isNull("fromMember"));
 		detachedCriteria.add(Restrictions.eq("isSaveDraftbox", false));

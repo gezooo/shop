@@ -96,7 +96,7 @@ public class HtmlServiceImpl implements HtmlService {
 		//Configuration configuration = freemarkerManager.getConfiguration(servletContext);
 
 		Configuration freemarkerCfg = new Configuration();
-		 freemarkerCfg.setServletContextForTemplateLoading(ServletActionContext  
+		freemarkerCfg.setServletContextForTemplateLoading(ServletActionContext  
 	                .getServletContext(), "/");  
 		
 		 /*

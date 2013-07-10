@@ -35,11 +35,11 @@ public class Order extends BaseEntity {
 	}
 	
 	public enum PaymentStatus {
-		UNPAID, PART_PAID, PAID, PART_REFUND, REFUNDED
+		UNPAID, PART_PAYMENT, PAID, PART_REFUND, REFUNDED
 	}
 	
 	public enum ShippingStatus {
-		UNShIPPED, PART_SHIPPED, SHIPPED, PART_RESHIPED, RESHIPED 
+		UNSHIPPED, PART_SHIPPED, SHIPPED, PART_RESHIPED, RESHIPED 
 	}
 	
 	private String orderSn;

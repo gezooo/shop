@@ -60,7 +60,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, String> implements OrderDao
 	
 	public Long getPaidUnshippedOrderCount() {
 		String hql = "select count(*) from Order as order where order.paymentStatus = ? and order.shippingStatus = ? and order.orderStatus != ? and order.orderStatus != ?";
-		return (Long) getSession().createQuery(hql).setParameter(0, PaymentStatus.PAID).setParameter(1, ShippingStatus.UNShIPPED).setParameter(2, OrderStatus.COMPLETED).setParameter(3, OrderStatus.INVALID).uniqueResult();
+		return (Long) getSession().createQuery(hql).setParameter(0, PaymentStatus.PAID).setParameter(1, ShippingStatus.UNSHIPPED).setParameter(2, OrderStatus.COMPLETED).setParameter(3, OrderStatus.INVALID).uniqueResult();
 	}
 	
 }

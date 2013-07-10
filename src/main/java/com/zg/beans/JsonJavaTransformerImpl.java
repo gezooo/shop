@@ -24,4 +24,18 @@ public class JsonJavaTransformerImpl implements JsonJavaTransformer {
 		return jsonArray.toString();
 	}
 
+	@Override
+	public <T> T json2Java(String json, Class<T> clazz) {
+		JsonConfig jsonConfig = new JsonConfig();
+		JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(clazz);
+		jsonConfig.setRootClass(TenpayConfig.class);
+		return (T) JSONSerializer.toJava(jsonObject, jsonConfig);
+	}
+
+	@Override
+	public <T> String java2json(T obj) {
+		JSONObject jsonObject = JSONObject.fromObject(obj);
+		return jsonObject.toString();
+	}
+
 }

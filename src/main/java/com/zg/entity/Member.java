@@ -30,6 +30,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 
+import com.zg.beans.JsonJavaTransformerFactory;
 import com.zg.util.SystemConfigUtil;
 
 @Entity
@@ -62,7 +63,7 @@ public class Member extends BaseEntity {
 	
 	private Integer point;
 	
-	private BigDecimal depoist;
+	private BigDecimal deposit;
 	
 	private Boolean isAccountEnabled;
 	
@@ -78,7 +79,7 @@ public class Member extends BaseEntity {
 	
 	private Date lastLoginDate;
 	
-	private String passwordRecoveryKe;
+	private String passwordRecoverKey;
 	
 	
 	private MemberRank memberRank;
@@ -152,12 +153,12 @@ public class Member extends BaseEntity {
 	}
 
 	@Column(precision = 15, scale = 5, nullable = false)
-	public BigDecimal getDepoist() {
-		return depoist;
+	public BigDecimal getDeposit() {
+		return deposit;
 	}
 
-	public void setDepoist(BigDecimal depoist) {
-		this.depoist = SystemConfigUtil.getOrderScaleBigDecimal(depoist);
+	public void setDeposit(BigDecimal deposit) {
+		this.deposit = SystemConfigUtil.getOrderScaleBigDecimal(deposit);
 	}
 
 	@Column(nullable = false)
@@ -220,12 +221,12 @@ public class Member extends BaseEntity {
 		this.lastLoginDate = lastLoginDate;
 	}
 
-	public String getPasswordRecoveryKe() {
-		return passwordRecoveryKe;
+	public String getPasswordRecoverKey() {
+		return passwordRecoverKey;
 	}
 
-	public void setPasswordRecoveryKe(String passwordRecoveryKe) {
-		this.passwordRecoveryKe = passwordRecoveryKe;
+	public void setPasswordRecoverKey(String passwordRecoverKey) {
+		this.passwordRecoverKey = passwordRecoverKey;
 	}
 
 	@ElementCollection
@@ -327,7 +328,7 @@ public class Member extends BaseEntity {
 	}
 	
 	@Transient
-	public Map<MemberAttribute, List<String>> getMemberAttribute() {
+	public Map<MemberAttribute, List<String>> getMemberAttributeMap() {
 		if(this.memberAttributeMapStore == null || this.memberAttributeMapStore.size() == 0) {
 			return null;
 		}
@@ -337,15 +338,19 @@ public class Member extends BaseEntity {
 			if(StringUtils.isEmpty(memberAttributeValueStore)) {
 				memberAttributeMap.put(memberAttribute, null);
 			} else {
+				/*
 				JSONArray jsonArray = JSONArray.fromObject(memberAttributeValueStore);
 				memberAttributeMap.put(memberAttribute, (List<String>)JSONSerializer.toJava(jsonArray));
+				*/
+				List<String> memberAttributeValueStoreVar = JsonJavaTransformerFactory.getJsonJavaTransformer().json2JavaList(memberAttributeValueStore, String.class);
+				memberAttributeMap.put(memberAttribute, memberAttributeValueStoreVar);
 			}
 		}
 		return memberAttributeMap;
 	}
 	
 	@Transient
-	public void setMemberAttribute(Map<MemberAttribute, List<String>> memberAttributeMap) {
+	public void setMemberAttributeMap(Map<MemberAttribute, List<String>> memberAttributeMap) {
 		if(memberAttributeMap == null || memberAttributeMap.size() == 0) {
 			this.memberAttributeMapStore = null;
 			return;
@@ -354,8 +359,9 @@ public class Member extends BaseEntity {
 		for(MemberAttribute memberAttribute : memberAttributeMap.keySet()) {
 			List<String> memberAttributeValueList = memberAttributeMap.get(memberAttribute);
 			if(memberAttributeValueList != null && memberAttributeValueList.size() > 0) {
-				JSONArray jsonArray = JSONArray.fromObject(memberAttributeValueList);
-				memberAttributeMapStore.put(memberAttribute, jsonArray.toString());
+				String memberAttributeMapStoreJsonVar = JsonJavaTransformerFactory.getJsonJavaTransformer().javaList2json(memberAttributeValueList);
+				//JSONArray jsonArray = JSONArray.fromObject(memberAttributeValueList);
+				memberAttributeMapStore.put(memberAttribute, memberAttributeMapStoreJsonVar);
 			} else {
 				memberAttributeMapStore.put(memberAttribute, null);
 			}

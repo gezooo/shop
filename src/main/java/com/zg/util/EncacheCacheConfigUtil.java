@@ -1,5 +1,7 @@
 package com.zg.util;
 
+import java.util.Collection;
+
 import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
@@ -54,6 +56,15 @@ public class EncacheCacheConfigUtil {
 		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtil.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
 		Cache cache = cacheManager.getCache("caching");
 		cache.evict(key);
+	}
+	
+	public static void flushAll(){
+		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtil.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
+		Collection<String>  cacheNames = cacheManager.getCacheNames();
+		for(String cacheName : cacheNames){
+			Cache cache = cacheManager.getCache(cacheName);
+			cache.clear();
+		}
 	}
 
 }

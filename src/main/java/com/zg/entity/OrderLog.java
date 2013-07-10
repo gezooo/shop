@@ -16,7 +16,7 @@ public class OrderLog extends BaseEntity {
 	private static final long serialVersionUID = 7530381132359990139L;
 	
 	public enum OrderLogType {
-		CREATE, MODIFY, PAYMENT, REFUND, SHIPPING, REShIP, COMPLETED, INVALID
+		CREATE, MODIFY, PAYMENT, REFUND, SHIPPING, RESHIP, COMPLETED, INVALID
 	}
 	
 	private OrderLogType orderLogType;

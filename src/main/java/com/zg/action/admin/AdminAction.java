@@ -111,7 +111,7 @@ public class AdminAction extends BaseAdminAction {
 				if (admin != null) {
 					int loginFailureLockCount = getSystemConfig().getLoginFailureLockCount();
 					int loginFailureCount = admin.getLoginFailureCount();
-					if (getSystemConfig().isLoginFailureLock() && loginFailureLockCount - loginFailureCount <= 3) {
+					if (getSystemConfig().getIsLoginFailureLock() && loginFailureLockCount - loginFailureCount <= 3) {
 						//addActionError("若连续" + loginFailureLockCount + "次密码输入错误,您的账号将被锁定!");
 						addActionError(getText("admin.login.lockcount.tips", Arrays.asList(loginFailureLockCount)));
 					} else {

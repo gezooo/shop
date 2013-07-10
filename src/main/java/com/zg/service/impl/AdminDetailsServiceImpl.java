@@ -37,7 +37,7 @@ public class AdminDetailsServiceImpl implements UserDetailsService {
 		}
 		SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
 		if(admin.getIsAccountLocked()) {
-			if(systemConfig.isLoginFailureLock()) {
+			if(systemConfig.getIsLoginFailureLock()) {
 				int loginFailureLockTime = systemConfig.getLoginFailureLockTime();
 				if(loginFailureLockTime != 0) {
 					Date lockedDate = admin.getLockedDate();

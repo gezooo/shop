@@ -5,8 +5,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
-import net.shopxx.bean.HtmlConfig;
-import net.shopxx.util.TemplateConfigUtil;
+import com.zg.beans.HtmlConfig;
+import com.zg.util.TemplateConfigUtil;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -64,12 +64,8 @@ public class TemplateHtmlAction extends BaseAdminAction {
 	public String update() {
 		htmlConfig = TemplateConfigUtil.getHtmlConfig(htmlConfig.getName());
 		TemplateConfigUtil.writeTemplateFileContent(htmlConfig, templateFileContent);
-		try {
-			ServletContext servletContext = ServletActionContext.getServletContext();
-			freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		}
+		ServletContext servletContext = ServletActionContext.getServletContext();
+		freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
 		redirectionUrl = "template_html!list.action";
 		return SUCCESS;
 	}

@@ -43,7 +43,7 @@ public class DeliveryType extends BaseEntity {
 	
 	private BigDecimal continueWeightPrice;
 	
-	private String descirption;
+	private String description;
 	
 	private Integer orderList;
 	
@@ -131,12 +131,12 @@ public class DeliveryType extends BaseEntity {
 	}
 
 	@Column(length = 10000)
-	public String getDescirption() {
-		return descirption;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescirption(String descirption) {
-		this.descirption = descirption;
+	public void setDescription(String descirption) {
+		this.description = descirption;
 	}
 
 	@Column(nullable = false)
