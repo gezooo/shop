@@ -78,7 +78,7 @@ public class Order extends BaseEntity {
 	
 	private String shipAddress;
 	
-	private String shipZipcode;
+	private String shipZipCode;
 	
 	private String shipPhone;
 	
@@ -270,12 +270,12 @@ public class Order extends BaseEntity {
 	}
 
 	@Column(nullable = false)
-	public String getShipZipcode() {
-		return shipZipcode;
+	public String getShipZipCode() {
+		return shipZipCode;
 	}
 
-	public void setShipZipcode(String shipZipcode) {
-		this.shipZipcode = shipZipcode;
+	public void setShipZipCode(String shipZipcode) {
+		this.shipZipCode = shipZipcode;
 	}
 
 	public String getShipPhone() {
