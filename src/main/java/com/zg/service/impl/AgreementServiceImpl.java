@@ -11,6 +11,11 @@ import com.zg.dao.AgreementDao;
 import com.zg.entity.Agreement;
 import com.zg.service.AgreementService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class AgreementServiceImpl extends BaseServiceImpl<Agreement, String> implements AgreementService {
 

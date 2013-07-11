@@ -19,6 +19,11 @@ import com.zg.common.util.ImageUtils;
 import com.zg.common.util.SystemConfigUtils;
 import com.zg.service.ProductImageService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class ProductImageServiceImpl implements ProductImageService {
 

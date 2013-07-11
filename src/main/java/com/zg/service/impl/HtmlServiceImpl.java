@@ -49,6 +49,11 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class HtmlServiceImpl implements HtmlService {
 	

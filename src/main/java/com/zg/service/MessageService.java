@@ -4,6 +4,11 @@ import com.zg.beans.Pager;
 import com.zg.entity.Member;
 import com.zg.entity.Message;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface MessageService extends BaseService<Message, String>{
 
 	public Pager<Message> getMemberInboxPager(Member member, Pager<Message> pager);

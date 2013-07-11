@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class Role extends BaseEntity {
 

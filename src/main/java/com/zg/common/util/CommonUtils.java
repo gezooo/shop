@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class CommonUtils {
 	
 	/**

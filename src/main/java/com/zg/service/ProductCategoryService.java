@@ -5,6 +5,11 @@ import java.util.List;
 import com.zg.entity.Product;
 import com.zg.entity.ProductCategory;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface ProductCategoryService extends BaseService<ProductCategory, String> {
 
 	public List<ProductCategory> getRootProductCategoryList();

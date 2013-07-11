@@ -11,6 +11,11 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.zg.entity.Member;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class MemberLoginVerifyInterceptor extends AbstractInterceptor {
 
 	private static final long serialVersionUID = 4386362054894184770L;

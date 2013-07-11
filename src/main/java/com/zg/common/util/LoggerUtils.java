@@ -2,6 +2,10 @@ package com.zg.common.util;
 
 import org.slf4j.LoggerFactory;
 
+/*
+* @author gez
+* @version 0.1
+*/
 
 public class LoggerUtils {
 	

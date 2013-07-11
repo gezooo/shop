@@ -4,6 +4,11 @@ import java.util.Date;
 
 import com.zg.entity.Member;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface MemberService extends BaseService<Member, String> {
 	
 	public boolean isExistByUsername(String username);

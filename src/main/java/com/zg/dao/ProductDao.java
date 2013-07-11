@@ -8,6 +8,11 @@ import com.zg.entity.Member;
 import com.zg.entity.Product;
 import com.zg.entity.ProductCategory;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface ProductDao extends BaseDao<Product, String> {
 
 	public List<Product> getProductList(ProductCategory productCategory);

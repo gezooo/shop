@@ -15,6 +15,11 @@ import com.zg.common.util.ArithUtils;
 import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Product.WeightUnit;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class DeliveryType extends BaseEntity {
 

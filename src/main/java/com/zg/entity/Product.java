@@ -39,6 +39,11 @@ import com.zg.beans.JsonJavaTransformerFactory;
 import com.zg.beans.ProductImage;
 import com.zg.common.util.SystemConfigUtils;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 @Indexed
 public class Product extends BaseEntity {

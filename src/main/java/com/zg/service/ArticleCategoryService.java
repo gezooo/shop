@@ -5,6 +5,11 @@ import java.util.List;
 import com.zg.entity.Article;
 import com.zg.entity.ArticleCategory;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface ArticleCategoryService extends BaseService<ArticleCategory, String> {
 
 	public List<ArticleCategory> getRootArticleCategoryList();

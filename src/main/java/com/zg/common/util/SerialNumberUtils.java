@@ -10,9 +10,14 @@ import com.zg.service.RefundService;
 import com.zg.service.ReshipService;
 import com.zg.service.ShippingService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class SerialNumberUtils {
 	
-public static final String PRODUCT_SN_PREFIX = "SN_";// 货号前缀
+	public static final String PRODUCT_SN_PREFIX = "SN_";// 货号前缀
 	
 	public static final String ORDER_SN_PREFIX = "";// 订单编号前缀
 	public static final long ORDER_SN_FIRST = 100000L;// 订单编号起始数

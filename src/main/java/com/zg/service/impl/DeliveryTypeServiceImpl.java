@@ -12,6 +12,11 @@ import com.zg.dao.DeliveryTypeDao;
 import com.zg.entity.DeliveryType;
 import com.zg.service.DeliveryTypeService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class DeliveryTypeServiceImpl extends BaseServiceImpl<DeliveryType, String> implements DeliveryTypeService {
 

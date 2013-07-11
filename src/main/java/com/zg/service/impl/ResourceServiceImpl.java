@@ -11,6 +11,11 @@ import com.zg.entity.Resource;
 import com.zg.entity.Role;
 import com.zg.service.ResourceService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class ResourceServiceImpl extends BaseServiceImpl<Resource, String> implements ResourceService {
 

@@ -3,6 +3,11 @@ package com.zg.search;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class SearchCriterial {
 	
 	private List<Criterial> critials = new ArrayList<Criterial>();;

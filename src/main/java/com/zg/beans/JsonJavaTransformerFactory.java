@@ -1,5 +1,10 @@
 package com.zg.beans;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class JsonJavaTransformerFactory {
 	
 

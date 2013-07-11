@@ -9,6 +9,11 @@ import com.zg.dao.RoleDao;
 import com.zg.entity.Role;
 import com.zg.service.RoleService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class RoleServiceImpl extends BaseServiceImpl<Role, String> implements RoleService {
 

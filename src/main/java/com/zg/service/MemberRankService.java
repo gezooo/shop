@@ -2,6 +2,11 @@ package com.zg.service;
 
 import com.zg.entity.MemberRank;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface MemberRankService extends BaseService<MemberRank, String> {
 
 	public MemberRank getDefaultMemberRank();

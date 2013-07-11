@@ -45,6 +45,12 @@ import com.zg.service.RoleService;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.TemplateHashModel;
 
+/**
+ * 后台Action类 - Admin
+ * @author gez
+ * @version 0.1
+ */
+
 @ParentPackage("admin")
 public class AdminAction extends BaseAdminAction {
 	

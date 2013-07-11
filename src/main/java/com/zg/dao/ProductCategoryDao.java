@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.zg.entity.ProductCategory;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface ProductCategoryDao extends BaseDao<ProductCategory, String> {
 
 	public List<ProductCategory> getRootProductCategoryList();

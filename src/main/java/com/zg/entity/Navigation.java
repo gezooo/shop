@@ -4,6 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class Navigation extends BaseEntity {
 

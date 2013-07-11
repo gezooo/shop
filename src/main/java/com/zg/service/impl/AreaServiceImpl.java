@@ -13,6 +13,11 @@ import com.zg.dao.AreaDao;
 import com.zg.entity.Area;
 import com.zg.service.AreaService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class AreaServiceImpl extends BaseServiceImpl<Area, String> implements AreaService {
 	

@@ -33,6 +33,11 @@ import org.hibernate.annotations.LazyCollectionOption;
 import com.zg.beans.JsonJavaTransformerFactory;
 import com.zg.common.util.SystemConfigUtils;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class Member extends BaseEntity {
 

@@ -20,6 +20,11 @@ import com.zg.dao.AdminDao;
 import com.zg.entity.Admin;
 import com.zg.entity.Role;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 @Transactional
 public class AdminDetailsServiceImpl implements UserDetailsService {

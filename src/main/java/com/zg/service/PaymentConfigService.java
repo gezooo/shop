@@ -6,6 +6,11 @@ import java.util.Map;
 
 import com.zg.entity.PaymentConfig;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface PaymentConfigService extends BaseService<PaymentConfig, String> {
 	
 	public List<PaymentConfig> getNonDepositPaymentConfigList();

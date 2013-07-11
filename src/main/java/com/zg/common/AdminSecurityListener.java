@@ -21,6 +21,11 @@ import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Admin;
 import com.zg.service.AdminService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Component
 @Transactional
 public class AdminSecurityListener implements ApplicationListener {

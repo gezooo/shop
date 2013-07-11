@@ -17,6 +17,11 @@ import com.zg.service.AdminService;
 import com.zg.service.LogConfigService;
 import com.zg.service.LogService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class LogInterceptor extends AbstractInterceptor {
 
 	private static final long serialVersionUID = 71972303861049768L;

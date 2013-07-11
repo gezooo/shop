@@ -2,6 +2,11 @@ package com.zg.beans;
 
 import java.util.List;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface JsonJavaTransformer {
 	
 	public <T> List<T> json2JavaList(String json, Class<T> clazz);

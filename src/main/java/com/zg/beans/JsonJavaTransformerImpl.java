@@ -1,12 +1,16 @@
 package com.zg.beans;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
+
+/*
+* @author gez
+* @version 0.1
+*/
 
 public class JsonJavaTransformerImpl implements JsonJavaTransformer {
 

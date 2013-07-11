@@ -2,6 +2,11 @@ package com.zg.beans;
 
 import com.zg.beans.SystemConfig.CurrencyType;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class TenpayConfig {
 	
 

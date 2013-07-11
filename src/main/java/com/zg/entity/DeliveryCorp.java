@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class DeliveryCorp extends BaseEntity {
 

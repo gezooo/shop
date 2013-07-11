@@ -20,6 +20,11 @@ import java.util.Properties;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class EncryptUtils {
 
 	private static final String Algorithm = "AES";  //AES  DESede

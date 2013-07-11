@@ -14,6 +14,11 @@ import javax.persistence.Transient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class Admin extends BaseEntity implements UserDetails {
 	

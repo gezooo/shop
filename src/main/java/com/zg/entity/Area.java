@@ -15,6 +15,11 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "parent_id"})})
 public class Area extends BaseEntity {

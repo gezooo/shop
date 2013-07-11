@@ -20,6 +20,11 @@ import org.springframework.stereotype.Component;
 import com.octo.captcha.service.CaptchaService;
 import com.octo.captcha.service.CaptchaServiceException;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Component("jCaptchaFilter")
 public class JCaptchaFilter implements Filter {
 	

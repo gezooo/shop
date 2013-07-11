@@ -63,7 +63,6 @@ public class ClassPathFileReaderRandomBackgroundGenerator implements BackgroundG
         	if(!localCache.containsKey("images")) {	
         		Properties properties = getCaptchaProperties(rootPath);
     			String files = (String) properties.get("bgfiles");
-    			List fileList = new ArrayList();
     	        StringTokenizer token = new StringTokenizer(files, ",");
     	        while (token.hasMoreElements()) {
                     String file = token.nextToken();
@@ -100,7 +99,6 @@ public class ClassPathFileReaderRandomBackgroundGenerator implements BackgroundG
     protected static Map localCache = new HashMap();
     
     protected Properties getCaptchaProperties(String rootPath) throws IOException{
-    	System.out.println("rootPath: " + rootPath);
     	if(localCache.containsKey("properties")) {
     		return (Properties) localCache.get("properties");
     	}

@@ -13,6 +13,11 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.OrderBy;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class ProductType extends BaseEntity {
 

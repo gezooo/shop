@@ -10,6 +10,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Transient;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class ProductCategory extends BaseEntity {
 

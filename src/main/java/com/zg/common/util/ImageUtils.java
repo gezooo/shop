@@ -15,6 +15,11 @@ import javax.imageio.stream.ImageInputStream;
 
 import com.zg.beans.SystemConfig.WatermarkPosition;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class ImageUtils {
 	
 	/**

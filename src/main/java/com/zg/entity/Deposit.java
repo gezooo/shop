@@ -14,6 +14,11 @@ import org.hibernate.annotations.CascadeType;
 
 import com.zg.common.util.SystemConfigUtils;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class Deposit extends BaseEntity {
 

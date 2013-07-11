@@ -15,6 +15,11 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 

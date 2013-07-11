@@ -19,6 +19,11 @@ import org.hibernate.annotations.CascadeType;
 import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Product.WeightUnit;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {

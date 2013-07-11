@@ -7,6 +7,11 @@ import com.zg.beans.Pager;
 import com.zg.entity.Article;
 import com.zg.entity.ArticleCategory;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface ArticleService extends BaseService<Article, String> {
 	
 	public List<Article> getArticleList(ArticleCategory articleCategory);

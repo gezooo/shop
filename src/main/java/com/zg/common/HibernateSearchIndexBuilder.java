@@ -8,6 +8,11 @@ import org.hibernate.search.Search;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.transaction.annotation.Transactional;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class HibernateSearchIndexBuilder implements InitializingBean {
 
 	private int lazyTime = 30;// 索引操作线程延时，单位:秒

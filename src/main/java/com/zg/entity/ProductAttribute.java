@@ -17,6 +17,11 @@ import org.apache.commons.lang.StringUtils;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONSerializer;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 @Table(uniqueConstraints = {
 		@UniqueConstraint(columnNames = {"name", "productType_id"})

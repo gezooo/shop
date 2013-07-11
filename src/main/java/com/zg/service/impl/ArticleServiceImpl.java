@@ -33,6 +33,11 @@ import com.zg.search.SearchCriterial;
 import com.zg.service.ArticleService;
 import com.zg.service.HtmlService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 
 @Service
 public class ArticleServiceImpl extends BaseServiceImpl<Article, String> implements ArticleService {

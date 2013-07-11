@@ -5,6 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class DeliveryItem extends BaseEntity {
 

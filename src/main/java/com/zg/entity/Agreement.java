@@ -8,6 +8,7 @@ import javax.persistence.Entity;
  * @author zhangge
  *
  */
+
 @Entity
 public class Agreement extends BaseEntity {
 

@@ -19,6 +19,11 @@ import com.octo.captcha.component.word.wordgenerator.WordGenerator;
 import com.octo.captcha.engine.image.ListImageCaptchaEngine;
 import com.octo.captcha.image.gimpy.GimpyFactory;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class JCaptchaEngine extends ListImageCaptchaEngine {
 	
 	public static final String IMAGE_CAPTCHA_KEY = "imageCaptcha";// ImageCaptcha对象存放在Session中的key

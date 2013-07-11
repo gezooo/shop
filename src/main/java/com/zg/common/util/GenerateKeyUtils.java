@@ -7,6 +7,11 @@ import org.apache.commons.lang.StringUtils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class GenerateKeyUtils {
 	
 	public static void main(String[] args) {

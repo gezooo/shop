@@ -18,6 +18,11 @@ import com.zg.beans.SystemConfig;
 import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Admin;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class BaseAdminAction extends ActionSupport{
 
 	/**

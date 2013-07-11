@@ -28,6 +28,10 @@ import com.zg.service.PaymentConfigService;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+/*
+* @author gez
+* @version 0.1
+*/
 
 @Service
 public class PaymentConfigServiceImpl extends BaseServiceImpl<PaymentConfig, String> implements PaymentConfigService {

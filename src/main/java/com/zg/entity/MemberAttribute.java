@@ -14,6 +14,11 @@ import org.apache.commons.lang.StringUtils;
 
 import freemarker.template.utility.StringUtil;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class MemberAttribute extends BaseEntity {
 

@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.zg.entity.Area;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface AreaService extends BaseService<Area, String> {
 	
 	public List<Area> getRootAreaList();

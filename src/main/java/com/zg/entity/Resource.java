@@ -8,6 +8,11 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class Resource extends BaseEntity {
 

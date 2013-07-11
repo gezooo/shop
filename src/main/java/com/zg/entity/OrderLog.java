@@ -7,6 +7,11 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class OrderLog extends BaseEntity {
 

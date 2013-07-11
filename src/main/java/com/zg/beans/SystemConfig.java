@@ -6,6 +6,11 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class SystemConfig implements java.io.Serializable{
 	
 	/**

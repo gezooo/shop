@@ -21,6 +21,11 @@ import com.zg.beans.SystemConfig.WatermarkPosition;
 import com.zg.beans.SystemConfig.PointType;
 import com.zg.common.ClassLoadUtil;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class SystemConfigUtils {
 
 	public static final String CONFIG_FILE_NAME = "shop-zg.xml";// 系统配置文件名称

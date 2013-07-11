@@ -11,6 +11,11 @@ import javax.persistence.Transient;
 
 import com.zg.common.util.SystemConfigUtils;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class CartItem extends BaseEntity {
 

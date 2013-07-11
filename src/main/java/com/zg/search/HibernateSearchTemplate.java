@@ -14,6 +14,10 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 
+/*
+* @author gez
+* @version 0.1
+*/
 
 public class HibernateSearchTemplate {
 	

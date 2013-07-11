@@ -14,6 +14,11 @@ import com.zg.dao.AdminDao;
 import com.zg.entity.Admin;
 import com.zg.service.AdminService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class AdminServiceImpl extends BaseServiceImpl<Admin, String> implements AdminService{
 

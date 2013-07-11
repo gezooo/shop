@@ -7,6 +7,11 @@ import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 import org.springframework.stereotype.Component;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Component
 public class EntityInterceptor extends EmptyInterceptor {
 

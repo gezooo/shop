@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.zg.beans.JsonJavaTransformerFactory;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class JsonUtils {
 	
 	

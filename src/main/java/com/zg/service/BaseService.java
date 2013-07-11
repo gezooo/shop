@@ -7,6 +7,11 @@ import org.hibernate.criterion.DetachedCriteria;
 
 import com.zg.beans.Pager;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface BaseService<T, PK extends Serializable> {
 
 	public T get(PK id);

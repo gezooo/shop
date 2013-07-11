@@ -29,6 +29,11 @@ import com.zg.search.SearchCallback;
 import com.zg.service.HtmlService;
 import com.zg.service.ProductService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class ProductServiceImpl extends BaseServiceImpl<Product, String> implements ProductService {
 

@@ -22,11 +22,11 @@ import com.octo.captcha.service.CaptchaServiceException;
 
 
 
-/**
- * 拦截器 - 后台登录验证码
- * @author zhangge
- *
- */
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Component
 public class AdminLoginJCaptchaFilter implements Filter {
 	

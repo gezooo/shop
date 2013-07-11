@@ -4,6 +4,11 @@ import java.util.Map;
 
 import com.zg.entity.Member;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface MailService {
 	
 	

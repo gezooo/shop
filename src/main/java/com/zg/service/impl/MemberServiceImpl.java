@@ -13,6 +13,11 @@ import com.zg.dao.MemberDao;
 import com.zg.entity.Member;
 import com.zg.service.MemberService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class MemberServiceImpl extends BaseServiceImpl<Member, String> implements MemberService {
 	

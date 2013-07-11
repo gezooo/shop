@@ -20,6 +20,11 @@ import com.zg.beans.TenpayConfig;
 import com.zg.common.util.JsonUtils;
 import com.zg.common.util.SystemConfigUtils;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class PaymentConfig extends BaseEntity {
 

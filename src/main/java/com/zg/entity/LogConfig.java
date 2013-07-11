@@ -5,6 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 @Table(
 		uniqueConstraints = {

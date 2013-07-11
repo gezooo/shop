@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.zg.entity.Navigation;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface NavigationService extends BaseService<Navigation, String> {
 
 	/**

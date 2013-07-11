@@ -7,6 +7,11 @@ import javax.servlet.ServletContext;
 
 import org.springframework.stereotype.Component;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Component
 public class WebResourceReader {
 

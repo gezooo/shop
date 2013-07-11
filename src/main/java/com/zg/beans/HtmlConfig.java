@@ -6,6 +6,11 @@ import java.util.Date;
 
 import com.zg.common.util.CommonUtils;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class HtmlConfig implements Serializable{
 	
 	/**

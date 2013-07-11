@@ -6,6 +6,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class Message extends BaseEntity {
 

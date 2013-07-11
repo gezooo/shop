@@ -9,6 +9,11 @@ import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class DateUtils {
 	
 	 public static final String DATE_TIME_FOMART_IE = "yyyy-MM-dd HH:mm:ss";  

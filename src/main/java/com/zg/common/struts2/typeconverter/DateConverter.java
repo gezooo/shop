@@ -11,11 +11,13 @@ import org.slf4j.LoggerFactory;
 import com.zg.common.util.CommonUtils;
 import com.zg.common.util.DateUtils;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class DateConverter extends StrutsTypeConverter{
 	
-	 //private static String DATE_TIME_FOMART_IE = "yyyy-MM-dd HH:mm:ss";  
-	  
-	 //private static String DATE_TIME_FOMART_FF = "yy/MM/dd hh:mm:ss";  
 	 
 	 private static final Logger logger = LoggerFactory.getLogger(DateConverter.class);
 

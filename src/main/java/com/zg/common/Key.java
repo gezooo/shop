@@ -22,6 +22,10 @@ import com.zg.common.util.EncryptUtils;
 
 import sun.misc.BASE64Encoder;
 
+/*
+* @author gez
+* @version 0.1
+*/
 
 public class Key {
 	

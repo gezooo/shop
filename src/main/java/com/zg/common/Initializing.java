@@ -11,6 +11,11 @@ import sun.misc.BASE64Decoder;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Component
 public class Initializing implements InitializingBean {
 	

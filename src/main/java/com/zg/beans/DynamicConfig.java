@@ -2,6 +2,11 @@ package com.zg.beans;
 
 import java.io.Serializable;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class DynamicConfig implements Serializable{
 	
 	/**

@@ -3,6 +3,11 @@ package com.zg.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class Footer extends BaseEntity {
 

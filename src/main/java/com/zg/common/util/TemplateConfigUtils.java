@@ -22,6 +22,11 @@ import com.zg.beans.HtmlConfig;
 import com.zg.beans.MailConfig;
 import com.zg.common.ClassLoadUtil;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Component
 public class TemplateConfigUtils {
 	

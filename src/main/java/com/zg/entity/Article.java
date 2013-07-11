@@ -36,6 +36,11 @@ import org.htmlparser.visitors.TextExtractingVisitor;
 
 import com.zg.common.util.CommonUtils;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 @Indexed
 public class Article extends BaseEntity {

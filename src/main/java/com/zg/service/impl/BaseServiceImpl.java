@@ -9,6 +9,11 @@ import com.zg.beans.Pager;
 import com.zg.dao.BaseDao;
 import com.zg.service.BaseService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public class BaseServiceImpl<T, PK extends Serializable > implements BaseService<T, PK>{
 	
 	private BaseDao<T, PK> baseDao;

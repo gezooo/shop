@@ -11,6 +11,11 @@ import javax.persistence.OneToOne;
 
 import com.zg.common.util.SystemConfigUtils;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Entity
 public class Refund extends BaseEntity {
 

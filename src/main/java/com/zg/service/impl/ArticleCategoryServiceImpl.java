@@ -19,6 +19,11 @@ import com.zg.entity.Article;
 import com.zg.entity.ArticleCategory;
 import com.zg.service.ArticleCategoryService;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 @Service
 public class ArticleCategoryServiceImpl extends BaseServiceImpl<ArticleCategory, String> implements ArticleCategoryService {
 

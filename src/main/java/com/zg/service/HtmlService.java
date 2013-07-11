@@ -5,6 +5,11 @@ import java.util.Map;
 import com.zg.entity.Article;
 import com.zg.entity.Product;
 
+/*
+* @author gez
+* @version 0.1
+*/
+
 public interface HtmlService {
 	
 	/**
