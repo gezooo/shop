@@ -4,10 +4,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.zg.common.util.SerialNumberUtils;
 import com.zg.dao.ShippingDao;
 import com.zg.entity.Shipping;
 import com.zg.service.ShippingService;
-import com.zg.util.SerialNumberUtil;
 
 /**
  * Service实现类 - 发货
@@ -40,7 +40,7 @@ public class ShippingServiceImpl extends BaseServiceImpl<Shipping, String> imple
 	// 重写对象，保存时自动设置发货编号
 	@Override
 	public String save(Shipping shipping) {
-		shipping.setShippingSn(SerialNumberUtil.buildShippingSn());
+		shipping.setShippingSn(SerialNumberUtils.buildShippingSn());
 		return super.save(shipping);
 	}
 

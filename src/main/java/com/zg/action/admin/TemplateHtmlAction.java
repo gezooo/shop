@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
 import com.zg.beans.HtmlConfig;
-import com.zg.util.TemplateConfigUtil;
+import com.zg.common.util.TemplateConfigUtils;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -49,8 +49,8 @@ public class TemplateHtmlAction extends BaseAdminAction {
 
 	// 编辑
 	public String edit() {
-		htmlConfig = TemplateConfigUtil.getHtmlConfig(htmlConfig.getName());
-		templateFileContent = TemplateConfigUtil.readTemplateFileContent(htmlConfig);
+		htmlConfig = TemplateConfigUtils.getHtmlConfig(htmlConfig.getName());
+		templateFileContent = TemplateConfigUtils.readTemplateFileContent(htmlConfig);
 		return INPUT;
 	}
 
@@ -62,8 +62,8 @@ public class TemplateHtmlAction extends BaseAdminAction {
 	)
 	@InputConfig(resultName = "error")
 	public String update() {
-		htmlConfig = TemplateConfigUtil.getHtmlConfig(htmlConfig.getName());
-		TemplateConfigUtil.writeTemplateFileContent(htmlConfig, templateFileContent);
+		htmlConfig = TemplateConfigUtils.getHtmlConfig(htmlConfig.getName());
+		TemplateConfigUtils.writeTemplateFileContent(htmlConfig, templateFileContent);
 		ServletContext servletContext = ServletActionContext.getServletContext();
 		freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
 		redirectionUrl = "template_html!list.action";
@@ -72,7 +72,7 @@ public class TemplateHtmlAction extends BaseAdminAction {
 
 	// 获取生成静态模板配置集合
 	public List<HtmlConfig> getHtmlConfigList() {
-		return TemplateConfigUtil.getHtmlConfigList();
+		return TemplateConfigUtils.getHtmlConfigList();
 	}
 
 	public HtmlConfig getHtmlConfig() {

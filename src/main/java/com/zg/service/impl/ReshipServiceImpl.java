@@ -6,10 +6,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.zg.common.util.SerialNumberUtils;
 import com.zg.dao.ReshipDao;
 import com.zg.entity.Reship;
 import com.zg.service.ReshipService;
-import com.zg.util.SerialNumberUtil;
 
 /**
  * Service实现类 - 退货
@@ -42,7 +42,7 @@ public class ReshipServiceImpl extends BaseServiceImpl<Reship, String> implement
 	// 重写对象，保存时自动设置退货编号
 	@Override
 	public String save(Reship reship) {
-		reship.setReshipSn(SerialNumberUtil.buildReshipSn());
+		reship.setReshipSn(SerialNumberUtils.buildReshipSn());
 		return super.save(reship);
 	}
 

@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.io.InputStream;
 

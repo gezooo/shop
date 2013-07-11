@@ -37,7 +37,7 @@ import org.hibernate.search.annotations.Store;
 
 import com.zg.beans.JsonJavaTransformerFactory;
 import com.zg.beans.ProductImage;
-import com.zg.util.SystemConfigUtil;
+import com.zg.common.util.SystemConfigUtils;
 
 @Entity
 @Indexed
@@ -138,7 +138,7 @@ public class Product extends BaseEntity {
 	}
 
 	public void setPrice(BigDecimal price) {
-		this.price = SystemConfigUtil.getPriceScaleBigDecimal(price);
+		this.price = SystemConfigUtils.getPriceScaleBigDecimal(price);
 	}
 
 	@Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
@@ -148,7 +148,7 @@ public class Product extends BaseEntity {
 	}
 
 	public void setMarketPrice(BigDecimal marketPrice) {
-		this.marketPrice = SystemConfigUtil.getPriceScaleBigDecimal(marketPrice);
+		this.marketPrice = SystemConfigUtils.getPriceScaleBigDecimal(marketPrice);
 	}
 
 	@Column(nullable = false)
@@ -451,7 +451,7 @@ public class Product extends BaseEntity {
 	public BigDecimal getPreferentialPrice(Member member) {
 		if(member != null) {
 			BigDecimal preferentialPrice = this.price.multiply(new BigDecimal(member.getMemberRank().getPreferentialScale().toString()).divide(new BigDecimal("100")));
-			return SystemConfigUtil.getPriceScaleBigDecimal(preferentialPrice);
+			return SystemConfigUtils.getPriceScaleBigDecimal(preferentialPrice);
 		} else {
 			return this.price;
 		}

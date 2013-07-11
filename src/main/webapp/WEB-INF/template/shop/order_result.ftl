@@ -47,7 +47,7 @@
 					<td>${order.deliveryTypeName}</td>
 				</tr>
 			</table>
-			<#if order.paymentConfig != null>
+			<#if (order.paymentConfig)?? >
 				<form action="${base}/shop/payment!confirm.action" method="post">
 					<@s.token />
 					<#if paymentConfig.paymentConfigType == "deposit">

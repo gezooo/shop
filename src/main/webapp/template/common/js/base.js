@@ -298,7 +298,10 @@ $().ready( function() {
 			if (currentDate != "") {
 				var reg = /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/;
 				if(currentDate.match(reg) != null) {
+					alert("format correct" + $currentDatePicker.val());
 					$currentDatePicker.DatePickerSetDate($currentDatePicker.val(), true);
+				} else{
+					alert("format incorrect" + $currentDatePicker.val());
 				}
 			}
 		},

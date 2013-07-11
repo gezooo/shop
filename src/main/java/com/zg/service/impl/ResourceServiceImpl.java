@@ -5,11 +5,11 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.zg.common.util.SpringUtils;
 import com.zg.dao.ResourceDao;
 import com.zg.entity.Resource;
 import com.zg.entity.Role;
 import com.zg.service.ResourceService;
-import com.zg.util.SpringUtil;
 
 @Service
 public class ResourceServiceImpl extends BaseServiceImpl<Resource, String> implements ResourceService {
@@ -27,7 +27,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, String> imple
 		public void delete(Resource resource) {
 			resourceDao.delete(resource);
 			resourceDao.flush();
-			SpringUtil.flushSpringSecurity();
+			SpringUtils.flushSpringSecurity();
 		}
 
 		// 重写方法，删除时刷新SpringSecurity权限信息
@@ -45,7 +45,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, String> imple
 				resourceDao.delete(resource);
 			}
 			resourceDao.flush();
-			SpringUtil.flushSpringSecurity();
+			SpringUtils.flushSpringSecurity();
 		}
 
 		// 重写方法，保存时刷新SpringSecurity权限信息
@@ -53,7 +53,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, String> imple
 		public String save(Resource resource) {
 			String id = resourceDao.save(resource);
 			resourceDao.flush();
-			SpringUtil.flushSpringSecurity();
+			SpringUtils.flushSpringSecurity();
 			return id;
 		}
 
@@ -62,7 +62,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, String> imple
 		public void update(Resource resource) {
 			resourceDao.update(resource);
 			resourceDao.flush();
-			SpringUtil.flushSpringSecurity();
+			SpringUtils.flushSpringSecurity();
 		}
 		
 		@Override

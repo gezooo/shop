@@ -11,9 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.zg.common.util.ArithUtils;
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Product.WeightUnit;
-import com.zg.util.ArithUtil;
-import com.zg.util.SystemConfigUtil;
 
 @Entity
 public class DeliveryType extends BaseEntity {
@@ -118,7 +118,7 @@ public class DeliveryType extends BaseEntity {
 	}
 
 	public void setFirstWeightPrice(BigDecimal firstWeightPrice) {
-		this.firstWeightPrice = SystemConfigUtil.getPriceScaleBigDecimal(firstWeightPrice);
+		this.firstWeightPrice = SystemConfigUtils.getPriceScaleBigDecimal(firstWeightPrice);
 	}
 
 	@Column(precision = 15, scale = 5, nullable = false)
@@ -127,7 +127,7 @@ public class DeliveryType extends BaseEntity {
 	}
 
 	public void setContinueWeightPrice(BigDecimal continueWeightPrice) {
-		this.continueWeightPrice = SystemConfigUtil.getPriceScaleBigDecimal(continueWeightPrice);;
+		this.continueWeightPrice = SystemConfigUtils.getPriceScaleBigDecimal(continueWeightPrice);;
 	}
 
 	@Column(length = 10000)
@@ -190,9 +190,9 @@ public class DeliveryType extends BaseEntity {
 		if(weightUnit == WeightUnit.g) {
 			weightGram = weight;
 		} else if(weightUnit == WeightUnit.kg) {
-			weightGram = ArithUtil.mul(weight, 1000);
+			weightGram = ArithUtils.mul(weight, 1000);
 		} else if(weightUnit == WeightUnit.t) {
-			weightGram = ArithUtil.mul(weight, 1000000);
+			weightGram = ArithUtils.mul(weight, 1000000);
 		} 
 		return weightGram;
 	}
@@ -206,10 +206,10 @@ public class DeliveryType extends BaseEntity {
 		if(totalWeightGram <= firstWeightGram) {
 			deliveryFee = this.firstWeightPrice;
 		} else {
-			Double continueWeightCount = Math.ceil(ArithUtil.div(ArithUtil.sub(totalWeightGram, firstWeightGram), continueWeightGram));
+			Double continueWeightCount = Math.ceil(ArithUtils.div(ArithUtils.sub(totalWeightGram, firstWeightGram), continueWeightGram));
 			deliveryFee = this.firstWeightPrice.add(continueWeightPrice.multiply(new BigDecimal(continueWeightCount.toString())));
 		}
-		return SystemConfigUtil.getOrderScaleBigDecimal(deliveryFee);
+		return SystemConfigUtils.getOrderScaleBigDecimal(deliveryFee);
 		
 	}
 	

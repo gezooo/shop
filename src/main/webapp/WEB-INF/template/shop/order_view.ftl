@@ -85,7 +85,7 @@
 							<p class="red">您的订单已作废</p>
 						</#if>
 						<#if order.orderStatus != "completed" && order.orderStatus != "invalid">
-							<#if order.paymentConfig != null>
+							<#if (order.paymentConfig)?? >
 								<#if order.paymentStatus == "unpaid">
 									<form action="payment!confirm.action" method="post">
 										<#if order.paymentConfig.paymentConfigType == "deposit">

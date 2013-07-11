@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.net.InetAddress;
 import java.security.NoSuchAlgorithmException;
@@ -20,7 +20,7 @@ import java.util.Properties;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class EncryptUtil {
+public class EncryptUtils {
 
 	private static final String Algorithm = "AES";  //AES  DESede
 	
@@ -170,7 +170,7 @@ public class EncryptUtil {
 	}
 
 	public static String dencrypt(String propPassword) {
-		String address = EncryptUtil.getAddress().replace(":", "-");
+		String address = EncryptUtils.getAddress().replace(":", "-");
 		Security.addProvider(new com.sun.crypto.provider.SunJCE());
 		
 		//final byte[] keyBytes = generateKey();
@@ -214,7 +214,7 @@ public class EncryptUtil {
 			return;
 		}
 
-		String address = EncryptUtil.getAddress().replace(":", "-");
+		String address = EncryptUtils.getAddress().replace(":", "-");
 
 		try {
 			

@@ -9,10 +9,10 @@ import javax.annotation.Resource;
 import com.zg.beans.Pager;
 import com.zg.beans.SystemConfig;
 import com.zg.beans.Pager.OrderType;
+import com.zg.common.util.CommonUtils;
 import com.zg.entity.Brand;
 import com.zg.entity.ProductAttribute;
 import com.zg.service.BrandService;
-import com.zg.util.CommonUtil;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -124,7 +124,7 @@ public class BrandAction extends BaseAdminAction {
 			}
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMM");
 			String dateString = simpleDateFormat.format(new Date());
-			String uploadImagePath = SystemConfig.UPLOAD_IMAGE_DIR + dateString + "/" + CommonUtil.getUUID() + "." + logoExtension;
+			String uploadImagePath = SystemConfig.UPLOAD_IMAGE_DIR + dateString + "/" + CommonUtils.getUUID() + "." + logoExtension;
 			File file = new File(ServletActionContext.getServletContext().getRealPath(uploadImagePath));
 			FileUtils.copyFile(logo, file);
 			brand.setLogo(uploadImagePath);
@@ -175,7 +175,7 @@ public class BrandAction extends BaseAdminAction {
 			}
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMM");
 			String dateString = simpleDateFormat.format(new Date());
-			String uploadImagePath = SystemConfig.UPLOAD_IMAGE_DIR + dateString + "/" + CommonUtil.getUUID() + "." + logoExtension;
+			String uploadImagePath = SystemConfig.UPLOAD_IMAGE_DIR + dateString + "/" + CommonUtils.getUUID() + "." + logoExtension;
 			File file = new File(ServletActionContext.getServletContext().getRealPath(uploadImagePath));
 			FileUtils.copyFile(logo, file);
 			persistent.setLogo(uploadImagePath);

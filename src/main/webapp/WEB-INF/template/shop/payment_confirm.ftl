@@ -28,7 +28,7 @@
 				<p>
 					尊敬的<strong class="green">${loginMember.username}</strong>，
 					您选择的支付方式为：<strong>${paymentConfig.name}</strong>
-					<#if order != null><a href="${base}/shop/order!view.action?id=${order.id}">[查看订单详情]</a></#if>
+					<#if order??><a href="${base}/shop/order!view.action?id=${order.id}">[查看订单详情]</a></#if>
 				</p>
 				<p>
 					支付总金额：<strong class="red">${(amountPayable + paymentFee)?string(orderUnitCurrencyFormat)}</strong>

@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import com.zg.util.SystemConfigUtil;
+import com.zg.common.util.SystemConfigUtils;
 
 @Entity
 public class Deposit extends BaseEntity {
@@ -63,7 +63,7 @@ public class Deposit extends BaseEntity {
 	}
 
 	public void setCredit(BigDecimal credit) {
-		this.credit = SystemConfigUtil.getOrderScaleBigDecimal(credit);
+		this.credit = SystemConfigUtils.getOrderScaleBigDecimal(credit);
 	}
 
 	@Column(nullable = false, updatable = false)
@@ -72,7 +72,7 @@ public class Deposit extends BaseEntity {
 	}
 
 	public void setDebit(BigDecimal debit) {
-		this.debit = SystemConfigUtil.getOrderScaleBigDecimal(debit);
+		this.debit = SystemConfigUtils.getOrderScaleBigDecimal(debit);
 	}
 
 	@Column(nullable = false, updatable = false)
@@ -81,7 +81,7 @@ public class Deposit extends BaseEntity {
 	}
 
 	public void setBalance(BigDecimal balance) {
-		this.balance = SystemConfigUtil.getOrderScaleBigDecimal(balance);
+		this.balance = SystemConfigUtils.getOrderScaleBigDecimal(balance);
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

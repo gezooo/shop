@@ -18,6 +18,7 @@ import com.zg.beans.HtmlConfig;
 import com.zg.beans.Pager;
 import com.zg.beans.Pager.OrderType;
 import com.zg.beans.ProductImage;
+import com.zg.common.util.TemplateConfigUtils;
 import com.zg.dao.ProductDao;
 import com.zg.entity.Article;
 import com.zg.entity.Member;
@@ -27,7 +28,6 @@ import com.zg.search.HibernateSearchTemplate;
 import com.zg.search.SearchCallback;
 import com.zg.service.HtmlService;
 import com.zg.service.ProductService;
-import com.zg.util.TemplateConfigUtil;
 
 @Service
 public class ProductServiceImpl extends BaseServiceImpl<Product, String> implements ProductService {
@@ -259,7 +259,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, String> impleme
 		// 重写方法，保存对象的同时处理价格精度并生成HTML静态文件
 		@Override
 		public String save(Product product) {
-			HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.PRODUCT_CONTENT);
+			HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.PRODUCT_CONTENT);
 			String htmlFilePath = htmlConfig.getHtmlFilePath();
 			product.setHtmlFilePath(htmlFilePath);
 			String id = productDao.save(product);

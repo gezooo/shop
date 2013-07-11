@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,9 +23,9 @@ import com.zg.beans.MailConfig;
 import com.zg.common.ClassLoadUtil;
 
 @Component
-public class TemplateConfigUtil {
+public class TemplateConfigUtils {
 	
-    public static final Logger logger = LoggerFactory.getLogger(TemplateConfigUtil.class);
+    public static final Logger logger = LoggerFactory.getLogger(TemplateConfigUtils.class);
     
     public static final String CONFIG_FILE_NAME = "template.xml";// 模板配置文件名称
 	public static final String DYNAMIC_CONFIG_LIST_CACHE_KEY = "dynamicConfigList";// 动态模板配置缓存Key
@@ -72,7 +72,7 @@ public class TemplateConfigUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<DynamicConfig> getDynamicConfigList() {
-		List<DynamicConfig> dynamicConfigList = (List<DynamicConfig>) EncacheCacheConfigUtil.getFromCache(DYNAMIC_CONFIG_LIST_CACHE_KEY);
+		List<DynamicConfig> dynamicConfigList = (List<DynamicConfig>) EncacheCacheConfigUtils.getFromCache(DYNAMIC_CONFIG_LIST_CACHE_KEY);
 		if (dynamicConfigList != null) {
 			return dynamicConfigList;
 		}
@@ -90,7 +90,7 @@ public class TemplateConfigUtil {
 	    	dynamicConfig.setTemplateFilePath(templateFilePath);
 	    	dynamicConfigList.add(dynamicConfig);
 	    }
-	    EncacheCacheConfigUtil.putInCache(DYNAMIC_CONFIG_LIST_CACHE_KEY, dynamicConfigList);
+	    EncacheCacheConfigUtils.putInCache(DYNAMIC_CONFIG_LIST_CACHE_KEY, dynamicConfigList);
 		return dynamicConfigList;
 	}
 	
@@ -182,7 +182,7 @@ public class TemplateConfigUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<HtmlConfig> getHtmlConfigList() {
-		List<HtmlConfig> htmlConfigList = (List<HtmlConfig>) EncacheCacheConfigUtil.getFromCache(HTML_CONFIG_LIST_CACHE_KEY);
+		List<HtmlConfig> htmlConfigList = (List<HtmlConfig>) EncacheCacheConfigUtils.getFromCache(HTML_CONFIG_LIST_CACHE_KEY);
 		if (htmlConfigList != null) {
 			return htmlConfigList;
 		}
@@ -202,7 +202,7 @@ public class TemplateConfigUtil {
 	    	htmlConfig.setHtmlFilePath(htmlFilePath);
 	    	htmlConfigList.add(htmlConfig);
 	    }
-	    EncacheCacheConfigUtil.putInCache(HTML_CONFIG_LIST_CACHE_KEY, htmlConfigList);
+	    EncacheCacheConfigUtils.putInCache(HTML_CONFIG_LIST_CACHE_KEY, htmlConfigList);
 		return htmlConfigList;
 	}
 	
@@ -213,7 +213,7 @@ public class TemplateConfigUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<MailConfig> getMailConfigList() {
-		List<MailConfig> mailConfigList = (List<MailConfig>) EncacheCacheConfigUtil.getFromCache(MAIL_CONFIG_LIST_CACHE_KEY);
+		List<MailConfig> mailConfigList = (List<MailConfig>) EncacheCacheConfigUtils.getFromCache(MAIL_CONFIG_LIST_CACHE_KEY);
 		if (mailConfigList != null) {
 			return mailConfigList;
 		}
@@ -234,7 +234,7 @@ public class TemplateConfigUtil {
 	    	mailConfig.setTemplateFilePath(templateFilePath);
 	    	mailConfigList.add(mailConfig);
 	    }
-	    EncacheCacheConfigUtil.putInCache(MAIL_CONFIG_LIST_CACHE_KEY, mailConfigList);
+	    EncacheCacheConfigUtils.putInCache(MAIL_CONFIG_LIST_CACHE_KEY, mailConfigList);
 		return mailConfigList;
 	}
 	

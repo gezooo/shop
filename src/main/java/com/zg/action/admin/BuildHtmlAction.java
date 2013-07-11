@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.zg.common.util.CommonUtils;
+import com.zg.common.util.EncacheCacheConfigUtils;
 import com.zg.entity.Article;
 import com.zg.entity.ArticleCategory;
 import com.zg.entity.Product;
@@ -17,11 +19,12 @@ import com.zg.service.ArticleService;
 import com.zg.service.HtmlService;
 import com.zg.service.ProductCategoryService;
 import com.zg.service.ProductService;
-import com.zg.util.EncacheCacheConfigUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -41,6 +44,8 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 public class BuildHtmlAction extends BaseAdminAction {
 
 	private static final long serialVersionUID = -2197609380142883572L;
+	
+	private static final Logger logger = LoggerFactory.getLogger(BuildHtmlAction.class);
 
 	@Resource
 	private ArticleService articleService;
@@ -66,7 +71,15 @@ public class BuildHtmlAction extends BaseAdminAction {
 	
 	@SuppressWarnings("deprecation")
 	public String all() throws Exception {
+		logger.debug(CommonUtils.displayMessage("Called", null));
 		flushCache();
+		logger.debug(CommonUtils.displayMessage("flushCache end", null));
+		
+		logger.debug(CommonUtils.displayMessage(" beginDate" + ((beginDate != null) ? beginDate.toString() : "beginDate is null") , null));
+		logger.debug(CommonUtils.displayMessage(" endDate" + ((endDate != null) ? endDate.toString() : "endDate is null"), null));
+
+
+
 		if (StringUtils.isEmpty(buildType)) {
 			buildType = "all";
 		}
@@ -79,6 +92,7 @@ public class BuildHtmlAction extends BaseAdminAction {
 		if (firstResult == null || firstResult < 0) {
 			firstResult = 0;
 		}
+		
 		if (buildContent.equalsIgnoreCase("baseJavascript")) {
 			htmlService.baseJavascriptBuildHtml();
 			Map<String, String> jsonMap = new HashMap<String, String>();
@@ -266,7 +280,7 @@ public class BuildHtmlAction extends BaseAdminAction {
 	
 	// 更新页面缓存
 	private void flushCache() {
-		EncacheCacheConfigUtil.flushAll();
+		EncacheCacheConfigUtils.flushAll();
 	}
 	
 	// 获取文章分类树

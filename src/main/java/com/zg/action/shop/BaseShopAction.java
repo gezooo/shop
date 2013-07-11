@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 import com.zg.beans.Pager;
 import com.zg.beans.SystemConfig;
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Footer;
 import com.zg.entity.FriendLink;
 import com.zg.entity.Member;
@@ -21,7 +22,6 @@ import com.zg.service.FooterService;
 import com.zg.service.FriendLinkService;
 import com.zg.service.MemberService;
 import com.zg.service.NavigationService;
-import com.zg.util.SystemConfigUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
@@ -77,27 +77,27 @@ public class BaseShopAction extends ActionSupport {
 
 	// 获取系统配置信息
 	public SystemConfig getSystemConfig() {
-		return SystemConfigUtil.getSystemConfig();
+		return SystemConfigUtils.getSystemConfig();
 	}
 	
 	// 获取商品价格货币格式
 	public String getPriceCurrencyFormat() {
-		return SystemConfigUtil.getPriceCurrencyFormat();
+		return SystemConfigUtils.getPriceCurrencyFormat();
 	}
 	
 	// 获取商品价格货币格式（包含货币单位）
 	public String getPriceUnitCurrencyFormat() {
-		return SystemConfigUtil.getPriceUnitCurrencyFormat();
+		return SystemConfigUtils.getPriceUnitCurrencyFormat();
 	}
 	
 	// 获取订单货币格式
 	public String getOrderCurrencyFormat() {
-		return SystemConfigUtil.getOrderCurrencyFormat();
+		return SystemConfigUtils.getOrderCurrencyFormat();
 	}
 	
 	// 获取订单货币格式（包含货币单位）
 	public String getOrderUnitCurrencyFormat() {
-		return SystemConfigUtil.getOrderUnitCurrencyFormat();
+		return SystemConfigUtils.getOrderUnitCurrencyFormat();
 	}
 
 	// 获取当前登录会员，若未登录则返回null

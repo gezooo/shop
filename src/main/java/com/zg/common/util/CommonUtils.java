@@ -1,11 +1,11 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class CommonUtil {
+public class CommonUtils {
 	
 	/**
 	 * 随机获取UUID字符串(无中划线)

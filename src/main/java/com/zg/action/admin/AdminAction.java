@@ -30,6 +30,7 @@ import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 
 
 import com.zg.beans.Pager;
+import com.zg.common.util.EncryptUtils;
 import com.zg.entity.Admin;
 import com.zg.entity.Role;
 import com.zg.security.UserNameCachingAuthenticationFailureHandler;
@@ -40,7 +41,6 @@ import com.zg.service.MessageService;
 import com.zg.service.OrderService;
 import com.zg.service.ProductService;
 import com.zg.service.RoleService;
-import com.zg.util.EncryptUtil;
 
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.TemplateHashModel;
@@ -142,7 +142,7 @@ public class AdminAction extends BaseAdminAction {
 		
 		//TODO change or remove later
 		String k = (String) servletContext.getAttribute("ZGSHOP" + "_" + "KEY");
-		String originalKey = EncryptUtil.dencrypt(k);
+		String originalKey = EncryptUtils.dencrypt(k);
 		logger.debug("key: " + originalKey);
 		if (!StringUtils.containsIgnoreCase(originalKey, "zgshop")) {
 			throw new ExceptionInInitializerError();

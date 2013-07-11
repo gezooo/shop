@@ -43,11 +43,11 @@
             				<li class="mainCategory">
 								<a href="${base}/shop/product!list.action?id=${list.id}">${list.name}</a>
 							</li>
-							<#if (list.children != null && list.children?size > 0)>
+							<#if (list.children)?? && list.children?size > 0 >
 								<#list list.children as list>
 									<li>
 										<a href="${base}/shop/product!list.action?id=${list.id}"><span class="icon">&nbsp;</span>${list.name}</a>
-										<#if (list.children != null && list.children?size > 0)>
+										<#if (list.children)?? && list.children?size > 0>
 											<ul>
 												<#list list.children as list>
 													<li>

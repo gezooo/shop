@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
 import com.zg.beans.DynamicConfig;
-import com.zg.util.TemplateConfigUtil;
+import com.zg.common.util.TemplateConfigUtils;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -49,8 +49,8 @@ public class TemplateDynamicAction extends BaseAdminAction {
 
 	// 编辑
 	public String edit() {
-		dynamicConfig = TemplateConfigUtil.getDynamicConfig(dynamicConfig.getName());
-		templateFileContent = TemplateConfigUtil.readTemplateFileContent(dynamicConfig);
+		dynamicConfig = TemplateConfigUtils.getDynamicConfig(dynamicConfig.getName());
+		templateFileContent = TemplateConfigUtils.readTemplateFileContent(dynamicConfig);
 		return INPUT;
 	}
 
@@ -62,8 +62,8 @@ public class TemplateDynamicAction extends BaseAdminAction {
 	)
 	@InputConfig(resultName = "error")
 	public String update() {
-		dynamicConfig = TemplateConfigUtil.getDynamicConfig(dynamicConfig.getName());
-		TemplateConfigUtil.writeTemplateFileContent(dynamicConfig, templateFileContent);
+		dynamicConfig = TemplateConfigUtils.getDynamicConfig(dynamicConfig.getName());
+		TemplateConfigUtils.writeTemplateFileContent(dynamicConfig, templateFileContent);
 		ServletContext servletContext = ServletActionContext.getServletContext();
 		freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
 		redirectionUrl = "template_dynamic!list.action";
@@ -72,7 +72,7 @@ public class TemplateDynamicAction extends BaseAdminAction {
 	
 	// 获取动态模板配置集合
 	public List<DynamicConfig> getDynamicConfigList() {
-		return TemplateConfigUtil.getDynamicConfigList();
+		return TemplateConfigUtils.getDynamicConfigList();
 	}
 
 	public DynamicConfig getDynamicConfig() {

@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -16,12 +16,12 @@ import java.text.DecimalFormat;
  * ============================================================================
  */
 
-public class ArithUtil {
+public class ArithUtils {
 
 	// 默认除法运算精度
 	private static final int DEF_DIV_SCALE = 10;
 
-	private ArithUtil() {
+	private ArithUtils() {
 		
 	}
 

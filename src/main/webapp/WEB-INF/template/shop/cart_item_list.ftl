@@ -196,7 +196,7 @@ $().ready( function() {
 									${list.name}
 								</a>
 							</td>
-							<#if (loginMember.memberRank.preferentialScale != 100)!>
+							<#if (loginMember.memberRank.preferentialScale != 100)!false>
 								<td class="priceTd">
 									<span class="lineThrough">${list.product.price?string(priceCurrencyFormat)}</span>
 								</td>
@@ -210,7 +210,7 @@ $().ready( function() {
 							</#if>
 							<td>
 								<input type="text" name="quantity" class="formText quantity {id: '${list.product.id}'}" value="${list.quantity}">
-								<#if (list.product.store != null && list.product.freezeStore + list.quantity > list.product.store)>
+								<#if (list.product.store?? && list.product.freezeStore + list.quantity > list.product.store)>
 									<strong class="storeInfo red">[库存不足]</strong>
 								</#if>
 							</td>
@@ -222,7 +222,7 @@ $().ready( function() {
 							</td>
 						</tr>
 					</#list>
-					<#if (cartItemList == null || cartItemList?size == 0)!>
+					<#if (!cartItemList?? || cartItemList?size == 0)!false>
 						<tr>
 							<td class="noRecord" colspan="<#if (loginMember.memberRank.preferentialScale != 100)!>6<#else>5</#if>">购物车目前没有加入任何商品!</td>
 						</tr>
@@ -240,7 +240,7 @@ $().ready( function() {
 				</table>
 				<div class="blank"></div>
 				<a class="continueShopping" href="${base}/"><span class="icon">&nbsp;</span>继续购物</a>
-				<#if (cartItemList != null && cartItemList?size > 0)!>
+				<#if (cartItemList?? && cartItemList?size > 0)!>
 					<a id="clearCartItem" class="clearCartItem" href="javascript: void(0);"><span class="icon">&nbsp;</span>清空购物车</a>
 					<a id="orderInfoButton" class="formButton" href="order!info.action">去结算</a>
 				</#if>

@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-public class GenerateKeyUtil {
+public class GenerateKeyUtils {
 	
 	public static void main(String[] args) {
 		

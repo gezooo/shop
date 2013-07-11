@@ -18,12 +18,12 @@ import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
 import com.zg.beans.CartItemCookie;
 import com.zg.beans.SystemConfig.PointType;
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.CartItem;
 import com.zg.entity.Member;
 import com.zg.entity.Product;
 import com.zg.service.CartItemService;
 import com.zg.service.ProductService;
-import com.zg.util.SystemConfigUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -163,7 +163,7 @@ public class CartItemAction extends BaseShopAction {
 				totalPrice =  product.getPreferentialPrice(getLoginMember()).multiply(new BigDecimal(quantity.toString())).add(totalPrice);
 			}
 		}
-		totalPrice = SystemConfigUtil.getOrderScaleBigDecimal(totalPrice);
+		totalPrice = SystemConfigUtils.getOrderScaleBigDecimal(totalPrice);
 		DecimalFormat decimalFormat = new DecimalFormat(getOrderUnitCurrencyFormat());
 		String totalPriceString = decimalFormat.format(totalPrice);
 		Map<String, String> jsonMap = new HashMap<String, String>();
@@ -229,7 +229,7 @@ public class CartItemAction extends BaseShopAction {
 				}
 			}
 		}
-		totalPrice = SystemConfigUtil.getOrderScaleBigDecimal(totalPrice);
+		totalPrice = SystemConfigUtils.getOrderScaleBigDecimal(totalPrice);
 		DecimalFormat decimalFormat = new DecimalFormat(getOrderUnitCurrencyFormat());
 		String totalPriceString = decimalFormat.format(totalPrice);
 		Map<String, String> jsonMap = new HashMap<String, String>();
@@ -289,7 +289,7 @@ public class CartItemAction extends BaseShopAction {
 				}
 			}
 		}
-		totalPrice = SystemConfigUtil.getOrderScaleBigDecimal(totalPrice);
+		totalPrice = SystemConfigUtils.getOrderScaleBigDecimal(totalPrice);
 		if (getSystemConfig().getPointType() == PointType.ORDERAMOUNT) {
 			totalPoint = totalPrice.multiply(new BigDecimal(getSystemConfig().getPointScale().toString())).setScale(0, RoundingMode.DOWN).intValue();
 		}
@@ -368,7 +368,7 @@ public class CartItemAction extends BaseShopAction {
 		}
 		DecimalFormat orderUnitCurrencyFormat = new DecimalFormat(getOrderUnitCurrencyFormat());
 		DecimalFormat orderCurrencyFormat = new DecimalFormat(getOrderCurrencyFormat());
-		totalPrice = SystemConfigUtil.getOrderScaleBigDecimal(totalPrice);
+		totalPrice = SystemConfigUtils.getOrderScaleBigDecimal(totalPrice);
 		if (getSystemConfig().getPointType() == PointType.ORDERAMOUNT) {
 			totalPoint = totalPrice.multiply(new BigDecimal(getSystemConfig().getPointScale().toString())).setScale(0, RoundingMode.DOWN).intValue();
 		}
@@ -441,7 +441,7 @@ public class CartItemAction extends BaseShopAction {
 				}
 			}
 		}
-		totalPrice = SystemConfigUtil.getOrderScaleBigDecimal(totalPrice);
+		totalPrice = SystemConfigUtils.getOrderScaleBigDecimal(totalPrice);
 		if (getSystemConfig().getPointType() == PointType.ORDERAMOUNT) {
 			totalPoint = totalPrice.multiply(new BigDecimal(getSystemConfig().getPointScale().toString())).setScale(0, RoundingMode.DOWN).intValue();
 		}

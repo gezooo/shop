@@ -26,7 +26,7 @@
 		<#local parameter = parameter + "&pager.orderType=" + orderType />
 	</#if>
 	<#list parameterMap?keys as key>
-		<#if parameterMap[key] != null && parameterMap[key] != "">
+		<#if parameterMap[key]?? && parameterMap[key] != "">
 			<#local parameter = parameter + "&" + key + "=" + parameterMap[key] />
 		</#if>
 	</#list>

@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.util.Collection;
 
@@ -19,7 +19,7 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
  * ============================================================================
  */
 
-public class EncacheCacheConfigUtil {
+public class EncacheCacheConfigUtils {
 	
 	public static final String GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME = "cacheManager";// GeneralCacheAdministrator注入Bean名称
 	
@@ -29,7 +29,7 @@ public class EncacheCacheConfigUtil {
 	 * @return 缓存对象
 	 */
 	public static Object getFromCache(String key) {
-		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtil.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
+		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtils.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
 		Cache cache = cacheManager.getCache("caching");
 		ValueWrapper  value = cache.get(key);
 		if(value == null) {
@@ -43,7 +43,7 @@ public class EncacheCacheConfigUtil {
 	 * 
 	 */
 	public static void putInCache(String key, Object object) {
-		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtil.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
+		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtils.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
 		Cache cache = cacheManager.getCache("caching");
 		cache.put(key, object);
 	}
@@ -53,13 +53,13 @@ public class EncacheCacheConfigUtil {
 	 * 
 	 */
 	public static void flushEntry(String key) {
-		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtil.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
+		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtils.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
 		Cache cache = cacheManager.getCache("caching");
 		cache.evict(key);
 	}
 	
 	public static void flushAll(){
-		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtil.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
+		EhCacheCacheManager cacheManager = (EhCacheCacheManager) SpringUtils.getBean(GENERAL_CACHE_ADMINISTRATOR_BEAN_NAME);
 		Collection<String>  cacheNames = cacheManager.getCacheNames();
 		for(String cacheName : cacheNames){
 			Cache cache = cacheManager.getCache(cacheName);

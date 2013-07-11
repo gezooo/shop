@@ -9,7 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.zg.util.SystemConfigUtil;
+import com.zg.common.util.SystemConfigUtils;
 
 @Entity
 public class Payment extends BaseEntity {
@@ -107,7 +107,7 @@ public class Payment extends BaseEntity {
 	}
 
 	public void setTotalAmount(BigDecimal totalAmount) {
-		this.totalAmount = SystemConfigUtil.getPriceScaleBigDecimal(totalAmount);
+		this.totalAmount = SystemConfigUtils.getPriceScaleBigDecimal(totalAmount);
 	}
 
 	@Column(nullable = false, updatable = false, precision = 15, scale = 5)
@@ -116,7 +116,7 @@ public class Payment extends BaseEntity {
 	}
 
 	public void setPaymentFee(BigDecimal paymentFee) {
-		this.paymentFee = SystemConfigUtil.getPriceScaleBigDecimal(paymentFee);;
+		this.paymentFee = SystemConfigUtils.getPriceScaleBigDecimal(paymentFee);;
 	}
 
 	@Column(nullable = false, updatable = false)

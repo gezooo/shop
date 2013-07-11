@@ -18,6 +18,7 @@ import com.zg.beans.Pager;
 import com.zg.beans.ProductImage;
 import com.zg.beans.SystemConfig;
 import com.zg.beans.SystemConfig.PointType;
+import com.zg.common.util.SerialNumberUtils;
 import com.zg.entity.Brand;
 import com.zg.entity.OrderItem;
 import com.zg.entity.Product;
@@ -33,7 +34,6 @@ import com.zg.service.ProductCategoryService;
 import com.zg.service.ProductImageService;
 import com.zg.service.ProductService;
 import com.zg.service.ProductTypeService;
-import com.zg.util.SerialNumberUtil;
 
 
 import org.apache.commons.lang.ArrayUtils;
@@ -183,7 +183,7 @@ public class ProductAction extends BaseAdminAction {
 				return ERROR;
 			}
 		} else {
-			String productSn = SerialNumberUtil.buildProductSn();
+			String productSn = SerialNumberUtils.buildProductSn();
 			product.setProductSn(productSn);
 		}
 		ProductType productType = product.getProductType();
@@ -336,7 +336,7 @@ public class ProductAction extends BaseAdminAction {
 				return ERROR;
 			}
 		} else {
-			String productSn = SerialNumberUtil.buildProductSn();
+			String productSn = SerialNumberUtils.buildProductSn();
 			product.setProductSn(productSn);
 		}
 		

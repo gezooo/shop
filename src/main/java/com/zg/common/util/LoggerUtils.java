@@ -1,9 +1,9 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import org.slf4j.LoggerFactory;
 
 
-public class LoggerUtil {
+public class LoggerUtils {
 	
 	public static void info(Class<?> clazz, String message) {
 	    LoggerFactory.getLogger(clazz).info(message);

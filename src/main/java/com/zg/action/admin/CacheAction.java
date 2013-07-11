@@ -10,7 +10,7 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.views.freemarker.FreemarkerManager;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 
-import com.zg.util.EncacheCacheConfigUtil;
+import com.zg.common.util.EncacheCacheConfigUtils;
 
 
 import freemarker.template.TemplateException;
@@ -51,7 +51,7 @@ public class CacheAction extends BaseAdminAction {
 		Cache cache = ServletCacheAdministrator.getInstance(getRequest().getSession().getServletContext()).getCache(getRequest(), PageContext.APPLICATION_SCOPE); 
 		cache.flushAll(new Date());
 		*/
-		EncacheCacheConfigUtil.flushAll();
+		EncacheCacheConfigUtils.flushAll();
 	}
 
 }

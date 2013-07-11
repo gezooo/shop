@@ -5,8 +5,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import com.zg.common.util.CommonUtils;
 import com.zg.entity.Product;
-import com.zg.util.CommonUtil;
 
 @Component
 public class CacheMethod {
@@ -41,7 +41,7 @@ public class CacheMethod {
 	//@Cacheable(value="caching", key="#root.methodName.getDeclaringClass.getName + #root.methodName")
 	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #p.id")
 	public String method(Product p){
-		System.out.println(CommonUtil.displayMessage("called", null));
+		System.out.println(CommonUtils.displayMessage("called", null));
 		//org.springframework.cache.interceptor.ExpressionEvaluator e;
 		//org.springframework.cache.interceptor.CacheAspectSupport c;
 		return "method";
@@ -49,7 +49,7 @@ public class CacheMethod {
 	
 	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #s")
 	public String method(String s){
-		System.out.println(CommonUtil.displayMessage("called", null));
+		System.out.println(CommonUtils.displayMessage("called", null));
 		//org.springframework.cache.interceptor.ExpressionEvaluator e;
 		//org.springframework.cache.interceptor.CacheAspectSupport c;
 		return "method";

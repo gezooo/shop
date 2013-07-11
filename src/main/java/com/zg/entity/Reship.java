@@ -13,7 +13,7 @@ import javax.persistence.OrderBy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import com.zg.util.SystemConfigUtil;
+import com.zg.common.util.SystemConfigUtils;
 
 @Entity
 public class Reship extends BaseEntity {
@@ -97,7 +97,7 @@ public class Reship extends BaseEntity {
 	}
 
 	public void setDeliveryFee(BigDecimal deliveryFee) {
-		this.deliveryFee = SystemConfigUtil.getPriceScaleBigDecimal(deliveryFee);
+		this.deliveryFee = SystemConfigUtils.getPriceScaleBigDecimal(deliveryFee);
 	}
 
 	@Column(updatable = false, nullable = false)

@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ import com.zg.service.RefundService;
 import com.zg.service.ReshipService;
 import com.zg.service.ShippingService;
 
-public class SerialNumberUtil {
+public class SerialNumberUtils {
 	
 public static final String PRODUCT_SN_PREFIX = "SN_";// 货号前缀
 	
@@ -44,7 +44,7 @@ public static final String PRODUCT_SN_PREFIX = "SN_";// 货号前缀
 	
 	static {
 		// 订单编号
-		OrderService orderService = (OrderService) SpringUtil.getBean("orderServiceImpl");
+		OrderService orderService = (OrderService) SpringUtils.getBean("orderServiceImpl");
 		String lastOrderSn = orderService.getLastOrderSn();
 		if (StringUtils.isNotEmpty(lastOrderSn)) {
 			lastOrderSnNumber = Long.parseLong(StringUtils.removeStartIgnoreCase(lastOrderSn, ORDER_SN_PREFIX));
@@ -53,7 +53,7 @@ public static final String PRODUCT_SN_PREFIX = "SN_";// 货号前缀
 		}
 		
 		// 支付编号
-		PaymentService paymentService = (PaymentService) SpringUtil.getBean("paymentServiceImpl");
+		PaymentService paymentService = (PaymentService) SpringUtils.getBean("paymentServiceImpl");
 		String lastPaymentSn = paymentService.getLastPaymentSn();
 		if (StringUtils.isNotEmpty(lastPaymentSn)) {
 			lastPaymentSnNumber = Long.parseLong(StringUtils.removeStartIgnoreCase(lastPaymentSn, PAYMENT_SN_PREFIX));
@@ -62,7 +62,7 @@ public static final String PRODUCT_SN_PREFIX = "SN_";// 货号前缀
 		}
 		
 		// 退款编号
-		RefundService refundService = (RefundService) SpringUtil.getBean("refundServiceImpl");
+		RefundService refundService = (RefundService) SpringUtils.getBean("refundServiceImpl");
 		String lastRefundSn = refundService.getLastRefundSn();
 		if (StringUtils.isNotEmpty(lastRefundSn)) {
 			lastRefundSnNumber = Long.parseLong(StringUtils.removeStartIgnoreCase(lastRefundSn, REFUND_SN_PREFIX));
@@ -71,7 +71,7 @@ public static final String PRODUCT_SN_PREFIX = "SN_";// 货号前缀
 		}
 		
 		// 发货编号
-		ShippingService shippingService = (ShippingService) SpringUtil.getBean("shippingServiceImpl");
+		ShippingService shippingService = (ShippingService) SpringUtils.getBean("shippingServiceImpl");
 		String lastShippingSn = shippingService.getLastShippingSn();
 		if (StringUtils.isNotEmpty(lastShippingSn)) {
 			lastShippingSnNumber = Long.parseLong(StringUtils.removeStartIgnoreCase(lastShippingSn, SHIPPING_SN_PREFIX));
@@ -80,7 +80,7 @@ public static final String PRODUCT_SN_PREFIX = "SN_";// 货号前缀
 		}
 		
 		// 退货编号
-		ReshipService reshipService = (ReshipService) SpringUtil.getBean("reshipServiceImpl");
+		ReshipService reshipService = (ReshipService) SpringUtils.getBean("reshipServiceImpl");
 		String lastReshipSn = reshipService.getLastReshipSn();
 		if (StringUtils.isNotEmpty(lastReshipSn)) {
 			lastReshipSnNumber = Long.parseLong(StringUtils.removeStartIgnoreCase(lastReshipSn, RESHIP_SN_PREFIX));

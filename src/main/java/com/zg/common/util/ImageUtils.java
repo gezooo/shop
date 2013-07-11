@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -15,7 +15,7 @@ import javax.imageio.stream.ImageInputStream;
 
 import com.zg.beans.SystemConfig.WatermarkPosition;
 
-public class ImageUtil {
+public class ImageUtils {
 	
 	/**
 	 * 图片缩放(图片等比例缩放为指定大小，空白部分以白色填充)

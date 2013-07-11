@@ -15,8 +15,8 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.zg.beans.SystemConfig;
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Admin;
-import com.zg.util.SystemConfigUtil;
 
 public class BaseAdminAction extends ActionSupport{
 
@@ -45,27 +45,27 @@ public class BaseAdminAction extends ActionSupport{
 
 	// 获取系统配置信息
 	public SystemConfig getSystemConfig() {
-		return SystemConfigUtil.getSystemConfig();
+		return SystemConfigUtils.getSystemConfig();
 	}
 	
 	// 获取商品价格货币格式
 	public String getPriceCurrencyFormat() {
-		return SystemConfigUtil.getPriceCurrencyFormat();
+		return SystemConfigUtils.getPriceCurrencyFormat();
 	}
 	
 	// 获取商品价格货币格式（包含货币单元）
 	public String getPriceUnitCurrencyFormat() {
-		return SystemConfigUtil.getPriceUnitCurrencyFormat();
+		return SystemConfigUtils.getPriceUnitCurrencyFormat();
 	}
 	
 	// 获取订单货币格式
 	public String getOrderCurrencyFormat() {
-		return SystemConfigUtil.getOrderCurrencyFormat();
+		return SystemConfigUtils.getOrderCurrencyFormat();
 	}
 	
 	// 获取订单货币格式（包含货币单位）
 	public String getOrderUnitCurrencyFormat() {
-		return SystemConfigUtil.getOrderUnitCurrencyFormat();
+		return SystemConfigUtils.getOrderUnitCurrencyFormat();
 	}
 
 	// 获取Attribute

@@ -25,9 +25,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.zg.beans.SystemConfig;
+import com.zg.common.util.CommonUtils;
 import com.zg.entity.Article;
 import com.zg.test.mock.util.MockSystemConfigUtil;
-import com.zg.util.CommonUtil;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -64,7 +64,7 @@ public class BuildHtmlTest {
 	
 	public void buildHtml(String templateFilePath, String htmlFilePath,
 			Map<String, Object> data) {
-		logger.debug(CommonUtil.displayMessage("Called", null));
+		logger.debug(CommonUtils.displayMessage("Called", null));
 
 		//freemarker.cache.WebappTemplateLoader r;
 		 Configuration freemarkerCfg = new Configuration();
@@ -72,26 +72,26 @@ public class BuildHtmlTest {
 	                .getServletContext(), "/");  
 		try {
 			Template template = freemarkerCfg.getTemplate(templateFilePath);
-			logger.debug(CommonUtil.displayMessage("configuration.getTemplate", null));
+			logger.debug(CommonUtils.displayMessage("configuration.getTemplate", null));
 
 			File htmlFile = new File(servletContext.getRealPath(htmlFilePath));
-			logger.debug(CommonUtil.displayMessage("File(servletContext", null));
+			logger.debug(CommonUtils.displayMessage("File(servletContext", null));
 			System.out.println("file path: " + htmlFile.getPath());
 
 
 			File htmlDirectory = htmlFile.getParentFile();
-			logger.debug(CommonUtil.displayMessage("htmlFile.getParentFile", null));
+			logger.debug(CommonUtils.displayMessage("htmlFile.getParentFile", null));
 
 			if (!htmlDirectory.exists()) {
 				htmlDirectory.mkdirs();
 			}
-			logger.debug(CommonUtil.displayMessage("htmlDirectory.mkdirs", null));
+			logger.debug(CommonUtils.displayMessage("htmlDirectory.mkdirs", null));
 
 			Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(htmlFile), "UTF-8"));
-			logger.debug(CommonUtil.displayMessage("new BufferedWriter", null));
+			logger.debug(CommonUtils.displayMessage("new BufferedWriter", null));
 
 			template.process(data, out);
-			logger.debug(CommonUtil.displayMessage("template.process", null));
+			logger.debug(CommonUtils.displayMessage("template.process", null));
 
 			out.flush();
 			out.close();

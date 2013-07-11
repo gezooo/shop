@@ -4,10 +4,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.zg.common.util.SpringUtils;
 import com.zg.dao.RoleDao;
 import com.zg.entity.Role;
 import com.zg.service.RoleService;
-import com.zg.util.SpringUtil;
 
 @Service
 public class RoleServiceImpl extends BaseServiceImpl<Role, String> implements RoleService {
@@ -25,7 +25,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, String> implements Ro
 	public void delete(Role role) {
 		roleDao.delete(role);
 		roleDao.flush();
-		SpringUtil.flushSpringSecurity();
+		SpringUtils.flushSpringSecurity();
 	}
 
 	// 重写方法，删除时刷新SpringSecurity权限信息
@@ -43,7 +43,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, String> implements Ro
 			roleDao.delete(role);
 		}
 		roleDao.flush();
-		SpringUtil.flushSpringSecurity();
+		SpringUtils.flushSpringSecurity();
 	}
 
 	// 重写方法，保存时刷新SpringSecurity权限信息
@@ -52,7 +52,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, String> implements Ro
 		String id = roleDao.save(role);
 		roleDao.flush();
 		roleDao.clear();
-		SpringUtil.flushSpringSecurity();
+		SpringUtils.flushSpringSecurity();
 		return id;
 	}
 
@@ -61,6 +61,6 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, String> implements Ro
 	public void update(Role role) {
 		roleDao.update(role);
 		roleDao.flush();
-		SpringUtil.flushSpringSecurity();
+		SpringUtils.flushSpringSecurity();
 	}
 }

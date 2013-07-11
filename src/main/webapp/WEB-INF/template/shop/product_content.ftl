@@ -52,11 +52,11 @@ $().ready( function() {
             				<li class="mainCategory">
 								<a href="${base}/shop/product!list.action?id=${list.id}">${list.name}</a>
 							</li>
-							<#if (list.children != null && list.children?size > 0)>
+							<#if (list.children?? && list.children?size > 0)>
 								<#list list.children as list>
 									<li>
 										<a href="${base}/shop/product!list.action?id=${list.id}"><span class="icon">&nbsp;</span>${list.name}</a>
-										<#if (list.children != null && list.children?size > 0)>
+										<#if ((list.children)?? && list.children?size > 0)>
 											<ul>
 												<#list list.children as list>
 													<li>
@@ -135,7 +135,7 @@ $().ready( function() {
 								<img src="${base}${list.smallProductImagePath}" />
 							</a>
 						</#list>
-						<#if product.productImageList == null>
+						<#if !(product.productImageList)??>
 	            			<a href="${base}${systemConfig.defaultBigProductImagePath}" class="zoom">
 								<img src="${base}${systemConfig.defaultSmallProductImagePath}" />
 							</a>
@@ -145,7 +145,7 @@ $().ready( function() {
 						<a class="prev browse" href="javascript:void(0);" hidefocus="true"></a>
 						<div class="scrollable">
 							<ul class="items productImageTab">
-								<#if (product.productImageList == null)!>
+								<#if !(product.productImageList)??>
 									<li>
 										<img src="${base}${systemConfig.defaultThumbnailProductImagePath}" />
 									</li>
@@ -167,7 +167,7 @@ $().ready( function() {
 					<ul class="productAttribute">
 						<#assign index = 1 />
 						<#list (product.productType.enabledProductAttributeList)! as list>
-							<#if (product.productAttributeMap.get(list) != null)!>
+							<#if (product.productAttributeMap.get(list))??>
 	                    		<li>
 	                    			<strong>${list.name}:</strong>
 	                				<#list (product.productAttributeMap.get(list))! as attributeOptionList>
@@ -183,7 +183,7 @@ $().ready( function() {
 								<#assign index = index + 1 />
 							</#if>
 						</#list>
-                        <#if (product.productType.productAttributeList != null && product.productType.productAttributeList?size > 0)!>
+                        <#if (product.productType.productAttributeList)?? && product.productType.productAttributeList?size > 0>
                         	<li><a href="#productAttribute" id="moreProductAttribute">更多参数>></a></li>
                         </#if>
 					</ul>
@@ -240,7 +240,7 @@ $().ready( function() {
 				<div class="tabContent productAttribute">
 					<table class="productAttributeTable">
 						<#list (product.productType.enabledProductAttributeList)! as list>
-							<#if (product.productAttributeMap.get(list) != null)!>
+							<#if (product.productAttributeMap.get(list))??>
 								<tr>
 									<th>${list.name}</th>
 									<td>

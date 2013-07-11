@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
-import com.zg.util.SystemConfigUtil;
+import com.zg.common.util.SystemConfigUtils;
 
 @Entity
 public class OrderItem extends BaseEntity {
@@ -61,7 +61,7 @@ public class OrderItem extends BaseEntity {
 	}
 
 	public void setProductPrice(BigDecimal productPrice) {
-		this.productPrice = SystemConfigUtil.getOrderScaleBigDecimal(productPrice);
+		this.productPrice = SystemConfigUtils.getOrderScaleBigDecimal(productPrice);
 	}
 
 	@Column(updatable = false, nullable = false)
@@ -122,7 +122,7 @@ public class OrderItem extends BaseEntity {
 	@Transient
 	public BigDecimal getSubTotalPrice() {
 		BigDecimal subTotalPrice = this.productPrice.multiply(new BigDecimal(this.productQuantity.toString()));
-		return SystemConfigUtil.getOrderScaleBigDecimal(subTotalPrice);
+		return SystemConfigUtils.getOrderScaleBigDecimal(subTotalPrice);
 	}
 	
 

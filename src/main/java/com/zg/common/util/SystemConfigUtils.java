@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,14 +21,14 @@ import com.zg.beans.SystemConfig.WatermarkPosition;
 import com.zg.beans.SystemConfig.PointType;
 import com.zg.common.ClassLoadUtil;
 
-public class SystemConfigUtil {
+public class SystemConfigUtils {
 
 	public static final String CONFIG_FILE_NAME = "shop-zg.xml";// 系统配置文件名称
 	public static final String SYSTEM_CONFIG_CACHE_KEY = "systemConfig";// systemConfig缓存Key
 
 	
 	public static SystemConfig getSystemConfigFromCache() {
-		return (SystemConfig) EncacheCacheConfigUtil.getFromCache(SYSTEM_CONFIG_CACHE_KEY);
+		return (SystemConfig) EncacheCacheConfigUtils.getFromCache(SYSTEM_CONFIG_CACHE_KEY);
 	}
 	
 	public static File getConfigFile() throws URISyntaxException {
@@ -159,7 +159,7 @@ public class SystemConfigUtil {
 			return systemConfig;
 		}
 		systemConfig = loadSystemConfigFromConfigFile();
-		EncacheCacheConfigUtil.putInCache(SYSTEM_CONFIG_CACHE_KEY, systemConfig);
+		EncacheCacheConfigUtils.putInCache(SYSTEM_CONFIG_CACHE_KEY, systemConfig);
 		return systemConfig;
 	}
 	
@@ -455,7 +455,7 @@ public class SystemConfigUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		EncacheCacheConfigUtil.flushEntry(SYSTEM_CONFIG_CACHE_KEY);
+		EncacheCacheConfigUtils.flushEntry(SYSTEM_CONFIG_CACHE_KEY);
 	}
 	
 	/**
@@ -463,7 +463,7 @@ public class SystemConfigUtil {
 	 * 
 	 */
 	public void flush() {
-		EncacheCacheConfigUtil.flushEntry(SYSTEM_CONFIG_CACHE_KEY);
+		EncacheCacheConfigUtils.flushEntry(SYSTEM_CONFIG_CACHE_KEY);
 	}
 	
 	public static BigDecimal getPriceScaleBigDecimal(BigDecimal price) {

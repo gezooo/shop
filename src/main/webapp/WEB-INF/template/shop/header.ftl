@@ -28,7 +28,7 @@
 		<div class="headerSearch png">
 			<form id="productSearchForm" action="${base}/shop/product!search.action" method="get">
 				<div class="headerSearchText">
-					<input type="text" id="productSearchKeyword" name="pager.keyword" value="<#if (pager.keyword != null && rootProductCategoryList != null)!>${pager.keyword}<#else>请输入关键词...</#if>"}" />
+					<input type="text" id="productSearchKeyword" name="pager.keyword" value="<#if (pager.keyword?? && rootProductCategoryList??)!false>${pager.keyword}<#else>请输入关键词...</#if>"}" />
 				</div>
 				<input type="submit" class="headerSearchButton" value="" />
 				<div class="hotKeyword">

@@ -18,7 +18,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.zg.util.EncryptUtil;
+import com.zg.common.util.EncryptUtils;
 
 import sun.misc.BASE64Encoder;
 
@@ -120,7 +120,7 @@ public class Key {
 	public static void main(String[] args) {
 		
 		String s = readKeyFile("keyfile");
-		System.out.println(EncryptUtil.dencrypt(s));
+		System.out.println(EncryptUtils.dencrypt(s));
 	}
 
 }

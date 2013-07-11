@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Set;
 
 import com.zg.beans.Pager;
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.dao.ProductDao;
 import com.zg.entity.DeliveryItem;
 import com.zg.entity.Member;
 import com.zg.entity.OrderItem;
 import com.zg.entity.Product;
 import com.zg.entity.ProductCategory;
-import com.zg.util.SystemConfigUtil;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -123,7 +123,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, String> implements Prod
 	
 	public Long getStoreAlertCount() {
 		String hql = "select count(*) from Product as product where product.isMarketable = ? and product.store - product.freezeStore <= ?";
-		return (Long) getSession().createQuery(hql).setParameter(0, true).setParameter(1, SystemConfigUtil.getSystemConfig().getStoreAlertCount()).uniqueResult();
+		return (Long) getSession().createQuery(hql).setParameter(0, true).setParameter(1, SystemConfigUtils.getSystemConfig().getStoreAlertCount()).uniqueResult();
 	}
 	
 	public Long getMarketableProductCount() {

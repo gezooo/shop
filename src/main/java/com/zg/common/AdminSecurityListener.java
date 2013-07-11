@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zg.beans.SystemConfig;
+import com.zg.common.util.EncryptUtils;
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Admin;
 import com.zg.service.AdminService;
-import com.zg.util.EncryptUtil;
-import com.zg.util.SystemConfigUtil;
 
 @Component
 @Transactional
@@ -36,7 +36,7 @@ public class AdminSecurityListener implements ApplicationListener {
 		
 		//shop key unknow
 		String k = (String) servletContext.getAttribute("Z" + "G" + "S" + "H" + "O" + "P" + "_" + "K" + "E" + "Y");
-		String shopkey = EncryptUtil.dencrypt(k);
+		String shopkey = EncryptUtils.dencrypt(k);
 		if (!StringUtils.containsIgnoreCase(shopkey, "z" + "g" + "s" + "h" + "o" + "p")) {
 			throw new RuntimeException();
 		}
@@ -49,7 +49,7 @@ public class AdminSecurityListener implements ApplicationListener {
 			Admin admin = (Admin) authentication.getPrincipal();
 			admin.setLoginIp(loginIp);
 			admin.setLoginDate(new Date());
-			SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
+			SystemConfig systemConfig = SystemConfigUtils.getSystemConfig();
 			if (systemConfig.getIsLoginFailureLock() == false) {
 				return;
 			}
@@ -62,7 +62,7 @@ public class AdminSecurityListener implements ApplicationListener {
 			AuthenticationFailureBadCredentialsEvent authEvent = (AuthenticationFailureBadCredentialsEvent) event;
 			Authentication authentication = (Authentication) authEvent.getSource();
 			String loginUsername = authentication.getName();
-			SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
+			SystemConfig systemConfig = SystemConfigUtils.getSystemConfig();
 			if (systemConfig.getIsLoginFailureLock() == false) {
 				return;
 			}

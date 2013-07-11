@@ -23,10 +23,10 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.zg.beans.MailConfig;
 import com.zg.beans.SystemConfig;
+import com.zg.common.util.SystemConfigUtils;
+import com.zg.common.util.TemplateConfigUtils;
 import com.zg.entity.Member;
 import com.zg.service.MailService;
-import com.zg.util.SystemConfigUtil;
-import com.zg.util.TemplateConfigUtil;
 
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.ResourceBundleModel;
@@ -47,7 +47,7 @@ public class MailServiceImpl implements MailService {
 	private TaskExecutor taskExecutor;
 	
 	public boolean isMailConfigComplete() {
-		SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
+		SystemConfig systemConfig = SystemConfigUtils.getSystemConfig();
 		if (StringUtils.isEmpty(systemConfig.getSmtpFromMail()) 
 				|| StringUtils.isEmpty(systemConfig.getSmtpHost()) 
 				|| systemConfig.getSmtpPort() == null 
@@ -74,7 +74,7 @@ public class MailServiceImpl implements MailService {
 		
 		public void sendMail(String subject, String templateFilePath, Map<String, Object> data, String toMail) {
 			try {
-				SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
+				SystemConfig systemConfig = SystemConfigUtils.getSystemConfig();
 				ServletContext servletContext = ServletActionContext.getServletContext();
 				JavaMailSenderImpl javaMailSenderImpl = (JavaMailSenderImpl)javaMailSender;
 				javaMailSenderImpl.setHost(systemConfig.getSmtpHost());
@@ -104,14 +104,14 @@ public class MailServiceImpl implements MailService {
 			ResourceBundleModel resourceBundleModel = new ResourceBundleModel(resourceBundle, new BeansWrapper());
 			commonData.put("bundle", resourceBundleModel);
 			commonData.put("base", servletContext.getContextPath());
-			commonData.put("systemConfig", SystemConfigUtil.getSystemConfig());
+			commonData.put("systemConfig", SystemConfigUtils.getSystemConfig());
 			return commonData;
 		}
 		
 		public void sendSmtpTestMail(String smtpFromMail, String smtpHost, Integer smtpPort, String smtpUsername, String smtpPassword, String toMail) {
-			SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
+			SystemConfig systemConfig = SystemConfigUtils.getSystemConfig();
 			Map<String, Object> data = getCommonData();
-			MailConfig mailConfig = TemplateConfigUtil.getMailConfig(MailConfig.SMTP_TEST);
+			MailConfig mailConfig = TemplateConfigUtils.getMailConfig(MailConfig.SMTP_TEST);
 			String subject = mailConfig.getSubject();
 			String templateFilePath = mailConfig.getTemplateFilePath();
 			ServletContext servletContext = ServletActionContext.getServletContext();
@@ -143,7 +143,7 @@ public class MailServiceImpl implements MailService {
 		public void sendPasswordRecoverMail(Member member) {
 			Map<String, Object> data = getCommonData();
 			data.put("member", member);
-			MailConfig mailConfig = TemplateConfigUtil.getMailConfig(MailConfig.PASSWORD_RECOVER);
+			MailConfig mailConfig = TemplateConfigUtils.getMailConfig(MailConfig.PASSWORD_RECOVER);
 			String subject = mailConfig.getSubject();
 			String templateFilePath = mailConfig.getTemplateFilePath();
 			sendMail(subject, templateFilePath, data, member.getEmail());

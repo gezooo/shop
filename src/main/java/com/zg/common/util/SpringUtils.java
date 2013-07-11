@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
@@ -22,12 +22,12 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class SpringUtil implements ApplicationContextAware {
+public class SpringUtils implements ApplicationContextAware {
 
 	private static ApplicationContext applicationContext;
 
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		SpringUtil.applicationContext = applicationContext;
+		SpringUtils.applicationContext = applicationContext;
 	}
 
 	public static ApplicationContext getApplicationContext() {
@@ -51,9 +51,9 @@ public class SpringUtil implements ApplicationContextAware {
 	// 刷新SpringSecurity权限信息
 	public static void flushSpringSecurity() {
 		try {
-			FactoryBean factoryBean = (FactoryBean)SpringUtil.getBean("&adminSecurityDefinitionSource");
+			FactoryBean factoryBean = (FactoryBean)SpringUtils.getBean("&adminSecurityDefinitionSource");
 			FilterInvocationSecurityMetadataSource filterInvocationDefinitionSource = (FilterInvocationSecurityMetadataSource) factoryBean.getObject();
-		    FilterSecurityInterceptor filterSecurityInterceptor = (FilterSecurityInterceptor) SpringUtil.getBean("filterSecurityInterceptor");
+		    FilterSecurityInterceptor filterSecurityInterceptor = (FilterSecurityInterceptor) SpringUtils.getBean("filterSecurityInterceptor");
 		    filterSecurityInterceptor.setSecurityMetadataSource(filterInvocationDefinitionSource);
 		} catch (Exception e) {
 			e.printStackTrace();

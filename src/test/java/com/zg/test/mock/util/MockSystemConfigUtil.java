@@ -11,10 +11,10 @@ import java.net.URISyntaxException;
 
 
 import com.zg.beans.SystemConfig;
+import com.zg.common.util.SystemConfigUtils;
 
-import com.zg.util.SystemConfigUtil;
 
-public class MockSystemConfigUtil extends SystemConfigUtil{
+public class MockSystemConfigUtil extends SystemConfigUtils{
 	
 	public static File getConfigFile() throws URISyntaxException {
 		File file = new File("temp");

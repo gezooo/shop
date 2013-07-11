@@ -99,16 +99,16 @@ $().ready( function() {
 									发送给:
 								</th>
 								<td>
-									<label><input type="radio" name="messageType" class="messageType" value="member"<#if (message == null || message.toMember != null)!> checked</#if>>其它会员</label>
-									<label><input type="radio" name="messageType" class="messageType" value="admin"<#if (message.toMember == null)!> checked</#if>>管理员</label>
+									<label><input type="radio" name="messageType" class="messageType" value="member"<#if (!message?? || message.toMember??)> checked</#if>>其它会员</label>
+									<label><input type="radio" name="messageType" class="messageType" value="admin"<#if (message.toMember)??> checked</#if>>管理员</label>
 								</td>
 							</tr>
-							<tr class="toMemberTr"<#if (message.toMember == null)!> style="display: none;"</#if>>
+							<tr class="toMemberTr"<#if !(message.toMember)??> style="display: none;"</#if>>
 								<th>
 									对方用户名:
 								</th>
 								<td>
-									<input type="text" name="toMemberUsername" class="formText {required: true, notEqual: '${loginMember.username}', remote: 'message!checkUsername.action', messages: {required: '请填写用户名!', notEqual:'收件人不允许为自己!', remote: '此会员不存在!'}}" value="${(message.toMember.username)!}"<#if (message.toMember == null)!> disabled="true"</#if> />
+									<input type="text" name="toMemberUsername" class="formText {required: true, notEqual: '${loginMember.username}', remote: 'message!checkUsername.action', messages: {required: '请填写用户名!', notEqual:'收件人不允许为自己!', remote: '此会员不存在!'}}" value="${(message.toMember.username)!}"<#if !(message.toMember)??> disabled="true"</#if> />
 									<label class="requireField">*</label>
 								</td>
 							</tr>

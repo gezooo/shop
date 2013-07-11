@@ -8,10 +8,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.zg.common.util.CommonUtils;
 import com.zg.dao.MemberDao;
 import com.zg.entity.Member;
 import com.zg.service.MemberService;
-import com.zg.util.CommonUtil;
 
 @Service
 public class MemberServiceImpl extends BaseServiceImpl<Member, String> implements MemberService {
@@ -41,7 +41,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, String> implement
 	}
 	
 	public String buildPasswordRecoverKey() {
-		return System.currentTimeMillis() + Member.PASSWORD_RECOVER_KEY_SEPARATOR + CommonUtil.getUUID() + DigestUtils.md5Hex(CommonUtil.getRandomString(10));
+		return System.currentTimeMillis() + Member.PASSWORD_RECOVER_KEY_SEPARATOR + CommonUtils.getUUID() + DigestUtils.md5Hex(CommonUtils.getRandomString(10));
 	}
 	
 	public Date getPasswordRecoverKeyBuildDate(String passwordRecoverKey) {

@@ -13,9 +13,9 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.zg.common.util.EncacheCacheConfigUtils;
+import com.zg.common.util.SpringUtils;
 import com.zg.entity.Product;
-import com.zg.util.EncacheCacheConfigUtil;
-import com.zg.util.SpringUtil;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

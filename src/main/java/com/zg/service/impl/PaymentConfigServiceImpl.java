@@ -20,10 +20,10 @@ import org.springframework.stereotype.Service;
 
 import com.zg.beans.TenpayConfig;
 import com.zg.beans.TenpayConfig.TenpayType;
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.dao.PaymentConfigDao;
 import com.zg.entity.PaymentConfig;
 import com.zg.service.PaymentConfigService;
-import com.zg.util.SystemConfigUtil;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -109,7 +109,7 @@ public class PaymentConfigServiceImpl extends BaseServiceImpl<PaymentConfig, Str
 		String sp_billno = paymentSn;// 支付编号
 		String total_fee = totalAmountString;// 总金额（单位：分）
 		String fee_type = "1";// 支付币种（1：人民币）
-		String return_url = SystemConfigUtil.getSystemConfig().getShopUrl() + TenpayConfig.RETURN_URL;// 结果处理URL
+		String return_url = SystemConfigUtils.getSystemConfig().getShopUrl() + TenpayConfig.RETURN_URL;// 结果处理URL
 		String attach = data;// 商户数据
 		String spbill_create_ip = ip;// 客户IP
 		String key = tenpayConfig.getKey();// 密钥
@@ -223,8 +223,8 @@ public class PaymentConfigServiceImpl extends BaseServiceImpl<PaymentConfig, Str
 		String need_buyerinfo = "2";// 是否需要填写物流信息（1：需要；2：不需要）
 		String mch_type = mchType;// 交易类型（1、实物交易；2、虚拟交易）
 		String mch_vno = paymentSn;// 支付编号
-		String mch_returl = SystemConfigUtil.getSystemConfig().getShopUrl() + TenpayConfig.RETURN_URL;// 结果处理URL
-		String show_url = SystemConfigUtil.getSystemConfig().getShopUrl() + TenpayConfig.RETURN_URL;// 结果展示URL
+		String mch_returl = SystemConfigUtils.getSystemConfig().getShopUrl() + TenpayConfig.RETURN_URL;// 结果处理URL
+		String show_url = SystemConfigUtils.getSystemConfig().getShopUrl() + TenpayConfig.RETURN_URL;// 结果展示URL
 		String attach = data;// 商户数据
 		String key = tenpayConfig.getKey();// 密钥
 		

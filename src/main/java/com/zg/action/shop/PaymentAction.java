@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import com.zg.beans.TenpayConfig;
 import com.zg.beans.SystemConfig.StoreFreezeTime;
 import com.zg.beans.TenpayConfig.TenpayType;
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Deposit;
 import com.zg.entity.Member;
 import com.zg.entity.Order;
@@ -35,7 +36,6 @@ import com.zg.service.OrderService;
 import com.zg.service.PaymentConfigService;
 import com.zg.service.PaymentService;
 import com.zg.service.ProductService;
-import com.zg.util.SystemConfigUtil;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
@@ -355,7 +355,7 @@ public class PaymentAction extends BaseShopAction {
 			String urlString = "123efakiaHR0cDovL3d3dy5zaG9weHgubmV0L2NlcnRpZmljYXRlLmFjdGlvbj9zaG9wVXJsPQ";
 			BASE64Decoder bASE64Decoder = new BASE64Decoder();
 			urlString = new String(bASE64Decoder.decodeBuffer(StringUtils.substring(urlString, 8) + "=="));
-			URL url = new URL(urlString + SystemConfigUtil.getSystemConfig().getShopUrl());
+			URL url = new URL(urlString + SystemConfigUtils.getSystemConfig().getShopUrl());
 			URLConnection urlConnection = url.openConnection();
 			HttpURLConnection httpConnection = (HttpURLConnection)urlConnection;
 			httpConnection.getResponseCode();

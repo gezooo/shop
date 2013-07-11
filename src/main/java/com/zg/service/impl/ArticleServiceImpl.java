@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 
 import com.zg.beans.HtmlConfig;
 import com.zg.beans.Pager;
+import com.zg.common.util.CommonUtils;
+import com.zg.common.util.TemplateConfigUtils;
 import com.zg.dao.ArticleDao;
 import com.zg.entity.Article;
 import com.zg.entity.ArticleCategory;
@@ -30,8 +32,6 @@ import com.zg.search.SearchCallback;
 import com.zg.search.SearchCriterial;
 import com.zg.service.ArticleService;
 import com.zg.service.HtmlService;
-import com.zg.util.CommonUtil;
-import com.zg.util.TemplateConfigUtil;
 
 
 @Service
@@ -156,13 +156,13 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, String> impleme
 	}
 	
 	public String save(Article article) {
-		logger.debug(CommonUtil.displayMessage("Called", null));
+		logger.debug(CommonUtils.displayMessage("Called", null));
 		
 		article.setPageCount(0);
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ARTICLE_CONTENT);
-		logger.debug(CommonUtil.displayMessage(" htmlConfig " + htmlConfig.getHtmlFilePath(), null));
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.ARTICLE_CONTENT);
+		logger.debug(CommonUtils.displayMessage(" htmlConfig " + htmlConfig.getHtmlFilePath(), null));
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
-		logger.debug(CommonUtil.displayMessage(" htmlConfig " + htmlConfig.getHtmlFilePath(), null));
+		logger.debug(CommonUtils.displayMessage(" htmlConfig " + htmlConfig.getHtmlFilePath(), null));
 		article.setHtmlFilePath(htmlFilePath);
 		
 		String id = articleDao.save(article);
@@ -171,10 +171,10 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, String> impleme
 		article = articleDao.load(id);
 		if (article.getIsPublication()) {
 			
-			logger.debug(CommonUtil.displayMessage(" articleContentBuildHtml ", null));
+			logger.debug(CommonUtils.displayMessage(" articleContentBuildHtml ", null));
 
 			htmlService.articleContentBuildHtml(article);
-			logger.debug(CommonUtil.displayMessage(" articleContentBuildHtml finished ", null));
+			logger.debug(CommonUtils.displayMessage(" articleContentBuildHtml finished ", null));
 
 		}
 		

@@ -9,6 +9,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -26,6 +27,9 @@ import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.util.ClassLoaderUtil;
 import com.zg.beans.HtmlConfig;
 import com.zg.beans.SystemConfig;
+import com.zg.common.util.CommonUtils;
+import com.zg.common.util.SystemConfigUtils;
+import com.zg.common.util.TemplateConfigUtils;
 import com.zg.dao.ArticleDao;
 import com.zg.dao.ProductDao;
 import com.zg.entity.Article;
@@ -38,9 +42,6 @@ import com.zg.service.FriendLinkService;
 import com.zg.service.HtmlService;
 import com.zg.service.NavigationService;
 import com.zg.service.ProductCategoryService;
-import com.zg.util.CommonUtil;
-import com.zg.util.SystemConfigUtil;
-import com.zg.util.TemplateConfigUtil;
 
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.ResourceBundleModel;
@@ -86,23 +87,35 @@ public class HtmlServiceImpl implements HtmlService {
 	@Override
 	public void buildHtml(String templateFilePath, String htmlFilePath,
 			Map<String, Object> data) {
-		logger.debug(CommonUtil.displayMessage("Called", null));
+		logger.debug(CommonUtils.displayMessage("Called", null));
 		logger.debug("templateFilePath: " + templateFilePath);
 		logger.debug("htmlFilePath: " + htmlFilePath);
 
 		ServletContext servletContext = ServletActionContext.getServletContext();
-		logger.debug(CommonUtil.displayMessage("ServletActionContext.getServletContext()", null));
-		logger.debug(CommonUtil.displayMessage(servletContext.getContextPath(), null));
+		logger.debug(CommonUtils.displayMessage("ServletActionContext.getServletContext()", null));
+		logger.debug(CommonUtils.displayMessage(servletContext.getContextPath(), null));
 		//Configuration configuration = freemarkerManager.getConfiguration(servletContext);
-
+		
 		Configuration freemarkerCfg = new Configuration();
+		
 		freemarkerCfg.setServletContextForTemplateLoading(ServletActionContext  
 	                .getServletContext(), "/");  
+		freemarkerCfg.setURLEscapingCharset("utf-8");
+		freemarkerCfg.setDefaultEncoding("utf-8");
+		freemarkerCfg.setTemplateUpdateDelay(3600);
+		freemarkerCfg.setClassicCompatible(true);
+		freemarkerCfg.setWhitespaceStripping(true);
+		freemarkerCfg.setLocale(Locale.CHINA);
+		freemarkerCfg.setDateFormat("yyyy-MM-dd");
+		freemarkerCfg.setTimeFormat("time_format");
+		freemarkerCfg.setNumberFormat("\\#0.\\#\\#\\#\\#\\#");
+		
 		
 		 /*
 		  * the container did not injected by Spring
-		Configuration configuration = configuration = freemarkerManager.getConfiguration(servletContext);	
+		Configuration freemarkerCfg = freemarkerManager.getConfiguration(servletContext);	
 		*/
+		//Configuration freemarkerCfg = freemarkerManager.getConfiguration(servletContext);	
 
 		try {
 			Template template = freemarkerCfg.getTemplate(templateFilePath);
@@ -113,7 +126,7 @@ public class HtmlServiceImpl implements HtmlService {
 			}
 			Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(htmlFile), "UTF-8"));
 			template.process(data, out);
-			logger.debug(CommonUtil.displayMessage("template.process", null));
+			logger.debug(CommonUtils.displayMessage("template.process", null));
 
 			out.flush();
 			out.close();
@@ -131,11 +144,11 @@ public class HtmlServiceImpl implements HtmlService {
 		ServletContext servletContext = ServletActionContext.getServletContext();
 		ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n");
 		ResourceBundleModel resourceBundleModel = new ResourceBundleModel(resourceBundle, new BeansWrapper());
-		SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
-		String priceCurrencyFormat = SystemConfigUtil.getPriceCurrencyFormat();
-		String priceUnitCurrencyFormat = SystemConfigUtil.getPriceUnitCurrencyFormat();
-		String orderCurrencyFormat = SystemConfigUtil.getOrderCurrencyFormat();
-		String orderUnitCurrencyFormat = SystemConfigUtil.getOrderUnitCurrencyFormat();
+		SystemConfig systemConfig = SystemConfigUtils.getSystemConfig();
+		String priceCurrencyFormat = SystemConfigUtils.getPriceCurrencyFormat();
+		String priceUnitCurrencyFormat = SystemConfigUtils.getPriceUnitCurrencyFormat();
+		String orderCurrencyFormat = SystemConfigUtils.getOrderCurrencyFormat();
+		String orderUnitCurrencyFormat = SystemConfigUtils.getOrderUnitCurrencyFormat();
 		commonData.put("bundle", resourceBundleModel);
 		commonData.put("base", servletContext.getContextPath());
 		commonData.put("systemConfig", systemConfig);
@@ -156,7 +169,7 @@ public class HtmlServiceImpl implements HtmlService {
 	@Override
 	public void baseJavascriptBuildHtml() {
 		Map<String, Object> data = getCommonData();
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.BASE_JAVASCRIPT);
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.BASE_JAVASCRIPT);
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);		
@@ -164,7 +177,7 @@ public class HtmlServiceImpl implements HtmlService {
 	
 	@Override
 	public void indexBuildHtml() {
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.INDEX);
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.INDEX);
 		Map<String, Object> data = getCommonData();
 		data.put("rootProductCategoryList", productCategoryService.getRootProductCategoryList());
 		data.put("bestProductList", productDao.getBestProductList(Product.MAX_BEST_PRODUCT_LIST_COUNT));
@@ -216,7 +229,7 @@ public class HtmlServiceImpl implements HtmlService {
 	
 	@Override
 	public void loginBuildHtml() {
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.LOGIN);
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.LOGIN);
 		Map<String, Object> data = getCommonData();
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
 		String templateFilePath = htmlConfig.getTemplateFilePath();
@@ -225,8 +238,8 @@ public class HtmlServiceImpl implements HtmlService {
 	
 	@Override
 	public void articleContentBuildHtml(Article article) {
-		logger.debug(CommonUtil.displayMessage("Called", null));
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ARTICLE_CONTENT);
+		logger.debug(CommonUtils.displayMessage("Called", null));
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.ARTICLE_CONTENT);
 		ArticleCategory articleCategory = article.getArticleCategory();
 		Map<String, Object> data = getCommonData();
 		data.put("article", article);
@@ -255,14 +268,14 @@ public class HtmlServiceImpl implements HtmlService {
 				currentHtmlFilePath = prefix + "_" + (i + 1) + "." + extension;
 			}
 			buildHtml(templateFilePath, currentHtmlFilePath, data);
-			logger.debug(CommonUtil.displayMessage("after buildHtml" + currentHtmlFilePath, null));
+			logger.debug(CommonUtils.displayMessage("after buildHtml" + currentHtmlFilePath, null));
 
 		}		
 	}
 	
 	@Override
 	public void productContentBuildHtml(Product product) {
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.PRODUCT_CONTENT);
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.PRODUCT_CONTENT);
 		ProductCategory productCategory = product.getProductCategory();
 		Map<String, Object> data = getCommonData();
 		data.put("product", product);
@@ -277,7 +290,7 @@ public class HtmlServiceImpl implements HtmlService {
 	}
 	
 	public void errorPageBuildHtml() {
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE);
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.ERROR_PAGE);
 		Map<String, Object> data = getCommonData();
 		data.put("errorContent", "系统出现异常，请与管理员联系！");
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
@@ -286,7 +299,7 @@ public class HtmlServiceImpl implements HtmlService {
 	}
 	
 	public void errorPageAccessDeniedBuildHtml() {
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE);
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.ERROR_PAGE);
 		Map<String, Object> data = getCommonData();
 		data.put("errorContent", "您无此访问权限！");
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
@@ -295,7 +308,7 @@ public class HtmlServiceImpl implements HtmlService {
 	}
 	
 	public void errorPage500BuildHtml() {
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE_500);
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.ERROR_PAGE_500);
 		Map<String, Object> data = getCommonData();
 		data.put("errorContent", "系统出现异常，请与管理员联系！");
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
@@ -304,7 +317,7 @@ public class HtmlServiceImpl implements HtmlService {
 	}
 	
 	public void errorPage404BuildHtml() {
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE_404);
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.ERROR_PAGE_404);
 		Map<String, Object> data = getCommonData();
 		data.put("errorContent", "您访问的页面不存在！");
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
@@ -313,7 +326,7 @@ public class HtmlServiceImpl implements HtmlService {
 	}
 	
 	public void errorPage403BuildHtml() {
-		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE_403);
+		HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.ERROR_PAGE_403);
 		Map<String, Object> data = getCommonData();
 		data.put("errorContent", "系统出现异常，请与管理员联系！");
 		String htmlFilePath = htmlConfig.getHtmlFilePath();

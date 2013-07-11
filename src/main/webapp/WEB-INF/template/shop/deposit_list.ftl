@@ -84,7 +84,7 @@
 						<#list pager.list as list>
 							<tr>
 								<td>
-									<#if (list.payment != null && list.payment.order != null)!>
+									<#if (list.payment.order)??>
 										<a href="order!view.action?id=${list.payment.order.id}">
 											${action.getText("DepositType." + list.depositType)}
 										</a>

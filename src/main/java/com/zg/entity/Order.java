@@ -16,8 +16,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Product.WeightUnit;
-import com.zg.util.SystemConfigUtil;
 
 @Entity
 @Table(name = "orders")
@@ -167,7 +167,7 @@ public class Order extends BaseEntity {
 	}
 
 	public void setProductTotalPrice(BigDecimal productTotalPrice) {
-		this.productTotalPrice = SystemConfigUtil.getOrderScaleBigDecimal(productTotalPrice);
+		this.productTotalPrice = SystemConfigUtils.getOrderScaleBigDecimal(productTotalPrice);
 	}
 
 	@Column(precision = 15, scale = 5, nullable = false)
@@ -176,7 +176,7 @@ public class Order extends BaseEntity {
 	}
 
 	public void setDeliveryFee(BigDecimal deliveryFee) {
-		this.deliveryFee = SystemConfigUtil.getOrderScaleBigDecimal(deliveryFee);
+		this.deliveryFee = SystemConfigUtils.getOrderScaleBigDecimal(deliveryFee);
 	}
 
 	@Column(precision = 15, scale = 5, nullable = false)
@@ -185,7 +185,7 @@ public class Order extends BaseEntity {
 	}
 
 	public void setPaymentFee(BigDecimal paymentFee) {
-		this.paymentFee = SystemConfigUtil.getOrderScaleBigDecimal(paymentFee);
+		this.paymentFee = SystemConfigUtils.getOrderScaleBigDecimal(paymentFee);
 	}
 
 	@Column(precision = 15, scale = 5, nullable = false)
@@ -194,7 +194,7 @@ public class Order extends BaseEntity {
 	}
 
 	public void setTotalAmount(BigDecimal totalAmount) {
-		this.totalAmount = SystemConfigUtil.getOrderScaleBigDecimal(totalAmount);
+		this.totalAmount = SystemConfigUtils.getOrderScaleBigDecimal(totalAmount);
 	}
 
 	@Column(precision = 15, scale = 5, nullable = false)
@@ -203,7 +203,7 @@ public class Order extends BaseEntity {
 	}
 
 	public void setPaidAmount(BigDecimal paidAmount) {
-		this.paidAmount = SystemConfigUtil.getOrderScaleBigDecimal(paidAmount);
+		this.paidAmount = SystemConfigUtils.getOrderScaleBigDecimal(paidAmount);
 	}
 
 	@Column(nullable = false)

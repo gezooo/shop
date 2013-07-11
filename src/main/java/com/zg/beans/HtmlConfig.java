@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.zg.util.CommonUtil;
+import com.zg.common.util.CommonUtils;
 
 public class HtmlConfig implements Serializable{
 	
@@ -64,7 +64,7 @@ public class HtmlConfig implements Serializable{
 	
 	// 获取生成HTML静态文件存放路径
 		public String getHtmlFilePath() {
-			htmlFilePath = htmlFilePath.replace(REPLACE_UUID, CommonUtil.getUUID());
+			htmlFilePath = htmlFilePath.replace(REPLACE_UUID, CommonUtils.getUUID());
 			SimpleDateFormat yyDateFormat = new SimpleDateFormat("yyyy");
 			SimpleDateFormat mmDateFormat = new SimpleDateFormat("MM");
 			SimpleDateFormat ddDateFormat = new SimpleDateFormat("dd");

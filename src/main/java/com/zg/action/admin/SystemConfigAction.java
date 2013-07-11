@@ -10,7 +10,7 @@ import com.zg.beans.SystemConfig.PointType;
 import com.zg.beans.SystemConfig.RoundType;
 import com.zg.beans.SystemConfig.StoreFreezeTime;
 import com.zg.beans.SystemConfig.WatermarkPosition;
-import com.zg.util.SystemConfigUtil;
+import com.zg.common.util.SystemConfigUtils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -59,7 +59,7 @@ public class SystemConfigAction extends BaseAdminAction {
 
 	// 编辑
 	public String edit() {
-		systemConfig = SystemConfigUtil.getSystemConfig();
+		systemConfig = SystemConfigUtils.getSystemConfig();
 		return INPUT;
 	}
 
@@ -130,7 +130,7 @@ public class SystemConfigAction extends BaseAdminAction {
 		} else {
 			systemConfig.setPointScale(0D);
 		}
-		SystemConfig persistent = SystemConfigUtil.getSystemConfig();
+		SystemConfig persistent = SystemConfigUtils.getSystemConfig();
 		if (shopLogo != null || defaultBigProductImage != null || defaultSmallProductImage != null || defaultThumbnailProductImage != null || watermarkImage != null) {
 			String allowedUploadImageExtension = getSystemConfig().getAllowedUploadImageExtension().toLowerCase();
 			if (StringUtils.isEmpty(allowedUploadImageExtension)){
@@ -261,7 +261,7 @@ public class SystemConfigAction extends BaseAdminAction {
 			persistent.setWatermarkImagePath(watermarkImagePath);
 		}
 		BeanUtils.copyProperties(systemConfig, persistent, new String[] {"systemName", "systemVersion", "systemDescription", "isInstalled", "shopLogo", "defaultBigProductImagePath", "defaultSmallProductImagePath", "defaultThumbnailProductImagePath", "watermarkImagePath"});
-		SystemConfigUtil.update(persistent);
+		SystemConfigUtils.update(persistent);
 		redirectionUrl = "system_config!edit.action";
 		return SUCCESS;
 	}

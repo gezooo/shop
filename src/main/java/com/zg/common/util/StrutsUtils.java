@@ -1,4 +1,4 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -24,7 +24,7 @@ import com.opensymphony.xwork2.config.entities.ActionConfig;
  * ============================================================================
  */
 
-public class StrutsUtil {
+public class StrutsUtils {
 
 	/**
 	 * 获取Struts2配置信息.

@@ -6,10 +6,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.zg.common.util.SerialNumberUtils;
 import com.zg.dao.PaymentDao;
 import com.zg.entity.Payment;
 import com.zg.service.PaymentService;
-import com.zg.util.SerialNumberUtil;
 
 /**
  * Service实现类 - 支付
@@ -46,7 +46,7 @@ public class PaymentServiceImpl extends BaseServiceImpl<Payment, String> impleme
 	// 重写对象，保存时自动设置支付编号
 	@Override
 	public String save(Payment payment) {
-		payment.setPaymentSn(SerialNumberUtil.buildPaymentSn());
+		payment.setPaymentSn(SerialNumberUtils.buildPaymentSn());
 		return super.save(payment);
 	}
 

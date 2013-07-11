@@ -7,9 +7,9 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import com.zg.beans.Pager;
+import com.zg.common.util.StrutsUtils;
 import com.zg.entity.LogConfig;
 import com.zg.service.LogConfigService;
-import com.zg.util.StrutsUtil;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -69,7 +69,7 @@ public class LogConfigAction extends BaseAdminAction {
 	@SuppressWarnings("unchecked")
 	public String getAllActionMethod() throws ClassNotFoundException {
 		String actionClassName = logConfig.getActionClassName();
-		Set<String> allActionClassName = StrutsUtil.getAllActionClassName();
+		Set<String> allActionClassName = StrutsUtils.getAllActionClassName();
 		if (allActionClassName.contains(actionClassName)) {
 			Class actionClass = Class.forName(actionClassName);
 			Method[] methods = actionClass.getDeclaredMethods();
@@ -128,7 +128,7 @@ public class LogConfigAction extends BaseAdminAction {
 	public String save() throws ClassNotFoundException {
 		String actionClassName = logConfig.getActionClassName();
 		String actionMethodName = logConfig.getActionMethodName();
-		if (!StrutsUtil.getAllActionClassName().contains(actionClassName)) {
+		if (!StrutsUtils.getAllActionClassName().contains(actionClassName)) {
 			addActionError("Action类错误!");
 			return ERROR;
 		}
@@ -164,7 +164,7 @@ public class LogConfigAction extends BaseAdminAction {
 		LogConfig persistent = logConfigService.load(id);
 		String actionClassName = logConfig.getActionClassName();
 		String actionMethodName = logConfig.getActionMethodName();
-		if (!StrutsUtil.getAllActionClassName().contains(actionClassName)) {
+		if (!StrutsUtils.getAllActionClassName().contains(actionClassName)) {
 			addActionError("Action类错误!");
 			return ERROR;
 		}
@@ -188,7 +188,7 @@ public class LogConfigAction extends BaseAdminAction {
 	}
 
 	public Set<String> getAllActionClassName() {
-		allActionClassName = StrutsUtil.getAllActionClassName();
+		allActionClassName = StrutsUtils.getAllActionClassName();
 		return allActionClassName;
 	}
 

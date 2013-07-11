@@ -129,7 +129,7 @@ $().ready( function() {
 										<label>
 											<input type="radio" name="receiver.id" class="{required: true, messages: {required: '请选择收货地址！'}}" value="${list.id}"<#if list.isDefault> checked</#if> />
 											<strong>收货人：</strong>${list.name}&nbsp;&nbsp;&nbsp;&nbsp;
-											<#if (list.mobile != null)!>
+											<#if (list.mobile)??>
 												<strong>手机：</strong>${list.mobile}&nbsp;&nbsp;&nbsp;&nbsp;
 											<#else>
 												<strong>电话：</strong>${list.phone}&nbsp;&nbsp;&nbsp;&nbsp;
@@ -140,7 +140,7 @@ $().ready( function() {
 								</#list>
 								<li>
 									<label>
-										<input type="radio" name="receiver.id" class="{required: true, messages: {required: '请选择收货地址！'}}" value=""<#if (loginMember.receiverSet == null || loginMember.receiverSet?size == 0)!> checked</#if> />
+										<input type="radio" name="receiver.id" class="{required: true, messages: {required: '请选择收货地址！'}}" value=""<#if !(loginMember.receiverSet)?? || loginMember.receiverSet?size == 0)!> checked</#if> />
 										填写收货地址
 									</label>
 									<div class="blank"></div>

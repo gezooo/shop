@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
 import com.zg.beans.MailConfig;
-import com.zg.util.TemplateConfigUtil;
+import com.zg.common.util.TemplateConfigUtils;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -49,8 +49,8 @@ public class TemplateMailAction extends BaseAdminAction {
 
 	// 编辑
 	public String edit() {
-		mailConfig = TemplateConfigUtil.getMailConfig(mailConfig.getName());
-		templateFileContent = TemplateConfigUtil.readTemplateFileContent(mailConfig);
+		mailConfig = TemplateConfigUtils.getMailConfig(mailConfig.getName());
+		templateFileContent = TemplateConfigUtils.readTemplateFileContent(mailConfig);
 		return INPUT;
 	}
 
@@ -62,8 +62,8 @@ public class TemplateMailAction extends BaseAdminAction {
 	)
 	@InputConfig(resultName = "error")
 	public String update() {
-		mailConfig = TemplateConfigUtil.getMailConfig(mailConfig.getName());
-		TemplateConfigUtil.writeTemplateFileContent(mailConfig, templateFileContent);
+		mailConfig = TemplateConfigUtils.getMailConfig(mailConfig.getName());
+		TemplateConfigUtils.writeTemplateFileContent(mailConfig, templateFileContent);
 		ServletContext servletContext = ServletActionContext.getServletContext();
 		freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
 		redirectionUrl = "template_dynamic!list.action";
@@ -72,7 +72,7 @@ public class TemplateMailAction extends BaseAdminAction {
 	
 	// 获取邮件模板配置集合
 	public List<MailConfig> getMailConfigList() {
-		return TemplateConfigUtil.getMailConfigList();
+		return TemplateConfigUtils.getMailConfigList();
 	}
 
 	public MailConfig getMailConfig() {

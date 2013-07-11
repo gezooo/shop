@@ -34,7 +34,7 @@ import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
 import org.htmlparser.visitors.TextExtractingVisitor;
 
-import com.zg.util.CommonUtil;
+import com.zg.common.util.CommonUtils;
 
 @Entity
 @Indexed
@@ -242,7 +242,7 @@ public class Article extends BaseEntity {
 				divFilter, tableFilter, bulletListFilter, bulletFilter, definitionListFilter,
 				definitionListBulletFilter});
 		List<Integer> indexList = new ArrayList<Integer>();
-		List<String> contentList = CommonUtil.splitString(content, Article.MAX_PAGE_CONTENT_COUNT);
+		List<String> contentList = CommonUtils.splitString(content, Article.MAX_PAGE_CONTENT_COUNT);
 		for(int i = 0; i < contentList.size(); i++) {
 			String splitedContent = contentList.get(i);
 			Parser htmlParser = Parser.createParser(splitedContent, "UTF-8");

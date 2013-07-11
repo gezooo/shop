@@ -31,7 +31,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 
 import com.zg.beans.JsonJavaTransformerFactory;
-import com.zg.util.SystemConfigUtil;
+import com.zg.common.util.SystemConfigUtils;
 
 @Entity
 public class Member extends BaseEntity {
@@ -158,7 +158,7 @@ public class Member extends BaseEntity {
 	}
 
 	public void setDeposit(BigDecimal deposit) {
-		this.deposit = SystemConfigUtil.getOrderScaleBigDecimal(deposit);
+		this.deposit = SystemConfigUtils.getOrderScaleBigDecimal(deposit);
 	}
 
 	@Column(nullable = false)

@@ -14,21 +14,21 @@ import org.springframework.stereotype.Service;
 
 import com.zg.beans.ProductImage;
 import com.zg.beans.SystemConfig;
+import com.zg.common.util.CommonUtils;
+import com.zg.common.util.ImageUtils;
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.service.ProductImageService;
-import com.zg.util.CommonUtil;
-import com.zg.util.ImageUtil;
-import com.zg.util.SystemConfigUtil;
 
 @Service
 public class ProductImageServiceImpl implements ProductImageService {
 
 	@Override
 	public ProductImage buildProductImage(File uploadProductImageFile) {
-		SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
-		String sourceProductImageFormatName = ImageUtil.getImageFormatName(uploadProductImageFile);
+		SystemConfig systemConfig = SystemConfigUtils.getSystemConfig();
+		String sourceProductImageFormatName = ImageUtils.getImageFormatName(uploadProductImageFile);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMM");
 		String dateString = simpleDateFormat.format(new Date());
-		String uuid = CommonUtil.getUUID();
+		String uuid = CommonUtils.getUUID();
 		
 		String sourceProductImagePath = SystemConfig.UPLOAD_IMAGE_DIR + dateString + "/" + uuid + "." + sourceProductImageFormatName;
 		String bigProductImagePath = SystemConfig.UPLOAD_IMAGE_DIR + dateString + "/" + uuid + ProductImage.BIG_PRODUCT_IMAGE_FILE_NAME_SUFFIX + "." + ProductImage.PRODUCT_IMAGE_FILE_EXTENSION;
@@ -64,11 +64,11 @@ public class ProductImageServiceImpl implements ProductImageService {
 			// 将上传图片复制到原图片目录
 			FileUtils.copyFile(uploadProductImageFile, sourceProductImageFile);
 			// 商品图片（大）缩放、水印处理
-			ImageUtil.zoomAndWatermark(srcBufferedImage, bigProductImageFile, systemConfig.getBigProductImageHeight(), systemConfig.getBigProductImageWidth(), watermarkImageFile, systemConfig.getWatermarkPosition(), systemConfig.getWatermarkAlpha().intValue());
+			ImageUtils.zoomAndWatermark(srcBufferedImage, bigProductImageFile, systemConfig.getBigProductImageHeight(), systemConfig.getBigProductImageWidth(), watermarkImageFile, systemConfig.getWatermarkPosition(), systemConfig.getWatermarkAlpha().intValue());
 			// 商品图片（小）缩放、水印处理
-			ImageUtil.zoomAndWatermark(srcBufferedImage, smallProductImageFile, systemConfig.getSmallProductImageHeight(), systemConfig.getSmallProductImageWidth(), watermarkImageFile, systemConfig.getWatermarkPosition(), systemConfig.getWatermarkAlpha().intValue());
+			ImageUtils.zoomAndWatermark(srcBufferedImage, smallProductImageFile, systemConfig.getSmallProductImageHeight(), systemConfig.getSmallProductImageWidth(), watermarkImageFile, systemConfig.getWatermarkPosition(), systemConfig.getWatermarkAlpha().intValue());
 			// 商品图片缩略图处理
-			ImageUtil.zoom(srcBufferedImage, thumbnailProductImageFile, systemConfig.getThumbnailProductImageHeight(), systemConfig.getThumbnailProductImageWidth());
+			ImageUtils.zoom(srcBufferedImage, thumbnailProductImageFile, systemConfig.getThumbnailProductImageHeight(), systemConfig.getThumbnailProductImageWidth());
 
 			
 		} catch (IOException e) {

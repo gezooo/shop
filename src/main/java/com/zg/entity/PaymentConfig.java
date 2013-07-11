@@ -17,8 +17,8 @@ import net.sf.json.JsonConfig;
 import org.apache.commons.lang.StringUtils;
 
 import com.zg.beans.TenpayConfig;
-import com.zg.util.JsonUtil;
-import com.zg.util.SystemConfigUtil;
+import com.zg.common.util.JsonUtils;
+import com.zg.common.util.SystemConfigUtils;
 
 @Entity
 public class PaymentConfig extends BaseEntity {
@@ -91,7 +91,7 @@ public class PaymentConfig extends BaseEntity {
 	}
 
 	public void setPaymentFee(BigDecimal paymentFee) {
-		this.paymentFee = SystemConfigUtil.getPriceScaleBigDecimal(paymentFee);
+		this.paymentFee = SystemConfigUtils.getPriceScaleBigDecimal(paymentFee);
 	}
 
 	@Column(length = 10000)
@@ -164,7 +164,7 @@ public class PaymentConfig extends BaseEntity {
 			jsonConfig.setRootClass(TenpayConfig.class);
 			return (TenpayConfig) JSONSerializer.toJava(jsonObject, jsonConfig);
 			*/
-			return JsonUtil.json2Java(this.configObjectStore, TenpayConfig.class);
+			return JsonUtils.json2Java(this.configObjectStore, TenpayConfig.class);
 			
 		}
 		return null;
@@ -182,7 +182,7 @@ public class PaymentConfig extends BaseEntity {
 		} else if (this.paymentConfigType == PaymentConfigType.OFFLINE) {
 			this.configObjectStore = null;
 		} else if  (this.paymentConfigType == PaymentConfigType.TENPAY) {
-			this.configObjectStore = JsonUtil.java2Json(object);
+			this.configObjectStore = JsonUtils.java2Json(object);
 		}
 	}
 	

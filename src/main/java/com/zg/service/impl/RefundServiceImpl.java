@@ -6,10 +6,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.zg.common.util.SerialNumberUtils;
 import com.zg.dao.RefundDao;
 import com.zg.entity.Refund;
 import com.zg.service.RefundService;
-import com.zg.util.SerialNumberUtil;
 
 /**
  * Service实现类 - 退款
@@ -46,7 +46,7 @@ public class RefundServiceImpl extends BaseServiceImpl<Refund, String> implement
 	// 重写对象，保存时自动设置退款编号
 	@Override
 	public String save(Refund refund) {
-		refund.setRefundSn(SerialNumberUtil.buildRefundSn());
+		refund.setRefundSn(SerialNumberUtils.buildRefundSn());
 		return super.save(refund);
 	}
 

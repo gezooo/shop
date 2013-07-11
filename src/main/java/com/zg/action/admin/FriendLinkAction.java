@@ -6,9 +6,9 @@ import javax.annotation.Resource;
 
 import com.zg.beans.Pager;
 import com.zg.beans.SystemConfig;
+import com.zg.common.util.CommonUtils;
 import com.zg.entity.FriendLink;
 import com.zg.service.FriendLinkService;
-import com.zg.util.CommonUtil;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -112,7 +112,7 @@ public class FriendLinkAction extends BaseAdminAction {
 			}
 		}
 		if (logo != null) {
-			String logoFilePath = SystemConfig.UPLOAD_IMAGE_DIR + CommonUtil.getUUID() + "." + StringUtils.substringAfterLast(logoFileName, ".").toLowerCase();
+			String logoFilePath = SystemConfig.UPLOAD_IMAGE_DIR + CommonUtils.getUUID() + "." + StringUtils.substringAfterLast(logoFileName, ".").toLowerCase();
 			File logoFile = new File(ServletActionContext.getServletContext().getRealPath(logoFilePath));
 			FileUtils.copyFile(logo, logoFile);
 			friendLink.setLogo(logoFilePath);
@@ -163,7 +163,7 @@ public class FriendLinkAction extends BaseAdminAction {
 			if (persistent.getLogo() != null) {
 				logoFilePath = persistent.getLogo();
 			} else {
-				logoFilePath = SystemConfig.UPLOAD_IMAGE_DIR + CommonUtil.getUUID() + "." + StringUtils.substringAfterLast(logoFileName, ".").toLowerCase();
+				logoFilePath = SystemConfig.UPLOAD_IMAGE_DIR + CommonUtils.getUUID() + "." + StringUtils.substringAfterLast(logoFileName, ".").toLowerCase();
 			}
 			File logoFile = new File(ServletActionContext.getServletContext().getRealPath(logoFilePath));
 			FileUtils.copyFile(logo, logoFile);

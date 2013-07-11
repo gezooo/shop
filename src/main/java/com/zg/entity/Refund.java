@@ -9,7 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.zg.util.SystemConfigUtil;
+import com.zg.common.util.SystemConfigUtils;
 
 @Entity
 public class Refund extends BaseEntity {
@@ -99,7 +99,7 @@ public class Refund extends BaseEntity {
 	}
 
 	public void setTotalAmount(BigDecimal totalAmount) {
-		this.totalAmount = SystemConfigUtil.getOrderScaleBigDecimal(totalAmount);
+		this.totalAmount = SystemConfigUtils.getOrderScaleBigDecimal(totalAmount);
 	}
 
 	@Column(nullable = false, updatable = false)

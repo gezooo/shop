@@ -1,10 +1,10 @@
-package com.zg.util;
+package com.zg.common.util;
 
 import java.util.List;
 
 import com.zg.beans.JsonJavaTransformerFactory;
 
-public class JsonUtil {
+public class JsonUtils {
 	
 	
 	public static <T> List<T> json2JavaList(String jsons, Class<T> clazz){

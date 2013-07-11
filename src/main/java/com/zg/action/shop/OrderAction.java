@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 
 import com.zg.beans.SystemConfig.PointType;
 import com.zg.beans.SystemConfig.StoreFreezeTime;
+import com.zg.common.util.ArithUtils;
+import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.CartItem;
 import com.zg.entity.DeliveryType;
 import com.zg.entity.Order;
@@ -34,8 +36,6 @@ import com.zg.service.OrderService;
 import com.zg.service.PaymentConfigService;
 import com.zg.service.ProductService;
 import com.zg.service.ReceiverService;
-import com.zg.util.ArithUtil;
-import com.zg.util.SystemConfigUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -134,9 +134,9 @@ public class OrderAction extends BaseShopAction {
 			productTotalPrice = cartItem.getProduct().getPreferentialPrice(getLoginMember()).multiply(new BigDecimal(cartItem.getQuantity().toString())).add(productTotalPrice);
 			Product product = cartItem.getProduct();
 			Double weightGram = DeliveryType.toWeightGram(product.getWeight(), product.getWeightUnit());
-			totalWeightGram = ArithUtil.add(totalWeightGram, ArithUtil.mul(weightGram, cartItem.getQuantity()));
+			totalWeightGram = ArithUtils.add(totalWeightGram, ArithUtils.mul(weightGram, cartItem.getQuantity()));
 		}
-		productTotalPrice = SystemConfigUtil.getOrderScaleBigDecimal(productTotalPrice);
+		productTotalPrice = SystemConfigUtils.getOrderScaleBigDecimal(productTotalPrice);
 		if (getSystemConfig().getPointType() == PointType.ORDERAMOUNT) {
 			totalPoint = productTotalPrice.multiply(new BigDecimal(getSystemConfig().getPointScale().toString())).setScale(0, RoundingMode.DOWN).intValue();
 		}
@@ -219,10 +219,10 @@ public class OrderAction extends BaseShopAction {
 			totalQuantity += cartItem.getQuantity();
 			productTotalPrice = cartItem.getProduct().getPreferentialPrice(getLoginMember()).multiply(new BigDecimal(cartItem.getQuantity().toString())).add(productTotalPrice);
 			Double weightGram = DeliveryType.toWeightGram(product.getWeight(), product.getWeightUnit());
-			totalWeightGram = ArithUtil.add(totalWeightGram, ArithUtil.mul(weightGram, cartItem.getQuantity()));
+			totalWeightGram = ArithUtils.add(totalWeightGram, ArithUtils.mul(weightGram, cartItem.getQuantity()));
 			cartItemService.delete(cartItem);
 		}
-		productTotalPrice = SystemConfigUtil.getOrderScaleBigDecimal(productTotalPrice);
+		productTotalPrice = SystemConfigUtils.getOrderScaleBigDecimal(productTotalPrice);
 		BigDecimal deliveryFee = deliveryType.getDeliveryFee(totalWeightGram);
 		
 		String paymentConfigName = null;

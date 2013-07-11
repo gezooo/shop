@@ -7,9 +7,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.zg.common.util.JsonUtils;
 import com.zg.entity.Area;
 import com.zg.service.AreaService;
-import com.zg.util.JsonUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -156,7 +156,7 @@ public class AreaAction extends BaseAdminAction {
 		}
 		//JSONArray jsonArray = JSONArray.fromObject(optionList);
 		
-		return ajaxJson(JsonUtil.javaList2Json(optionList));
+		return ajaxJson(JsonUtils.javaList2Json(optionList));
 	}
 
 	public String getParentId() {
