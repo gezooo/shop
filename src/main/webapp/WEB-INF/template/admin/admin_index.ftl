@@ -11,7 +11,7 @@
 </head>
 <body class="admin">
 	<div class="adminBar">
-		<span class="icon">&nbsp;</span>欢迎使用SHOP++网店管理系统！
+		<span class="icon">&nbsp;</span>欢迎使用草原鸡社网店管理系统！
 	</div>
 	<div class="body">
 		<div class="bodyLeft">

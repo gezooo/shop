@@ -139,6 +139,17 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<!-- hot deploy purpose配置 -->
+	<servlet>
+            <servlet-name>jsp</servlet-name>
+            <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+            <init-param>
+                <param-name>development</param-name>
+                <param-value>true</param-value>
+            </init-param>
+            <load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<!-- 对Spring容器进行实例化 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

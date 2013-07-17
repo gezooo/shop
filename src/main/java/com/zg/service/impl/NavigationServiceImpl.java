@@ -31,7 +31,7 @@ public class NavigationServiceImpl extends BaseServiceImpl<Navigation, String> i
 		super.setBaseDao(navigationDao);
 	}
 
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<Navigation> getTopNavigationList() {
 		List<Navigation> topNavigationList = navigationDao.getTopNavigationList();
 		if (topNavigationList != null) {
@@ -42,7 +42,7 @@ public class NavigationServiceImpl extends BaseServiceImpl<Navigation, String> i
 		return topNavigationList;
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<Navigation> getMiddleNavigationList() {
 		List<Navigation> middleNavigationList = navigationDao.getMiddleNavigationList();
 		if (middleNavigationList != null) {
@@ -53,7 +53,7 @@ public class NavigationServiceImpl extends BaseServiceImpl<Navigation, String> i
 		return middleNavigationList;
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<Navigation> getBottomNavigationList() {
 		List<Navigation> bottomNavigationList = navigationDao.getBottomNavigationList();
 		if (bottomNavigationList != null) {
@@ -65,31 +65,31 @@ public class NavigationServiceImpl extends BaseServiceImpl<Navigation, String> i
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(Navigation entity) {
 		navigationDao.delete(entity);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String id) {
 		navigationDao.delete(id);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String[] ids) {
 		navigationDao.delete(ids);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public String save(Navigation entity) {
 		return navigationDao.save(entity);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void update(Navigation entity) {
 		navigationDao.update(entity);
 	}

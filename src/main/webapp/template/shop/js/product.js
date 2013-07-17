@@ -7,7 +7,6 @@
  **/
 
 $().ready( function() {
-
 	$productListForm = $("#productListForm");
 	$pageNumber = $("#pageNumber");
 	$pageSize = $("#pageSize");

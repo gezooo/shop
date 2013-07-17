@@ -30,7 +30,7 @@ public class ProductAttributeServiceImpl extends BaseServiceImpl<ProductAttribut
 		super.setBaseDao(productAttributeDao);
 	}
 	
-	@Cacheable(value = "caching", key="'ProductAttributeServiceImpl.getEnabledProductAttributeList'")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<ProductAttribute> getEnabledProductAttributeList() {
 		List<ProductAttribute> enabledProductAttributeList = productAttributeDao.getEnabledProductAttributeList();
 		if (enabledProductAttributeList != null) {
@@ -41,7 +41,7 @@ public class ProductAttributeServiceImpl extends BaseServiceImpl<ProductAttribut
 		return enabledProductAttributeList;
 	}
 	
-	@Cacheable(value = "caching", key="'ProductAttributeServiceImpl.getEnabledProductAttributeList' + #productType.id")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #productType.id")
 	public List<ProductAttribute> getEnabledProductAttributeList(ProductType productType) {
 		List<ProductAttribute> enabledProductAttributeList = productAttributeDao.getEnabledProductAttributeList(productType);
 		if (enabledProductAttributeList != null) {

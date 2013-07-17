@@ -69,7 +69,7 @@ public class CartItem extends BaseEntity {
 	}
 	
 	@Transient
-	public BigDecimal getSubTotalPrice() {
+	public BigDecimal getSubtotalPrice() {
 		BigDecimal subTotalPrice = this.getPreferentialPrice().multiply(new BigDecimal(this.quantity.toString()));
 		return SystemConfigUtils.getPriceScaleBigDecimal(subTotalPrice);
 	}

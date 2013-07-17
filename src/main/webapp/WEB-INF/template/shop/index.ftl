@@ -133,7 +133,8 @@ $(document).ready(function() {
 								<div>
 								<ul>
 							</#if>
-							<#if ((list_index + 1) % 4 == 0 && !list_has_next) || list_index + 1 == 12>
+							<#-- <#if ((list_index + 1) % 4 == 0 && !list_has_next) || list_index + 1 == 12> -->
+							<#if !list_has_next>
 								</ul>
 								</div>
 								<#break />

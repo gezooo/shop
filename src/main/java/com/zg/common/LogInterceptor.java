@@ -11,6 +11,7 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.zg.action.admin.BaseAdminAction;
+import com.zg.entity.Admin;
 import com.zg.entity.Log;
 import com.zg.entity.LogConfig;
 import com.zg.service.AdminService;
@@ -55,7 +56,11 @@ public class LogInterceptor extends AbstractInterceptor {
 						&& StringUtils.equals(logConfig.getActionMethodName(), actionMethodName)) {
 					BaseAdminAction baseAction = (BaseAdminAction) invocation.getAction();
 					String logInfo = baseAction.getLogInfo();
-					String operator = adminService.getLoginAdmin().getUsername();
+					Admin admin = adminService.getLoginAdmin();
+					String operator = "未知用户";
+					if(admin!=null){
+						operator = adminService.getLoginAdmin().getUsername();
+					}
 					if(operator == null) {
 						operator = "未知用户";
 					}

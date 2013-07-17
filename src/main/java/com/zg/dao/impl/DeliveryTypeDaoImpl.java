@@ -71,7 +71,7 @@ public class DeliveryTypeDaoImpl extends BaseDaoImpl<DeliveryType, String> imple
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<DeliveryType> getAll() {
-		String hql = "from DeliveryType deliveryType order by deliveryType.orderList asc deliveryType.createDate desc";
+		String hql = "from DeliveryType deliveryType order by deliveryType.orderList asc, deliveryType.createDate desc";
 		return getSession().createQuery(hql).list();
 	}
 
@@ -79,7 +79,7 @@ public class DeliveryTypeDaoImpl extends BaseDaoImpl<DeliveryType, String> imple
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<DeliveryType> getList(String propertyName, Object value) {
-		String hql = "from DeliveryType deliveryType where deliveryType." + propertyName + "=? order by deliveryType.orderList asc deliveryType.createDate desc";
+		String hql = "from DeliveryType deliveryType where deliveryType." + propertyName + "=? order by deliveryType.orderList asc, deliveryType.createDate desc";
 		return getSession().createQuery(hql).setParameter(0, value).list();
 	}
 	

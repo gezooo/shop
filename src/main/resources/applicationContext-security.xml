@@ -24,7 +24,7 @@
 		<sec:form-login login-page="/admin/admin!login.action" login-processing-url="/admin/loginVerify" default-target-url="/admin/admin!main.action"
 			authentication-failure-url="/admin/admin!login.action" always-use-default-target="true"  />
 		-->
-			
+		<sec:intercept-url pattern="/admin/**" requires-channel="https"/>
 		<sec:form-login login-page="/admin/admin!login.action" login-processing-url="/admin/loginVerify" default-target-url="/admin/admin!main.action"
 			authentication-failure-handler-ref="userNameCachingAuthenticationFailureHandler" always-use-default-target="true" />
 

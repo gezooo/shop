@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import com.zg.beans.HtmlConfig;
 import com.zg.beans.MailConfig;
 import com.zg.common.ClassLoadUtil;
+import com.zg.common.ConfigurationManager;
 
 /*
 * @author gez
@@ -32,7 +33,7 @@ public class TemplateConfigUtils {
 	
     public static final Logger logger = LoggerFactory.getLogger(TemplateConfigUtils.class);
     
-    public static final String CONFIG_FILE_NAME = "template.xml";// 模板配置文件名称
+    public static final String CONFIG_FILE_PATH_NAME = "template_file_path";// 模板配置文件名称
 	public static final String DYNAMIC_CONFIG_LIST_CACHE_KEY = "dynamicConfigList";// 动态模板配置缓存Key
 	public static final String HTML_CONFIG_LIST_CACHE_KEY = "htmlConfigList";// 生成静态模板配置缓存Key
 	public static final String MAIL_CONFIG_LIST_CACHE_KEY = "mailConfigList";// 邮件模板配置缓存Key
@@ -281,7 +282,7 @@ public class TemplateConfigUtils {
 		Document document = null;
 		try {
 			SAXReader saxReader = new SAXReader();
-			document = saxReader.read(ClassLoadUtil.getResourceAsStream(CONFIG_FILE_NAME));
+			document = saxReader.read(new File(ConfigurationManager.getConfigProperties(CONFIG_FILE_PATH_NAME)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

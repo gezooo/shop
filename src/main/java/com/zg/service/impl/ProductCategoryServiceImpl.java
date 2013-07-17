@@ -40,7 +40,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 		super.setBaseDao(productCategoryDao);
 	}
 
-	@Cacheable(value = "caching", key="'ProductCategoryServiceImpl.getRootProductCategoryList'")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<ProductCategory> getRootProductCategoryList() {
 		List<ProductCategory> rootProductCategoryList = productCategoryDao.getRootProductCategoryList();
 		if (rootProductCategoryList != null) {
@@ -51,7 +51,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 		return rootProductCategoryList;
 	}
 	
-	@Cacheable(value = "caching", key="'ProductCategoryServiceImpl.getParentProductCategoryList' + #productCategory.id")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #productCategory.id")
 	public List<ProductCategory> getParentProductCategoryList(ProductCategory productCategory) {
 		List<ProductCategory> parentProductCategoryList = productCategoryDao.getParentProductCategoryList(productCategory);
 		if (parentProductCategoryList != null) {
@@ -85,7 +85,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 		return productCategoryList;
 	}
 	
-	@Cacheable(value = "caching", key="'ProductCategoryServiceImpl.getChildrenProductCategoryList' + #productCategory.id")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #productCategory.id")
 	public List<ProductCategory> getChildrenProductCategoryList(ProductCategory productCategory) {
 		List<ProductCategory> childrenProductCategoryList = productCategoryDao.getChildrenProductCategoryList(productCategory);
 		if (childrenProductCategoryList != null) {
@@ -106,7 +106,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 		return productCategoryList;
 	}
 	
-	@Cacheable(value = "caching", key="'ProductCategoryServiceImpl.getProductCategoryTreeList'")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<ProductCategory> getProductCategoryTreeList() {
 		logger.debug("getProductCategoryTreeList called");
 		List<ProductCategory> allProductCategoryList = this.getAll();
@@ -134,7 +134,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 	}
 
 	@Override
-	@Cacheable(value = "caching", key="'ProductCategoryServiceImpl.getAll'")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<ProductCategory> getAll() {
 		logger.debug("getAll called");
 		List<ProductCategory> allProductCategory = productCategoryDao.getAll();

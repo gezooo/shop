@@ -1,5 +1,6 @@
 package com.zg.action.shop;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.Date;
@@ -16,6 +17,7 @@ import net.sf.json.JsonConfig;
 import com.zg.beans.CartItemCookie;
 import com.zg.beans.SystemConfig;
 import com.zg.common.JCaptchaEngine;
+import com.zg.common.util.CommonUtils;
 import com.zg.entity.CartItem;
 import com.zg.entity.Member;
 import com.zg.entity.Product;
@@ -32,8 +34,11 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.octo.captcha.service.CaptchaService;
+import com.octo.captcha.service.CaptchaServiceException;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
@@ -55,6 +60,9 @@ import com.opensymphony.xwork2.validator.annotations.Validations;
 public class MemberAction extends BaseShopAction {
 
 	private static final long serialVersionUID = 1115660086350733102L;
+	
+    public static final Logger logger = LoggerFactory.getLogger(MemberAction.class);
+
 
 	private Member member;
 	private Boolean isAgreeAgreement;
@@ -84,10 +92,17 @@ public class MemberAction extends BaseShopAction {
 	)
 	@InputConfig(resultName = "error")
 	@SuppressWarnings("unchecked")
-	public String login() throws Exception {
+	public String login() throws IOException{
 		String captchaID = getRequest().getSession().getId();
 		String challengeResponse = StringUtils.upperCase(getRequest().getParameter(JCaptchaEngine.CAPTCHA_INPUT_NAME));
-		if (StringUtils.isEmpty(challengeResponse) || captchaService.validateResponseForID(captchaID, challengeResponse) == false) {
+		boolean validCaptcha = false;
+		try{
+			validCaptcha = captchaService.validateResponseForID(captchaID, challengeResponse);
+		} catch(CaptchaServiceException captchaServiceException){
+			logger.error("captchaServiceException: " + captchaServiceException.getMessage());
+		}
+		
+		if (StringUtils.isEmpty(challengeResponse) || !validCaptcha) {
 			addActionError("验证码输入错误!");
 			return ERROR;
 		}
@@ -211,8 +226,15 @@ public class MemberAction extends BaseShopAction {
 	)
 	@InputConfig(resultName = "error")
 	public String ajaxLogin() throws Exception {
+		if(logger.isDebugEnabled()){
+			logger.debug(CommonUtils.displayMessage(" called", null));
+		}
 		String captchaID = getRequest().getSession().getId();
 		String challengeResponse = StringUtils.upperCase(getRequest().getParameter(JCaptchaEngine.CAPTCHA_INPUT_NAME));
+		if(logger.isDebugEnabled()){
+			logger.debug("captchaID: " + captchaID);
+			logger.debug("challengeResponse: " + challengeResponse);
+		}
 		if (StringUtils.isEmpty(challengeResponse) || captchaService.validateResponseForID(captchaID, challengeResponse) == false) {
 			return ajaxJsonErrorMessage("验证码输入错误！");
 		}

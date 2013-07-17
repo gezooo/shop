@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>${(pager.keyword)!} 商品搜索结果 - Powered By ${systemConfig.systemName}</title>
+<title>${(pager.keywords)!} 商品搜索结果 - Powered By ${systemConfig.systemName}</title>
 <meta name="Author" content="SHOP++ Team" />
 <meta name="Copyright" content="SHOP++" />
-<meta name="keywords" content="${pager.keyword}" />
+<meta name="keywords" content="${pager.keywords}" />
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <#include "/WEB-INF/template/common/include.ftl">
 <link href="${base}/template/shop/css/login.css" rel="stylesheet" type="text/css" />
@@ -104,12 +104,12 @@
 			<form id="productListForm" action="${base}/shop/product!search.action" method="get">
 				<input type="hidden" id="viewType" name="viewType" value="tableType" />
 				<input type="hidden" id="pageNumber" name="pager.pageNumber" value="${pager.pageNumber}" />
-				<input type="hidden" name="pager.keyword" value="${pager.keyword}" />
+				<input type="hidden" name="pager.keywords" value="${pager.keywords}" />
 				<div class="listBar">
 					<div class="left"></div>
 					<div class="middle">
 						<div class="path">
-							<a href="${base}/" class="home"><span class="icon">&nbsp;</span>首页</a>>&nbsp;搜索 "${(pager.keyword)!}" 结果列表
+							<a href="${base}/" class="home"><span class="icon">&nbsp;</span>首页</a>>&nbsp;搜索 "${(pager.keywords)!}" 结果列表
 						</div>
 						<div class="total">共计: ${pager.totalCount} 款商品</div>
 					</div>

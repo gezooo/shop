@@ -31,7 +31,7 @@ public class MemberAttributeServiceImpl extends BaseServiceImpl<MemberAttribute,
 		super.setBaseDao(memberAttributeDao);
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<MemberAttribute> getEnabledMemberAttributeList() {
 		List<MemberAttribute> enabledMemberAttributeList = memberAttributeDao.getEnabledMemberAttributeList();
 		if (enabledMemberAttributeList != null) {
@@ -43,31 +43,31 @@ public class MemberAttributeServiceImpl extends BaseServiceImpl<MemberAttribute,
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(MemberAttribute memberAttribute) {
 		super.delete(memberAttribute);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String id) {
 		super.delete(id);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String[] ids) {
 		super.delete(ids);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public String save(MemberAttribute memberAttribute) {
 		return super.save(memberAttribute);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void update(MemberAttribute memberAttribute) {
 		super.update(memberAttribute);
 	}

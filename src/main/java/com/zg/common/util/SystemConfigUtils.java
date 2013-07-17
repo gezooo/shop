@@ -2,6 +2,7 @@ package com.zg.common.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
 
@@ -12,6 +13,8 @@ import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.zg.beans.SystemConfig;
 import com.zg.beans.SystemConfig.RoundType;
@@ -20,6 +23,7 @@ import com.zg.beans.SystemConfig.StoreFreezeTime;
 import com.zg.beans.SystemConfig.WatermarkPosition;
 import com.zg.beans.SystemConfig.PointType;
 import com.zg.common.ClassLoadUtil;
+import com.zg.common.ConfigurationManager;
 
 /*
 * @author gez
@@ -28,8 +32,10 @@ import com.zg.common.ClassLoadUtil;
 
 public class SystemConfigUtils {
 
-	public static final String CONFIG_FILE_NAME = "shop-zg.xml";// 系统配置文件名称
+	public static final String CONFIG_FILE_PATH_NAME = "system_conf_file_path";// 系统配置文件名称
 	public static final String SYSTEM_CONFIG_CACHE_KEY = "systemConfig";// systemConfig缓存Key
+	
+	private static final Logger logger = LoggerFactory.getLogger(SystemConfigUtils.class);
 
 	
 	public static SystemConfig getSystemConfigFromCache() {
@@ -37,7 +43,7 @@ public class SystemConfigUtils {
 	}
 	
 	public static File getConfigFile() throws URISyntaxException {
-		return new File(Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath() + CONFIG_FILE_NAME);
+		return new File(ConfigurationManager.getConfigProperties(CONFIG_FILE_PATH_NAME));
 	}
 	
 	public static SystemConfig loadSystemConfigFromConfigFile() {
@@ -45,9 +51,9 @@ public class SystemConfigUtils {
 		Document document = null;
 		try {
 			
-			//configFile = getConfigFile();
+			configFile = getConfigFile();
 			SAXReader saxReader = new SAXReader();
-			document = saxReader.read(ClassLoadUtil.getResourceAsStream(CONFIG_FILE_NAME));
+			document = saxReader.read(configFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -178,8 +184,8 @@ public class SystemConfigUtils {
 		File configFile = null;
 		Document document = null;
 		try {
-			String configFilePath = Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath() + CONFIG_FILE_NAME;
-			configFile = new File(configFilePath);
+			//String configFilePath = Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath() + CONFIG_FILE_NAME;
+			configFile = getConfigFile();
 			SAXReader saxReader = new SAXReader();
 			document = saxReader.read(configFile);
 		} catch (Exception e) {
@@ -448,17 +454,24 @@ public class SystemConfigUtils {
 		smtpPasswordNode.setText(systemConfig.getSmtpPassword());
 		pointTypeNode.setText(systemConfig.getPointType().toString());
 		pointScaleNode.setText(systemConfig.getPointScale().toString());
+		XMLWriter xmlWriter = null;
 		try {
 			OutputFormat outputFormat = OutputFormat.createPrettyPrint();// 设置XML文档输出格式
 			outputFormat.setEncoding("UTF-8");// 设置XML文档的编码类型
 			outputFormat.setIndent(true);// 设置是否缩进
 			outputFormat.setIndent("	");// 以TAB方式实现缩进
 			outputFormat.setNewlines(true);// 设置是否换行
-			XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(configFile), outputFormat);
+			xmlWriter = new XMLWriter(new FileOutputStream(configFile), outputFormat);
 			xmlWriter.write(document);
-			xmlWriter.close();
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("update template failded: " + e.getMessage());
+		} finally{
+			try {
+				xmlWriter.close();
+			} catch (IOException e) {
+				logger.error("can not close outputstream " + e.getMessage());
+			}
 		}
 		EncacheCacheConfigUtils.flushEntry(SYSTEM_CONFIG_CACHE_KEY);
 	}

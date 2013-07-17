@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import com.zg.beans.Pager;
 import com.zg.beans.Pager.OrderType;
+import com.zg.common.util.CommonUtils;
 import com.zg.entity.Product;
 import com.zg.entity.ProductCategory;
 import com.zg.service.ProductCategoryService;
@@ -13,6 +14,8 @@ import com.zg.service.ProductService;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -28,6 +31,8 @@ import com.opensymphony.xwork2.validator.annotations.Validations;
 public class ProductAction extends BaseShopAction {
 
 	private static final long serialVersionUID = -4969421249817468001L;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductAction.class);
 
 	private ProductCategory productCategory;
 	private String orderType;// 排序类型
@@ -47,6 +52,9 @@ public class ProductAction extends BaseShopAction {
 
 	@InputConfig(resultName = "error")
 	public String list() {
+		if(logger.isDebugEnabled()){
+			logger.debug(CommonUtils.displayMessage(" Called", null));
+		}
 		productCategory = productCategoryService.load(id);
 		bestProductList = productService.getBestProductList(productCategory, Product.MAX_BEST_PRODUCT_LIST_COUNT);
 		hotProductList = productService.getHotProductList(productCategory, Product.MAX_HOT_PRODUCT_LIST_COUNT);
@@ -85,11 +93,14 @@ public class ProductAction extends BaseShopAction {
 	
 	@Validations(
 		requiredStrings = { 
-			@RequiredStringValidator(fieldName = "pager.keyword", message = "搜索关键词不允许为空!") 
+			@RequiredStringValidator(fieldName = "pager.keywords", message = "搜索关键词不允许为空!") 
 		}
 	)
 	@InputConfig(resultName = "error")
 	public String search() throws Exception {
+		if(logger.isDebugEnabled()){
+			logger.debug(CommonUtils.displayMessage(" Called", null));
+		}
 		bestProductList = productService.getBestProductList(Product.MAX_BEST_PRODUCT_LIST_COUNT);
 		hotProductList = productService.getHotProductList(Product.MAX_HOT_PRODUCT_LIST_COUNT);
 		newProductList = productService.getNewProductList(Product.MAX_NEW_PRODUCT_LIST_COUNT);

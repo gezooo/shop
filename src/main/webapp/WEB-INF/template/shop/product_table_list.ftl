@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>${productCategory.name} 商品列表 - Powered By ${systemConfig.systemName}</title>
-<meta name="Author" content="SHOP++ Team" />
-<meta name="Copyright" content="SHOP++" />
+<meta name="Author" content="JILA Team" />
+<meta name="Copyright" content="JILA" />
 <#if (productCategory.metaKeywords)! != ""><meta name="keywords" content="${productCategory.metaKeywords}" /></#if>
 <#if (productCategory.metaDescription)! != ""><meta name="description" content="${productCategory.metaDescription}" /></#if>
 <link rel="icon" href="favicon.ico" type="image/x-icon" />

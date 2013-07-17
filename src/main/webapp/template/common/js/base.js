@@ -269,7 +269,8 @@ $().ready( function() {
 		$messageText.html(messageText);
 		$tipWindow.css({"margin-left": "-" + parseInt($tipWindow.width() / 2) + "px", "left": "50%"});
 		setTimeout(function() {
-			$tipWindow.animate({left: 0, opacity: "hide"}, "slow");
+			//$tipWindow.animate({left: 0, opacity: "hide"}, "slow");
+			$tipWindow.animate({opacity: "hide"}, "slow");
 		}, 1000);
 		$tipWindow.show();
 	}

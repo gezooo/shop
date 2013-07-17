@@ -113,7 +113,7 @@ public class HtmlServiceImpl implements HtmlService {
 		freemarkerCfg.setLocale(Locale.CHINA);
 		freemarkerCfg.setDateFormat("yyyy-MM-dd");
 		freemarkerCfg.setTimeFormat("time_format");
-		freemarkerCfg.setNumberFormat("\\#0.\\#\\#\\#\\#\\#");
+		freemarkerCfg.setNumberFormat("#0.#####");
 		
 		
 		 /*

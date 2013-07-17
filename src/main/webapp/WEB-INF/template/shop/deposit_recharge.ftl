@@ -125,9 +125,9 @@ $().ready( function() {
 													</label>
 												</td>
 												<td>
-													<#if list.paymentFeeType == "scale" && list.paymentFee != 0>
+													<#if list.paymentFeeType == "SCALE" && list.paymentFee != 0>
 														[支付手续费费率：${list.paymentFee}%]
-													<#elseif list.paymentFeeType == "fixed" && list.paymentFee != 0>
+													<#elseif list.paymentFeeType == "FIXED" && list.paymentFee != 0>
 														[支付手续费：${list.paymentFee?string(orderUnitCurrencyFormat)}]
 													</#if>
 													<p>${list.description}</p>

@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import com.zg.common.ConfigurationManager;
 import com.zg.common.util.SystemConfigUtils;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -235,8 +236,8 @@ public class InstallAction extends BaseAdminAction {
 		FileUtils.copyFile(new File(backupSecurityApplicationContextConfigFilePath), new File(securityApplicationContextConfigFilePath));
 		
 		// 处理系统配置文件
-		String systemConfigFilePath = Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath() + SystemConfigUtils.CONFIG_FILE_NAME;
-		File systemConfigFile = new File(systemConfigFilePath);
+		//String systemConfigFilePath = Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath() + SystemConfigUtils.CONFIG_FILE_NAME;
+		File systemConfigFile = new File(ConfigurationManager.getConfigProperties(SystemConfigUtils.CONFIG_FILE_PATH_NAME));
 		SAXReader saxReader = new SAXReader();
 		Document document = saxReader.read(systemConfigFile);
 		Element rootElement = document.getRootElement();
@@ -264,8 +265,8 @@ public class InstallAction extends BaseAdminAction {
 	// 检测是否已安装
 	private boolean isInstalled() {
 		try {
-			String systemConfigFilePath = Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath() + SystemConfigUtils.CONFIG_FILE_NAME;
-			File systemConfigFile = new File(systemConfigFilePath);
+			//String systemConfigFilePath = Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath() + SystemConfigUtils.CONFIG_FILE_NAME;
+			File systemConfigFile = new File(ConfigurationManager.getConfigProperties(SystemConfigUtils.CONFIG_FILE_PATH_NAME));
 			SAXReader saxReader = new SAXReader();
 			Document document = saxReader.read(systemConfigFile);
 			Node isInstalledNode = document.selectSingleNode("/shopxx/systemConfig/isInstalled");

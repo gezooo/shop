@@ -79,7 +79,7 @@ public class PaymentConfigDaoImpl extends BaseDaoImpl<PaymentConfig, String> imp
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PaymentConfig> getAll() {
-		String hql = "from PaymentConfig paymentConfig order by paymentConfig.orderList asc paymentConfig.createDate desc";
+		String hql = "from PaymentConfig paymentConfig order by paymentConfig.orderList asc, paymentConfig.createDate desc";
 		return getSession().createQuery(hql).list();
 	}
 
@@ -87,7 +87,7 @@ public class PaymentConfigDaoImpl extends BaseDaoImpl<PaymentConfig, String> imp
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<PaymentConfig> getList(String propertyName, Object value) {
-		String hql = "from PaymentConfig paymentConfig where paymentConfig." + propertyName + "=? order by paymentConfig.orderList asc paymentConfig.createDate desc";
+		String hql = "from PaymentConfig paymentConfig where paymentConfig." + propertyName + "=? order by paymentConfig.orderList asc, paymentConfig.createDate desc";
 		return getSession().createQuery(hql).setParameter(0, value).list();
 	}
 	

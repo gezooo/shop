@@ -53,7 +53,7 @@ public class OrderLog extends BaseEntity {
 		this.orderSn = orderSn;
 	}
 
-	@Column(nullable = false)
+	@Column(updatable = false)
 	public String getOperator() {
 		return operator;
 	}
@@ -62,7 +62,7 @@ public class OrderLog extends BaseEntity {
 		this.operator = operator;
 	}
 
-	@Column(nullable = false, length = 5000)
+	@Column(updatable = false, length = 5000)
 	public String getInfo() {
 		return info;
 	}

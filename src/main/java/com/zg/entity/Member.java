@@ -48,7 +48,7 @@ public class Member extends BaseEntity {
 	
 	public static final String LOGIN_MEMBER_ID_SESSION_NAME = "loginMemberId";
 	
-	public static final String LOGIN_MEMBER_USERNAME_COOKIE_NAME = "loginMemberUserName";
+	public static final String LOGIN_MEMBER_USERNAME_COOKIE_NAME = "loginMemberUsername";
 	
 	public static final String LOGIN_REDIRECTION_URL_SESSION_NAME = "redirectionUrl";
 	

@@ -25,6 +25,8 @@ import com.zg.service.NavigationService;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -38,6 +40,8 @@ import com.opensymphony.xwork2.ActionSupport;
 public class BaseShopAction extends ActionSupport {
 
 	private static final long serialVersionUID = 6718838811223344556L;
+	
+	private static final Logger logger = LoggerFactory.getLogger(BaseShopAction.class);
 	
 	public static final String VIEW = "view";
 	public static final String LIST = "list";

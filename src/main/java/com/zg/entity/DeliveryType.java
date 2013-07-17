@@ -11,7 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.zg.common.util.ArithUtils;
+import com.zg.common.util.CommonUtils;
 import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.Product.WeightUnit;
 
@@ -25,9 +29,12 @@ public class DeliveryType extends BaseEntity {
 
 	/**
 	 * 
+	 * 
 	 */
 	private static final long serialVersionUID = 3004606679866851211L;
 	
+    public static final Logger logger = LoggerFactory.getLogger(DeliveryType.class);
+
 	public enum DeliveryMethod {
 		DELIVERY_AGAINST_PAYMENT, CASH_ON_DELIVERY
 	}
@@ -218,7 +225,12 @@ public class DeliveryType extends BaseEntity {
 		
 	}
 	
+	@Transient
 	public BigDecimal getDeliveryFee(double totalWeight) {
+		if(logger.isDebugEnabled()){
+			logger.debug(CommonUtils.displayMessage(" Called", null));
+			logger.debug("totalWeight: " + totalWeight);
+		}
 		return getDeliveryFee(totalWeight, WeightUnit.g);
 	}
 	

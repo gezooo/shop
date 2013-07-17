@@ -8,12 +8,10 @@ import javax.servlet.ServletContext;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.views.freemarker.FreemarkerManager;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
 
 import com.zg.common.util.EncacheCacheConfigUtils;
 
 
-import freemarker.template.TemplateException;
 
 /**
  * 后台Action类 - 缓存

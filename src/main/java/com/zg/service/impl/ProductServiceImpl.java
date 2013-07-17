@@ -12,12 +12,15 @@ import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.zg.beans.HtmlConfig;
 import com.zg.beans.Pager;
 import com.zg.beans.Pager.OrderType;
 import com.zg.beans.ProductImage;
+import com.zg.common.util.CommonUtils;
 import com.zg.common.util.TemplateConfigUtils;
 import com.zg.dao.ProductDao;
 import com.zg.entity.Article;
@@ -36,6 +39,8 @@ import com.zg.service.ProductService;
 
 @Service
 public class ProductServiceImpl extends BaseServiceImpl<Product, String> implements ProductService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	@Resource
 	private ProductDao productDao;
@@ -144,7 +149,12 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, String> impleme
 	
 	public Pager<Product> search(final Pager<Product> pager) {
 		
-		QueryBuilder qb = hibernateSearchTemplate.getQueryBuilder(Article.class);
+		if(logger.isDebugEnabled()){
+			logger.debug(CommonUtils.displayMessage(" Called", null));
+			logger.debug("product key workds: " + pager.getKeywords());
+		}
+		
+		QueryBuilder qb = hibernateSearchTemplate.getQueryBuilder(Product.class);
 		
 		org.apache.lucene.search.Query query = qb.bool()
 				.must(qb.keyword().onField("isMarketable").matching(true).createQuery())
@@ -264,6 +274,10 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, String> impleme
 		// 重写方法，保存对象的同时处理价格精度并生成HTML静态文件
 		@Override
 		public String save(Product product) {
+			if(logger.isDebugEnabled()){
+				logger.debug(CommonUtils.displayMessage(" Called", null));
+				logger.debug("product name: " + product.getName());
+			}
 			HtmlConfig htmlConfig = TemplateConfigUtils.getHtmlConfig(HtmlConfig.PRODUCT_CONTENT);
 			String htmlFilePath = htmlConfig.getHtmlFilePath();
 			product.setHtmlFilePath(htmlFilePath);

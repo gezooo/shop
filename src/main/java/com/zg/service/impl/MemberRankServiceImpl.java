@@ -29,7 +29,7 @@ public class MemberRankServiceImpl extends BaseServiceImpl<MemberRank, String> i
 		super.setBaseDao(memberRankDao);
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public MemberRank getDefaultMemberRank() {
 		MemberRank defaultMemberRank = memberRankDao.getDefaultMemberRank();
 		if (defaultMemberRank != null) {
@@ -47,31 +47,31 @@ public class MemberRankServiceImpl extends BaseServiceImpl<MemberRank, String> i
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(MemberRank memberRank) {
 		memberRankDao.delete(memberRank);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String id) {
 		memberRankDao.delete(id);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String[] ids) {
 		memberRankDao.delete(ids);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public String save(MemberRank memberRank) {
 		return memberRankDao.save(memberRank);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void update(MemberRank memberRank) {
 		memberRankDao.update(memberRank);
 	}

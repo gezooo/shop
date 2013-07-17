@@ -63,7 +63,7 @@ public class ArticleAction extends BaseShopAction {
 	// 文章搜索
 	@Validations(
 		requiredStrings = { 
-			@RequiredStringValidator(fieldName = "pager.keyword", message = "搜索关键词不允许为空!")
+			@RequiredStringValidator(fieldName = "pager.keywords", message = "搜索关键词不允许为空!")
 		}
 	)
 	@InputConfig(resultName = "error")

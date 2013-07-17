@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import com.zg.beans.SystemConfig.PointType;
 import com.zg.beans.SystemConfig.StoreFreezeTime;
 import com.zg.common.util.ArithUtils;
+import com.zg.common.util.CommonUtils;
 import com.zg.common.util.SystemConfigUtils;
 import com.zg.entity.CartItem;
 import com.zg.entity.DeliveryType;
@@ -42,6 +43,8 @@ import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.hibernate.Hibernate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
@@ -63,6 +66,8 @@ import com.opensymphony.xwork2.validator.annotations.Validations;
 public class OrderAction extends BaseShopAction {
 	
 	private static final long serialVersionUID = 2553137844831167917L;
+	
+	private static final Logger logger = LoggerFactory.getLogger(OrderAction.class);
 	
 	private Boolean isSaveReceiver;// 是否保存收货地址
 	private Integer totalQuantity;// 商品总数
@@ -342,11 +347,15 @@ public class OrderAction extends BaseShopAction {
 	
 	// 获取所有配送方式
 	public List<DeliveryType> getAllDeliveryType() {
+		logger.debug(CommonUtils.displayMessage(" called", null));
+		List<DeliveryType> list = deliveryTypeService.getAll();
+		logger.debug( list != null ? "size" + list.size() : "deliveryType is null");
 		return deliveryTypeService.getAll();
 	}
 	
 	// 获取所有支付方式
 	public List<PaymentConfig> getAllPaymentConfig() {
+		logger.debug(CommonUtils.displayMessage(" called", null));
 		return paymentConfigService.getAll();
 	}
 

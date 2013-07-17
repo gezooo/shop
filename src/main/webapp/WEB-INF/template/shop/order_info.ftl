@@ -140,7 +140,7 @@ $().ready( function() {
 								</#list>
 								<li>
 									<label>
-										<input type="radio" name="receiver.id" class="{required: true, messages: {required: '请选择收货地址！'}}" value=""<#if !(loginMember.receiverSet)?? || loginMember.receiverSet?size == 0)!> checked</#if> />
+										<input type="radio" name="receiver.id" class="{required: true, messages: {required: '请选择收货地址！'}}" value=""<#if !(loginMember.receiverSet)?? || loginMember.receiverSet?size == 0> checked</#if> />
 										填写收货地址
 									</label>
 									<div class="blank"></div>
@@ -221,7 +221,7 @@ $().ready( function() {
 								<#list allDeliveryType as list>
 									<tr>
 										<th>
-											<label class="{deliveryFee: '${list.getDeliveryFee(totalWeightGram)}', deliveryMethod: '${list.deliveryMethod}'}">
+											<label class="{deliveryFee: '${(list.getDeliveryFee(totalWeightGram))!}', deliveryMethod: '${list.deliveryMethod}'}">
 												<input type="radio" name="deliveryType.id" class="{required: true, messages: {required: '请选择配送方式！'}}" value="${list.id}" />
 												${list.name}
 											</label>

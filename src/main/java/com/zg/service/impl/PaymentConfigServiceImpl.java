@@ -44,12 +44,12 @@ public class PaymentConfigServiceImpl extends BaseServiceImpl<PaymentConfig, Str
 		super.setBaseDao(PaymentConfigDao);
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<PaymentConfig> getNonDepositPaymentConfigList() {
 		return paymentConfigDao.getNonDepositPaymentConfigList();
 	}
 	
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<PaymentConfig> getNonDepositOfflinePaymentConfigList() {
 		return paymentConfigDao.getNonDepositOfflinePaymentConfigList();
 	}
@@ -264,37 +264,37 @@ public class PaymentConfigServiceImpl extends BaseServiceImpl<PaymentConfig, Str
 	}
 	
 	@Override
-	@Cacheable(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName")
 	public List<PaymentConfig> getAll() {
 		return paymentConfigDao.getAll();
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@Cacheable(value="caching", key="#root.targetClass.name + #root.methodName + #paymentConfig.id")
 	public void delete(PaymentConfig paymentConfig) {
 		paymentConfigDao.delete(paymentConfig);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String id) {
 		paymentConfigDao.delete(id);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void delete(String[] ids) {
 		paymentConfigDao.delete(ids);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public String save(PaymentConfig paymentConfig) {
 		return paymentConfigDao.save(paymentConfig);
 	}
 
 	@Override
-	@CacheEvict(value = "caching")
+	@CacheEvict(value = "caching", allEntries=true)
 	public void update(PaymentConfig paymentConfig) {
 		paymentConfigDao.update(paymentConfig);
 	}

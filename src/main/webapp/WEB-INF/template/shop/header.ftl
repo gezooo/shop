@@ -28,13 +28,13 @@
 		<div class="headerSearch png">
 			<form id="productSearchForm" action="${base}/shop/product!search.action" method="get">
 				<div class="headerSearchText">
-					<input type="text" id="productSearchKeyword" name="pager.keyword" value="<#if (pager.keyword?? && rootProductCategoryList??)!false>${pager.keyword}<#else>请输入关键词...</#if>"}" />
+					<input type="text" id="productSearchKeyword" name="pager.keywords" value="<#if (pager.keywords?? && rootProductCategoryList??)!false>${pager.keywords}<#else>请输入关键词...</#if>"}" />
 				</div>
 				<input type="submit" class="headerSearchButton" value="" />
 				<div class="hotKeyword">
 					热门关键词: 
 					<#list systemConfig.hotSearchList as list>
-						<a href="${base}/shop/product!search.action?pager.keyword=${list?url}">${list}</a>
+						<a href="${base}/shop/product!search.action?pager.keywords=${list?url}">${list}</a>
 					</#list>
 				</div>
 			</form>

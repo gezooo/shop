@@ -30,7 +30,7 @@ public class Initializing implements InitializingBean {
 			BASE64Decoder bASE64Decoder = new BASE64Decoder();
 			//keyfile -->  a2V5ZmlsZQ==
 			keyFile = new String(bASE64Decoder.decodeBuffer(keyFile + "Q=="));
-			System.out.println("keyFile: " + keyFile);
+			//System.out.println("keyFile: " + keyFile);
 			Method readKey = Class.forName("com.zg.common.Key").getMethod("readKeyFile", String.class);
 			String content = (String) readKey.invoke(null, keyFile);
 			//WkdTSE9QX0tFWQ== --->   ZGSHOP_KEY

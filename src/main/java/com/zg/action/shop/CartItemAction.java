@@ -349,7 +349,7 @@ public class CartItemAction extends BaseShopAction {
 							return ajaxJsonErrorMessage("商品库存不足！");
 						}
 						cartItemService.update(cartItem);
-						subtotalPrice = cartItem.getSubTotalPrice();
+						subtotalPrice = cartItem.getSubtotalPrice();
 					}
 					totalQuantity += cartItem.getQuantity();
 					if (getSystemConfig().getPointType() == PointType.PRODUCTSET) {
